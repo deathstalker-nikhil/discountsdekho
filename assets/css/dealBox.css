@@ -1,0 +1,302 @@
+.dealBox{
+	height: 320px;
+	width: 100%;
+	border: 1px solid #DDD;
+	margin:20px auto;
+	max-width: 350px;
+	position: relative;
+	overflow: hidden;
+}
+
+.dealBox .heading{
+	background-color: #000;
+	height:11%;
+	text-align: center;
+	display: flex;
+	flex-direction:column;
+	flex-wrap:wrap;
+	justify-content:center;
+}
+
+.dealBox .heading h2{
+	color: white;
+	font-size: 1em;
+	text-transform: capitalize;
+    font-weight: 700;
+    margin:0;	
+}
+
+.dealBox .body{
+	height: 89%;
+	padding:5px 20px;
+}
+
+.dealBox .body .img{
+	height: 70%;
+	padding:5px 0;
+	display: flex;
+	flex-direction:column;
+	justify-content:center;	
+}
+
+.dealBox .body .img img{
+	max-height: 100%;
+	width: auto;
+	max-width: 100%;
+	display: block;
+	margin: auto;
+	-webkit-transition-duration: 0.5s;
+}
+
+.dealBox:hover .body .img img{
+	-webkit-transform: scale(0.9);
+    /* Webkit: Scale up image to 1.2x original size; */
+    -moz-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    opacity: 1;	
+}
+.dealBox .body .details{
+	height: 30%;
+	padding: 5px 0;	
+	display: flex;
+	flex-direction:row;
+	flex-wrap:wrap;
+}
+
+.dealBox .body .details p{
+	margin-bottom: 0;
+	font-size: .9em;
+	line-height: 1.3;
+	color: #999;
+}
+
+.dealBox .body .details .detailHead{
+	height: 40%;
+	display: flex;
+	flex-direction:column;
+	width: 100%;
+	justify-content:center;
+	text-align: center;
+}
+
+.dealBox .body .details .detailBody{
+	height: 60%;
+	display: flex;
+	flex-direction:column;
+	justify-content:center;
+}
+
+.dealBox .body .details p strong{
+	color:#626262;
+}
+
+.dealBox .viewButton{
+	position: absolute;
+    overflow: hidden;
+    top: 40%;
+    left: 32%;		
+}
+
+.dealBox:hover .viewButton{
+	-webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    -o-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    transform: translateX(0px);
+}
+.dealBox .viewButton{
+    -webkit-transform: translateX(-300px);
+    -moz-transform: translateX(-300px);
+    -o-transform: translateX(-300px);
+    -ms-transform: translateX(-300px);
+    transform: translateX(-300px);
+    -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+    opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;	
+    -ms-transition: all 0.3s ease-in-out;
+}
+
+.dealBox .viewButton a,.dealBox .viewButton a:hover,.dealBox .viewButton a:focus{
+	display: inline-block;
+    text-decoration: none;
+    padding: 7px 14px;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.9em;    	
+}
+
+.dealBox .viewButton a:hover{
+	background: #C80237;
+}
+
+@media(max-width:992px){
+	.dealBox .body{
+		padding:10px;
+	}
+	.dealBox .viewButton{
+	    left: 35%;		
+	}
+}
+footer{
+	padding-bottom: 0;
+	font-family: 'Open Sans', sans-serif;
+}
+footer 	.section1,footer .section4{
+	background: #08080b;
+}
+footer 	.section1>div{
+	padding:5px 10px;
+}
+footer 	.section1>div{
+	color: #fff;
+	font-family: 'Open Sans', sans-serif;
+    font-size: 0.9125em;
+    text-align: left;
+}
+.orange{
+	color:#FFAF02;
+}
+footer .section1>div:nth-child(2){
+	text-align: center;
+}
+footer .section1>div:last-child{
+	text-align: right;
+}
+footer 	.section1>div>*{
+	vertical-align: middle;
+}
+footer .section2> div:first-child{
+	text-align: left;
+}
+footer .section2,footer .section3{
+	background: #efefef;
+	padding-bottom: 20px;
+	text-align: left;
+}
+footer .section2>div p{
+	font-size: 0.9125em;
+    text-transform: uppercase;
+    color: #000;
+    margin:5px 0;
+}
+footer .section2> div:first-child >ul{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+footer .section2> div:first-child >ul >li{
+	display: inline-block;
+	margin:0 0 5px 0;
+}
+footer .section2 form .form-control{
+	float: left;
+	width: 80%;
+	border-radius: 0;
+    color: #999;
+    max-width: 300px;
+    border: 1px solid #ddd;
+}
+footer .section2 form .form-control:focus{
+	box-shadow: none;	
+}
+footer .section2 form .btn{
+	float: left;
+	width: 10%;
+	border-radius: 0;
+	max-width: 40px;
+	min-width: 30px; 	
+	text-indent: -9999px;
+	cursor: pointer;
+	background: #08080B url("../img/s_arrow.png") no-repeat center center;
+}
+footer .section3 .sub_list{
+	margin-bottom: 10px;
+}
+footer .section3 .sub_list ul{
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+footer .section3 .sub_list p{
+    margin-bottom: 5px;
+    font-size: 1.2em;	
+}
+footer .section3 .sub_list ul li a{
+	color: #777;
+    font-size: 0.95em;
+    text-decoration: none;	
+}
+footer .section3 .sub_list ul li a:hover{
+	    color: #000;
+}
+footer .section4 p{
+	margin-bottom: 0;
+	color:white;
+	padding:5px 0;
+	font-size: 0.9125em;
+}
+@media(max-width: 992px){
+	footer 	.section1>div,footer .section1>div:last-child{
+		text-align: center;
+	}
+}
+
+.menu .subMenu p{
+	color: black;
+	margin-bottom: 5px;
+	border-bottom: 1px solid rgb(236, 236, 236);
+	padding-bottom: 5px;
+}
+.menu .subMenu ul{
+	list-style: none;
+	padding: 0;
+	margin:0;
+}
+.menu.nav li a,.menu.nav li a:focus{
+	transition:all .2s linear;
+	color: white;
+}
+.menu.nav>li>a:hover{
+    background: #C80237;
+    color: #ffffff;
+    cursor: pointer;	
+}
+.menu .subMenu ul li a{
+	color: #00405d;
+}
+.menu .subMenu ul li a:hover{
+	color: #00405d;
+	text-decoration: underline;
+}
+.menu .subMenu{
+	padding:10px 15px;
+	background: white;
+	color:black;
+	position: absolute;
+	min-width: 200px;
+	max-width: 250px;
+	visibility: hidden;
+	opacity: 0;
+	transition:all .2s linear;
+}
+.menu.nav li a:hover~.subMenu,.menu.nav li a~.subMenu:hover{
+	opacity: 1;
+	visibility: visible;
+}
+@media(max-width: 768px){
+	.menu .subMenu{
+		position: relative;
+		display: none;
+		width: 100%;
+		max-width: 100%;
+	}
+	.menu.nav li a.expand~.subMenu{
+		display: block;
+		opacity: 1;
+		visibility: visible;
+	}	
+}
