@@ -121,6 +121,13 @@ class Data_lib {
 		return $CI->data->updateDeal($id,$data);		
 	}
 
+	public function updateProfile($data)
+	{
+		$CI = & get_instance();
+		$CI->load->model('data_model','data');
+		return $CI->data->updateProfile($data);		
+	}
+
 	public function addTestimonial($data) 
 	{
 		$CI = & get_instance();
