@@ -313,7 +313,7 @@ class Home extends CI_Controller {
 			'password' => $password
 			);
 		
-		$result = $this->data_lib->checkMailExist($email);
+		$result = $this->data_lib->checkMailExist($email,'userdb');
 		if ($result) {
 			die('Email already exist..');
 		}
