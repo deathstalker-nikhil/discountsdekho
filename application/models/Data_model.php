@@ -88,6 +88,11 @@ class Data_model extends CI_Model {
 		return $this->db->update('deals', $data); 
 	}
 
+	public function updateProfile($data)
+	{
+		return $this->db->update('userdb', $data, array('id'=>$data['id']));
+	}
+
 	public function addTestimonial($data)
 	{
 		return $this->db->insert('testimonials',$data);
@@ -176,6 +181,14 @@ class Data_model extends CI_Model {
 		return $this->db->update('content', $data); 
 	}
 
+
+	 public function getSessionData($id)
+	{
+		$this->db->where('id', $id);
+		$result = $this->db->get('userdb');
+		return $result->result_array();		
+	}
+
   
   public function updateDisclaimer($data)
 	{
@@ -193,6 +206,24 @@ class Data_model extends CI_Model {
 	{
      $this->db->select('password');
 		$result = $this->db->get('admin');
+		return $result->row_array();
+	}
+
+	public function changeUserPassword($data, $id)
+	{
+		$this->db->where('id', $id);
+		
+		return $this->db->update('userdb', $data); 
+
+
+	}
+  
+   public function getUserPassword($id)
+	{
+		$this->db->where('id',$id);
+     $this->db->select('password');
+		$result = $this->db->get('userdb');
+		
 		return $result->row_array();
 	}
   

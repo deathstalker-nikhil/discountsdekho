@@ -138,6 +138,41 @@ class Home extends CI_Controller {
 
 	public function user_change_password()
 	{
+		if($this->input->post('submit') == 'submitted') {
+		$id = $this->input->post('id');
+		 $cpass = $this->input->post('cpass');
+      $npass = $this->input->post('npass');
+      $conpass = $this->input->post('conpass');
+
+      $this->load->model('data_model');
+    $pass = $this->data_model->getUserPassword($id);
+   
+    if ($pass['password'] == $cpass)
+    {
+      if ($npass == $conpass){
+      $data = array('password'=> $npass);
+      	$result = $this->load->model('data_model');
+        $result = $this->data_model->changeUserPassword($data,$id);
+		if ($result) {
+			
+			redirect(base_url('/user_change_password'));
+		}
+		else {
+			die("Some error Occured..:(");
+		}
+      }
+      else
+      {
+       $this->session->set_flashdata('errorMsg','New Password not matches your re-typed password');
+   redirect(base_url('/user_change_password'));
+      }
+      
+  }
+  else
+  {
+    $this->session->set_flashdata('errorMsg','Current Password Entered is Incorrect');
+    redirect(base_url('/user_change_password'));
+  }}
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
 		$this->load->view('user_change_password', $data);
@@ -145,6 +180,37 @@ class Home extends CI_Controller {
 
 	public function user_profile()
 	{
+		if($this->input->post('submit') == 'submitted') {
+		$email = '';
+		$mobile = '';
+		$id = '';
+		$this->load->model('data_model');
+		$this->data_model->getSessionData($id);
+		if ($x = $this->input->post('email')) {
+			$email = $x;
+		}
+		if ($x = $this->input->post('mobile')) {
+			$mobile = $x;
+		}
+		if ($x = $this->input->post('id')) {
+			$id = $x;
+		}
+		$data = array(
+			'mobile' => trim($mobile),
+			'email' => trim($email),
+			'id' => trim($id)
+			);
+		$result = $this->data_lib->updateProfile($data);
+		$result1 = $this->data_model->getSessionData($id);
+		$this->session->set_userdata('user_data', $result1[0]); 
+		if ($result) {
+			redirect(base_url('/user_profile'));
+		}
+		else {
+			die("Some error Occured..:(");
+		}
+		
+	}
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
 		$this->load->view('user_profile', $data);

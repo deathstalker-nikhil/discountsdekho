@@ -23,54 +23,55 @@
             </div>
             <!-- Content Column -->
             <div class="col-md-9">
-                <form>
+                
                     <div class="col-md-6">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" value="Sheetal Arora" disabled>
+                        <input type="text" class="form-control" value=" <?=$_SESSION['user_data']['name'] ?>" disabled>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Sex</label>
                         <select class="form-control" disabled>
-                            <option>Male</option>
-                            <option selected>Female</option>
-                            <option>Prefer not to say</option>
+                            <option <?php if(strcmp($_SESSION['user_data']['sex'],"Male") == 0) echo "Selected"; ?>>Male</option>
+                            <option <?php if(strcmp($_SESSION['user_data']['sex'],"Female") == 0) echo "Selected"; ?>>Female</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Date of Birth</label>
-                        <input type="text" class="form-control" value="30/09/1990" disabled>
+                        <input type="text" class="form-control" value=" <?=$_SESSION['user_data']['dob'] ?>" disabled>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>City</label>
-                        <input type="text" class="form-control" value="New Delhi">
+                        <label>Region</label>
+                        <input type="text" disabled class="form-control" value=" <?=$_SESSION['user_data']['city'] ?>">
                     </div>
                 </div>
+                <form method="post" action="/user_profile">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Mobile Number</label>
-                        <input type="text" class="form-control" value="8971535246">
+                        <input type="text" name="mobile" class="form-control" value=" <?=$_SESSION['user_data']['mobile'] ?>">
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>E-Mail Address</label>
-                        <input type="text" class="form-control" value="sheetalarora@gmail.com">
+                        <input type="text" name="email" class="form-control" value=" <?=$_SESSION['user_data']['email'] ?>">
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn" style="background: #C80237; color: #fff; float: right;">Update Profile</button>
+                         <input type="hidden" name="<?php echo $csrf_token_name; ?>" value="<?php echo $csrf_token; ?>">
+                          <input type="hidden" name="id" value="<?php echo $_SESSION['user_data']['id']; ?>">
+                        <button type="submit" name="submit" value="submitted" class="btn" style="background: #C80237; color: #fff; float: right;">Update Profile</button>
                     </div>
                 </div>
-
-                </form>
+                        </form>
             </div>
         </div>
 </div>

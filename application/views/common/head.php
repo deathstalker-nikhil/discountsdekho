@@ -60,6 +60,7 @@
                             <div class="col-md-3">
                                 <div style="float:right;">
                         <?php if($isLoggedIn){?>
+                
                         <a class="btn btn-default" style="margin-bottom: 4px; margin-top:15px;" href="/home/logout"><i class="fa fa-user"> Logout</i></a>
                         <?php } else{?>
                         <button class="btn" data-toggle="modal" data-target="#myModal" style="margin-bottom: 4px; margin-top:15px;"><i class="fa fa-user"> Login</i></button>
