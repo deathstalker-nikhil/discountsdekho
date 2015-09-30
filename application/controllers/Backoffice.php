@@ -382,6 +382,65 @@ class Backoffice extends CI_Controller {
 		$this->load->view('backoffice/faq',$data);
 
 	}  
+
+	public function merchants()
+	{
+		if (!$this->backoffice_lib->auth()) {
+			redirect(base_url('backoffice/login'));
+		}
+		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
+		$data['csrf_token'] = $this->security->get_csrf_hash();
+		$data['head'] = $this->load->view('backoffice/common/head',array(),true);
+		$data['faq'] = $this->data_lib->getFaq();
+		$this->load->view('backoffice/merchants',$data);
+
+	}  
+
+
+	public function coupons()
+	{
+		if (!$this->backoffice_lib->auth()) {
+			redirect(base_url('backoffice/login'));
+		}
+		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
+		$data['csrf_token'] = $this->security->get_csrf_hash();
+		$data['head'] = $this->load->view('backoffice/common/head',array(),true);
+		$data['faq'] = $this->data_lib->getFaq();
+		$this->load->view('backoffice/coupons',$data);
+
+	}  
+
+
+	public function coupons_issued()
+	{
+		if (!$this->backoffice_lib->auth()) {
+			redirect(base_url('backoffice/login'));
+		}
+		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
+		$data['csrf_token'] = $this->security->get_csrf_hash();
+		$data['head'] = $this->load->view('backoffice/common/head',array(),true);
+		$data['faq'] = $this->data_lib->getFaq();
+		$this->load->view('backoffice/coupons_issued',$data);
+
+	}  
+
+
+
+
+	public function merchant_deal_requests()
+	{
+		if (!$this->backoffice_lib->auth()) {
+			redirect(base_url('backoffice/login'));
+		}
+		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
+		$data['csrf_token'] = $this->security->get_csrf_hash();
+		$data['head'] = $this->load->view('backoffice/common/head',array(),true);
+		$data['faq'] = $this->data_lib->getFaq();
+		$this->load->view('backoffice/merchant_deal_requests',$data);
+
+	}  
+
+
 	public function review()
 	{
 		if (!$this->backoffice_lib->auth()) {

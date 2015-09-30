@@ -73,6 +73,22 @@
                 <li>
                     <a href="/backoffice/users"><i class="fa fa-user fa-fw"></i> Users</a>
                 </li>
+
+                  <li>
+                    <a href="/backoffice/merchants"><i class="fa fa-truck fa-fw"></i> Merchants</a>
+                </li>
+
+                <li>
+                    <a href="/backoffice/merchant_deal_requests"><i class="fa fa-file fa-fw"></i> Merchant Deal Requests</a>
+                </li>
+
+                <li>
+                    <a href="/backoffice/coupons"><i class="fa fa-tag fa-fw"></i> Active Coupons</a>
+                </li>
+
+                 <li>
+                    <a href="/backoffice/coupons_issued"><i class="fa fa-unlock fa-fw"></i> Coupons Issued</a>
+                </li>
               
               
                

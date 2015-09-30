@@ -39,13 +39,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Coupon Type</label>
-                        <select class="form-control">
-                            <option>Variable</option>
-                            <option>Fixed</option>
+                        <select class="form-control" nmae="couponType" id="couponType">
+                            <option value="variable">Variable</option>
+                            <option value="fixed">Fixed</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div id="couponCode" class="col-md-6" style="display:none">
                     <div class="form-group">
                         <label>Coupon Code</label>
                         <input type="text" class="form-control">
@@ -58,6 +58,8 @@
                     </div>
                 </div>
                 
+               
+
                 <div class="col-md-12">
                     <div class="form-group">
                         <button class="btn" style="background: #C80237; color: #fff; float: right;">Add Coupon</button>
@@ -91,7 +93,16 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/assets/js/agency.js"></script>
-
+     <script type="text/javascript">
+$('#couponType').on('change',function(){
+    if( $(this).val()==="fixed"){
+    $("#couponCode").show()
+    }
+    else{
+    $("#couponCode").hide()
+    }
+});
+                </script>
 </body>
 
 </html>
