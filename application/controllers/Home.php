@@ -220,14 +220,16 @@ class Home extends CI_Controller {
 		$this->load->view('category', $data);
 	}
 
-	public function subcategory($id = '')
+	public function subcategory($subcategory = '')
 	{
-		if ($id == '') {
+		if ($subcategory == '') {
 			die('No Subcategory Given');
+		}else{
+			$subcategory = urldecode($subcategory);
 		}
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
-		$subcategory = $this->data_lib->getSubcategoryFromId($id);
+		// $subcategory = $this->data_lib->getSubcategoryFromId($id);
 		$subcategorydeals = $this->data_lib->getSubcategoryDeals($this->region,$subcategory);
 		$data['subcategorydeals'] = $subcategorydeals;
 		$data['subcategory'] = $subcategory;
@@ -237,7 +239,7 @@ class Home extends CI_Controller {
 		else {
 			$data['category'] = $subcategorydeals[0]['category'];
 		}
-		$data['subcategoryid'] = $id;
+		// $data['subcategoryid'] = $id;
 		$this->load->view('subcategory',$data);
 	}
 

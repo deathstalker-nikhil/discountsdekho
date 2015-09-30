@@ -42,7 +42,7 @@
                      <div style="float:right;">
                                 <label>Select Region</label>
                                 
-                                <select class="btn">
+                                <select class="btn" name="location">
                                   <?php foreach ($regions as $key => $value) {?>
                 <option <?= ($region == $value['region'])? 'selected':''; ?> ><?= $value['region'] ?></option>
             <?php } ?>

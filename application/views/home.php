@@ -253,6 +253,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/assets/js/agency.js"></script>
+    <script src="/assets/js/custom.js"></script>
 </body>
 
 </html>

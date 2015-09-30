@@ -285,6 +285,10 @@ footer .section4 p{
 }
 .menu.nav li a:hover~.subMenu,.menu.nav li a~.subMenu:hover{
 	opacity: 1;
+	z-index: 100;
+	-webkit-box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.48);
+	-moz-box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.48);
+	box-shadow: 0px 4px 10px 1px rgba(0,0,0,0.48);
 	visibility: visible;
 }
 @media(max-width: 768px){

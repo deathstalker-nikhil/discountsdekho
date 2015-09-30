@@ -88,7 +88,9 @@
             </div>
             <div class="col-lg-9">
             
-            <?php foreach ($subcategorydeals as $key => $value) { ?>
+            <?php foreach ($subcategorydeals as $key => $value) { 
+                $value['images'] = json_decode(($value['images']),true);
+                ?>
                     <div class="col-lg-4">
                  <div class="dealBox">
                     <div class="heading">
@@ -109,7 +111,7 @@
                         </div>
                     </div>
                     <div class="viewButton">
-                        <a href="javascript:">View Deal</a>
+                        <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
                     </div>
                 </div>
             </div>
@@ -147,6 +149,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/assets/js/agency.js"></script>
+    <script src="/assets/js/custom.js"></script>
 
 </body>
 
