@@ -12,9 +12,10 @@
                             <div class="col-md-8 col-md-offset-2">
                                 <div class="col-lg-12">
                                     <div class="col-md-6">
+                                <form method="post" action="/home/registerMerchant">
                                 <label>Region</label>
                                 <div class="form-group">
-                                    <select type="text" class="form-control" placeholder="E-Mail Address" id="name">
+                                    <select class="form-control" name="region">
                                         <option>Delhi NCR</option>
                                         <option>Pune</option>
                                     </select>
@@ -22,33 +23,35 @@
                                  <div class="col-md-6">
                                     <label>Contact Number</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Contact Number" id="name">
+                                    <input type="tel" class="form-control" placeholder="Contact Number" name="contact" required autocomplete="on">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                     <label>Business Name</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Business Name" id="name">
+                                    <input type="text" class="form-control" placeholder="Business Name" name="name" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                     <label>E-Mail Address</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="E-Mail Address" id="name">
+                                    <input type="email" class="form-control" placeholder="E-Mail Address" name="email" required autocomplete="on">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                     <label>Password</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Password" id="name">
+                                    <input type="password" class="form-control" placeholder="Password" name="password">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <input type="hidden" name="<?=$csrf_token_name ?>" value="<?=$csrf_token?>">
                                     <a href="/merchant_account">Already have a account? Login here!</a>
-                                   <button class="btn btn-xl1" style="float:right;">Register</button>
+                                   <button type="submit" class="btn btn-xl1" style="float:right;">Register</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                         </div>
                            </div>

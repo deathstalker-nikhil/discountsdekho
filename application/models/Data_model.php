@@ -215,19 +215,23 @@ class Data_model extends CI_Model {
 		return $this->db->insert('userdb',$data);
 	}
 
-	public function checkMailExist($email)
+	public function registerMerchant($data){
+		return $this->db->insert('merchant',$data);
+	}
+
+	public function checkMailExist($email,$table)
 	{
 		$this->db->where('email', $email);
-		$result = $this->db->get('userdb');
+		$result = $this->db->get($table);
 		if ($result->num_rows() > 0) {
 			return 1;
 		}
 		return 0;
 	}
 
-	public function login($email,$password)
+	public function login($email,$password,$table)
 	{
-		$result = $this->db->get_where('userdb', array('email' => $email,'password' => $password), 1, 0);		
+		$result = $this->db->get_where($table, array('email' => $email,'password' => $password), 1, 0);		
 		return $result->row_array();
 	}
   

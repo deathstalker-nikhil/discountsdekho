@@ -224,23 +224,45 @@ class Data_lib {
 		return $CI->data->signup($data);
 	}
 
-	public function checkMailExist( $email )
-	{
+	public function registerMerchant($data){
 		$CI = &get_instance();
 		$CI->load->model('data_model','data');
-		return $CI->data->checkMailExist($email);		
+		return $CI->data->registerMerchant($data);
 	}
 
-	public function login($email,$password)
+	public function checkMailExist( $email,$table ='' )
 	{
 		$CI = &get_instance();
 		$CI->load->model('data_model','data');
-		$result = $CI->data->login($email,$password);
+		return $CI->data->checkMailExist($email,$table);		
+	}
+
+  public function auth()
+  {
+      $CI = & get_instance();
+      $data = $CI->session->userdata('user_data');
+      $data['userLoggedIn'] = $CI->session->userdata('userLoggedIn');
+      $data['merchantLoggedIn'] = $CI->session->userdata('merchantLoggedIn');
+      if ((isset($data['userLoggedIn']) && $data['userLoggedIn']) || (isset($data['merchantLoggedIn']) && $data['merchantLoggedIn'])) {
+          return 1;
+      }
+      return 0;
+  }
+
+	public function login($email,$password,$table='userdb')
+	{
+		$CI = &get_instance();
+		$CI->load->model('data_model','data');
+		$result = $CI->data->login($email,$password,$table);
 		if (count($result)>0) {
-      if ($result) {
-          $CI->session->set_userdata('loggedIn', true);
+      if ($result && $table == 'userdb') {
+          $CI->session->set_userdata('userLoggedIn', true);
           $CI->session->set_userdata('user_data', $result);
           return 1;
+      }else if($result && $table == 'merchant'){
+          $CI->session->set_userdata('merchantLoggedIn', true);
+          $CI->session->set_userdata('user_data', $result); 
+          return 1;     	
       }
   	return 0;
 		}			

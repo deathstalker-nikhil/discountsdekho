@@ -10,17 +10,20 @@
                 <div class="col-lg-12">
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4">
+                                <form action="/home/merchantLogin" method="post">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="E-Mail Address" id="name">
+                                    <input type="email" class="form-control" placeholder="E-Mail Address" name="email" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Password" id="name">
+                                    <input required type="password" class="form-control" placeholder="Password" name="password">
                                 </div>
                                 <div class="form-group">
+                                    <input type="hidden" name="<?=$csrf_token_name ?>" value="<?=$csrf_token?>">
                                     <a data-toggle="modal" href="#merchant_forgot_password">Forgot your password?</a>
-                                   <button class="btn btn-xl1" style="float:right;">Login</button>
+                                   <button type="submit" class="btn btn-xl1" style="float:right;">Login</button>
                                 </div>
                                 <a style="float: right; top-margin: 10px;" href="/merchant_register">Don't have a account, signup here!</a>
+                            </form>    
                             </div>
                            </div>
                            <div class="row">

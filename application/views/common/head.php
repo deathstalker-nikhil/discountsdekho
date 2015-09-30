@@ -59,10 +59,14 @@
 
                             <div class="col-md-3">
                                 <div style="float:right;">
+                        <?php if($isLoggedIn){?>
+                        <a class="btn btn-default" style="margin-bottom: 4px; margin-top:15px;" href="/home/logout"><i class="fa fa-user"> Logout</i></a>
+                        <?php } else{?>
                         <button class="btn" data-toggle="modal" data-target="#myModal" style="margin-bottom: 4px; margin-top:15px;"><i class="fa fa-user"> Login</i></button>
                         <button class="btn" data-toggle="modal" data-target="#myModal1" style="margin-bottom: 4px; margin-top:15px;"><i class="fa fa-users"> Register</i></button>
                         <br>
                         <label style="float:right;"><a href="/merchant_account">Merchant Account</a></label>
+                        <?php } ?>
                          <div class="modal fade" id="forgot_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <form action="" method="post">
                                 <div class="modal-dialog">
@@ -72,6 +76,7 @@
                                             <h4 style="text-align:center;" class="modal-title" id="myModalLabel">Forgot your Password?</h4>
                                         </div>
                                         <div class="modal-body">
+                                        <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="col-lg-5">
                                            <img src="/assets/img/forget_Password.png" width="100%" style="text-align: center;">
@@ -91,7 +96,7 @@
                                       
 
 
-                                        </div></div>
+                                        </div></div></div>
 
 
                                         <div class="modal-footer">
@@ -103,7 +108,7 @@
                            </form>
                             </div>
                          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <form action="" method="post">
+            <form action="/home/login" method="post">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -111,17 +116,19 @@
                                             <h4 style="text-align:center;" class="modal-title" id="myModalLabel">Signin into DiscountsDekho.com</h4>
                                         </div>
                                         <div class="modal-body">
+                                        <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="col-md-6">
                                            <img src="/assets/img/login.png" width="100%">
                                        </div>
                                        <div class="col-md-6">
                                           <div class="form-group">
-                                            <input type="text" class="form-control" name="address" placeholder="Enter E-Mail Address">
+                                            <input type="email" class="form-control" name="email" placeholder="Enter E-Mail Address" required autocomplete="on">
                                            </div>
                                            <div class="form-group">
-                                            <input type="text" class="form-control" name="address" placeholder="Password">
+                                            <input type="password" class="form-control" name="password" placeholder="Password" required>
                                             <a data-dismiss="modal" data-toggle="modal" href="#forgot_password">Forgot your password?</a>
+                                            <input type="hidden" name="<?=$csrf_token_name ?>" value="<?=$csrf_token?>">
                                             <button type="submit" class="btn btn-primary" style="float:right; margin:3px; 0px;">Login</button>
                                            </div>
 
@@ -135,7 +142,7 @@
                                        </div>
 
 
-                                        </div></div>
+                                        </div></div></div>
 
 
                                         <div class="modal-footer">
@@ -156,41 +163,43 @@
                                             <h4 style="text-align:center;" class="modal-title" id="myModalLabel">Register with DiscountsDekho.com</h4>
                                         </div>
                                         <div class="modal-body">
+                                        <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="col-md-6">
                                     <form method="post" action="/home/signup">
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input type="text" class="form-control" name="name" placeholder="Full Name">
+                                            <input type="text" class="form-control" name="name" placeholder="Full Name" required autocomplete="on">
                                            </div>
                                           <div class="form-group">
                                             <label>E-Mail Address</label>
-                                            <input type="text" class="form-control" name="email" placeholder="Enter E-Mail Address">
+                                            <input type="text" class="form-control" name="email" placeholder="Enter E-Mail Address" required autocomplete="on">
                                            </div>
                                            <div class="form-group">
                                             <label>Password</label>
-                                            <input type="text" class="form-control" name="password" placeholder="Password">
+                                            <input type="password" class="form-control" name="password" placeholder="Password" required>
                                            </div>
                                            <div class="form-group">
                                             <label>City</label>
-                                            <input type="text" class="form-control" name="city" placeholder="City">
+                                            <input type="text" class="form-control" name="city" placeholder="City" required>
                                            </div>
                                            <div class="form-group">
                                             <label>Mobile</label>
-                                            <input type="text" class="form-control" name="mobile" placeholder="Mobile Number">
+                                            <input type="tel" class="form-control" name="mobile" placeholder="Mobile Number" required autocomplete>
                                            </div>
                                             <div class="form-group">
                                                 <label>Date of Birth</label>
-                                            <input type="date" class="form-control" name="dob" placeholder="City">
+                                            <input type="date" class="form-control" name="dob" placeholder="City" required autocomplete>
                                            </div>
                                             <div class="form-group">
                                             <label>Sex</label>
-                                            <select type="text" class="form-control" name="gender" placeholder="City">
+                                            <select type="text" class="form-control" name="gender">
                                                 <option value="Male">Male</option>
                                                  <option value="Female">Female</option>
                                                   <option value="Prefer not to say">Prefer not to say</option>
                                             </select>
                                            </div>
+                                           <input type="hidden" name="<?=$csrf_token_name ?>" value="<?=$csrf_token?>">
                                             <input type="submit" class="btn btn-primary" style="float:right; margin:3px; 0px;" value="Register">
 
                                        </div>
@@ -208,7 +217,7 @@
 
 
 
-                                        </div></div>
+                                        </div></div></div>
 
 
                                         <div class="modal-footer">

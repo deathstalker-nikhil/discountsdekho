@@ -26,6 +26,7 @@ class Home extends CI_Controller {
 			$this->input->set_cookie($cookie);
 		}
 		$subCategory = $this->data_lib->getSubCategories();
+		$data['isLoggedIn'] = $this->data_lib->auth();
 		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
 		$data['csrf_token'] = $this->security->get_csrf_hash();
 		$data['subCategory'] = [];
@@ -40,21 +41,6 @@ class Home extends CI_Controller {
 		$this->foot =  $this->load->view('common/foot',[],true);
 	}	
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	public function index()
 	{
 		$deals = $this->data_lib->getPrimaryDeals($this->region);
@@ -82,13 +68,16 @@ class Home extends CI_Controller {
 
 	public function merchant_account()
 	{
+		if($this->data_lib->auth()){
+			redirect(base_url());
+		}
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
 		$this->load->view('merchant_account', $data);
 	}
 
 	public function merchant_add_offer()
-	{
+	{		
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
 		$this->load->view('merchant_add_offer', $data);
@@ -96,9 +85,55 @@ class Home extends CI_Controller {
 
 	public function merchant_register()
 	{
+		if($this->data_lib->auth()){
+			redirect(base_url());
+		}		
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
 		$this->load->view('merchant_register', $data);
+	}
+
+	public function registerMerchant(){
+		$data['name'] = ($this->input->post('name'))?$this->input->post('name'):'';
+		$data['email'] = ($this->input->post('email'))?$this->input->post('email'):'';
+		$data['password'] = ($this->input->post('password'))?$this->input->post('password'):'';
+		$data['contact'] = ($this->input->post('contact'))?$this->input->post('contact'):'';
+		$data['region'] = ($this->input->post('region'))?$this->input->post('region'):'';
+		if($data['name'] == '' || $data['email'] == '' || $data['password'] == '' || $data['contact'] == '' || $data['region'] == ''){
+			die('Incomplete Details');
+		}
+		$result = $this->data_lib->checkMailExist($data['email'],'merchant');
+		if ($result) {
+			die('Email already exist..');
+		}
+		$result = $this->data_lib->registerMerchant($data);
+		if ($result) {
+			$result = $this->data_lib->login($data['email'],$data['password'],'merchant');
+			if ($result) {
+				redirect(base_url());
+			}
+			else {
+				die('Some Error occured');
+			}			
+		}		
+	}
+
+	public function merchantLogin(){
+		$email = ($this->input->post('email'))?$this->input->post('email'):'';
+		$password = ($this->input->post('password'))?$this->input->post('password'):'';
+
+		if ($email==''||$password=='') {
+			die("Incomplete Details");
+		}		
+
+		$result = $this->data_lib->login($email,$password,'merchant');
+
+		if ($result) {
+			redirect(base_url());
+		}
+		else {
+			die('Some Error occured');
+		}			
 	}
 
 	public function user_change_password()
@@ -228,39 +263,46 @@ class Home extends CI_Controller {
 		$this->load->view('advertise', $data);
 	}
 
+	public function login(){
+		$email = ($this->input->post('email'))?$this->input->post('email'):'';
+		$password = ($this->input->post('password'))?$this->input->post('password'):'';
+
+		if ($email==''||$password=='') {
+			die("Incomplete Details");
+		}		
+
+		$result = $this->data_lib->login($email,$password);
+
+		if ($result) {
+			redirect(base_url());
+		}
+		else {
+			die('Some Error occured');
+		}		
+
+	}
+
+	public function logout()
+	{
+    $this->session->set_userdata('userLoggedIn', false);
+    $this->session->set_userdata('merchantLoggedIn',false);
+    $this->session->set_userdata('user_data', []);
+		redirect(base_url());
+	}	
+
 	public function signup() {
-		$name = '';
-		$email = '';
-		$mobile = '';
-		$dob = '';
-		$password = '';
-		$city = '';
-		$gender = '';
-		
-		if ($x = $this->input->post('name')) {
-			$name = $x;
-		}
-		if ($x = $this->input->post('email')) {
-			$email = $x;
-		}
-		if ($x = $this->input->post('mobile')) {
-			$mobile = $x;
-		}
-		if ($x = $this->input->post('dob')) {
-			$dob = $x;
-		}
-		if ($x = $this->input->post('password')) {
-			$password = $x;
-		}
-		if ($x = $this->input->post('city')) {
-			$city = $x;
-		}
-		if ($x = $this->input->post('gender')) {
-			$gender = $x;
-		}				
+		$name = ($this->input->post('name'))?$this->input->post('name'):'';
+		$email = ($this->input->post('email'))?$this->input->post('email'):'';
+		$mobile = ($this->input->post('mobile'))?$this->input->post('mobile'):'';
+		$dob = ($this->input->post('dob'))?$this->input->post('dob'):'';
+		$password = ($this->input->post('password'))?$this->input->post('password'):'';
+		$city = ($this->input->post('city'))?$this->input->post('city'):'';
+		$gender = ($this->input->post('gender'))?$this->input->post('gender'):'';
+			
 		if ($name==''||$email==''||$mobile==''||$dob==''||$password==''||$city==''||$gender=='') {
 			die("Incomplete Details");
 		}
+
 		$data = array(
 			'name' => $name,
 			'email' => $email,
@@ -270,6 +312,7 @@ class Home extends CI_Controller {
 			'city' => $city,
 			'password' => $password
 			);
+		
 		$result = $this->data_lib->checkMailExist($email);
 		if ($result) {
 			die('Email already exist..');
