@@ -319,7 +319,7 @@ class Home extends CI_Controller {
 		}
 		$result = $this->data_lib->signup($data);
 		if ($result) {
-			$result = $this->data_lib->login($email,$password);
+			$result = $this->data_lib->login($email,$password,'userdb');
 			if ($result) {
 				redirect(base_url());
 			}
