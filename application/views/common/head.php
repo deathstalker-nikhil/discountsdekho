@@ -60,8 +60,12 @@
                             <div class="col-md-3">
                                 <div style="float:right;">
                         <?php if($isLoggedIn){?>
-                
-                        <a class="btn btn-default" style="margin-bottom: 4px; margin-top:15px;" href="/home/logout"><i class="fa fa-user"> Logout</i></a>
+                        <?php
+$name = explode(' ',trim($_SESSION['user_data']['name']));
+?>
+                        <span style="display: inline-block; padding: 10px; margin-top: 5px; float: left;">Welcome <label><?php echo $name[0];  ?></label></span>
+                        <a class="btn btn-default" style="margin-bottom: 4px; margin-top:15px;" href="/home/logout"><i class="fa fa-sign-out"> Logout</i></a>
+                        <br><label style="float:right;"><a href="<?php if($this->session->userdata('merchantLoggedIn')){ echo "/merchant_settings"; } else if($this->session->userdata('userLoggedIn')){ echo "/user_profile"; } ?>">My Account</a></label>
                         <?php } else{?>
                         <button class="btn" data-toggle="modal" data-target="#myModal" style="margin-bottom: 4px; margin-top:15px;"><i class="fa fa-user"> Login</i></button>
                         <button class="btn" data-toggle="modal" data-target="#myModal1" style="margin-bottom: 4px; margin-top:15px;"><i class="fa fa-users"> Register</i></button>

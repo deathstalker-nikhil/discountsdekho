@@ -47,12 +47,12 @@
                                
 
                             
-                                <p><label>Share this deal:</label><i class="fa fa-facebook" style="border-radius: 100%; margin: 0.15em; background: #3B5998; color: #FFFFFF; font-size: 2em; padding: 10px 15px;"></i><i class="fa fa-twitter" style="border-radius: 100%; margin: 0.15em; background: #4099FF; color: #FFFFFF; font-size: 2em; padding: 10px;"></i><i class="fa fa-commenting"><a><label>Write a review</label></a></i></p>
+                                <p><label>Share this deal:</label><i class="fa fa-facebook" style="border-radius: 100%; margin: 0.15em; background: #3B5998; color: #FFFFFF; font-size: 2em; padding: 10px 15px;"></i><i class="fa fa-twitter" style="border-radius: 100%; margin: 0.15em; background: #4099FF; color: #FFFFFF; font-size: 2em; padding: 10px;"></i><i class="fa fa-commenting"><a href="#review"><label>Write a review</label></a></i></p>
                                   <hr style="border-width: 2px;">
                                <p><label>Offer Start's On: </label> <?php echo $dealData['start_date'] ?></p>
                                 <p><label>Offer End's On: </label> <?php echo $dealData['end_date'] ?></p>
                                    
-                               
+                            
                          </div>
 
 
@@ -114,16 +114,19 @@
 <p>It's a very good deal but Google gives better deals. It's a very good deal but Google gives better deals. It's a very good deal but Google gives better deals. Worth taking this deal. Go for it.</p>
 </blockquote>
                          </div>
-<div class="col-md-4">
+<div class="col-md-4" id="review">
      <h4 style="color: #C80237">Write a Review</h4>   
-    <form>
+    <form method="post" action="/Home/review">
     
         <div class="form-group">
             <label>Review</label>
-            <textarea class="form-control"></textarea>
+            <textarea name="review" class="form-control"></textarea>
         </div>
         <div class="form-group">
-            <button class="btn" style="float: right; background: #C80237; color: #fff;">Submit</button>
+          <input type="hidden" name="<?php echo $csrf_token_name ?>" value="<?php echo $csrf_token ?>">
+          <input type="hidden" name="url" value="<?php echo preg_replace('/\s+/','-',$dealData['title'])."-".$dealData['id']; ?>">
+          <input type="hidden" name="dealId" value="<?php echo $dealData['id']; ?>">
+            <button type="submit" name="submit" class="btn" style="float: right; background: #C80237; color: #fff;">Submit</button>
         </div>
     </form>
 </div>

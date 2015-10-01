@@ -93,6 +93,42 @@ class Home extends CI_Controller {
 		$this->load->view('merchant_register', $data);
 	}
 
+	public function review()
+	{
+		if (!$this->data_lib->isLoggedIn()) {
+			redirect(base_url('/Home/login'));
+		}
+		$review = '';
+		$dealId = '';
+		$url = '';
+		if ($x = $this->input->post('review')) {
+			$review = $x;
+		}
+		if ($x = $this->input->post('dealId')) {
+			$dealId = $x;
+		}
+		if ($x = $this->input->post('url')) {
+			$url = $x;
+		}
+		if ($review == '' || $dealId == '') {
+			die('Insufficent Details');
+		}
+		$userdata = $this->session->userdata('user_data');
+		$id = $userdata['id'];
+		$data = array(
+			'user_id'=>$id,
+			'review'=>$review,
+			'deal_id'=>$dealId
+			);
+		$result = $this->data_lib->saveReview($data);
+		if ($result) {
+			redirect(base_url('/deal/'.$url));
+		}
+		else {
+			die('Some error occured.. :(');
+		}
+	}
+
 	public function registerMerchant(){
 		$data['name'] = ($this->input->post('name'))?$this->input->post('name'):'';
 		$data['email'] = ($this->input->post('email'))?$this->input->post('email'):'';

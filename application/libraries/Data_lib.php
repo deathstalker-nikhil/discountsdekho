@@ -278,7 +278,7 @@ class Data_lib {
 	public function isLoggedIn()
 	{
 		$CI = &get_instance();
-		if ($x = $CI->session->userdata('loggedIn')) {
+		if ($CI->session->userdata('userLoggedIn') || $CI->session->userdata('merchantLoggedIn')) {
 			return true;
 		}
 		return false;
