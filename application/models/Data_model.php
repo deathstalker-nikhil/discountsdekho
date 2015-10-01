@@ -266,8 +266,12 @@ class Data_model extends CI_Model {
 		return $result->row_array();
 	}
   
- public function getSubcategoryDeals($region,$subcategory)
+ public function getSubcategoryDeals($region,$subcategory,$where)
 	{ 
+		if($where != '')
+			foreach ($where as $key => $value) {
+				$this->db->where_in($key, $value);
+			}
 		$this->db->where(['active'=>1,'region'=>$region]);
 		$this->db->like(['subcategory'=> $subcategory]);
 		$this->db->order_by("id", "desc"); 
