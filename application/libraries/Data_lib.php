@@ -284,11 +284,11 @@ class Data_lib {
 		return false;
 	}
   
-   public function getSubcategoryDeals($region,$subcategory)
+   public function getSubcategoryDeals($region,$subcategory,$where='')
 	{
 		$CI = & get_instance();
 		$CI->load->model('data_model','data'); 
-		return $CI->data->getSubcategoryDeals($region,$subcategory);    	
+		return $CI->data->getSubcategoryDeals($region,$subcategory,$where);    	
 	}
   
   public function getSubcategoryFromId($id)

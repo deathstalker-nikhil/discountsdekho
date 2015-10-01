@@ -331,7 +331,7 @@ class Home extends CI_Controller {
 		}
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
-		// $subcategory = $this->data_lib->getSubcategoryFromId($id);
+		$data['malls'] = $this->data_lib->getMalls();
 		$subcategorydeals = $this->data_lib->getSubcategoryDeals($this->region,$subcategory);
 		$data['subcategorydeals'] = $subcategorydeals;
 		$data['subcategory'] = $subcategory;
@@ -341,8 +341,22 @@ class Home extends CI_Controller {
 		else {
 			$data['category'] = $subcategorydeals[0]['category'];
 		}
-		// $data['subcategoryid'] = $id;
 		$this->load->view('subcategory',$data);
+	}
+
+	public function getFilteredDeals(){
+		$category = ($this->input->get('category'))?$this->input->get('category'):'';
+		$subcategory = ($this->input->get('subcategory'))?$this->input->get('subcategory'):'';
+		$locations = ($this->input->get('locations'))?$this->input->get('locations'):'';
+		$malls = ($this->input->get('malls'))?$this->input->get('malls'):'';
+		if($category == '' || $subcategory == ''){
+			return;
+		}
+		$where = array(
+							'malls'=>$malls,
+							'locations'=>$locations
+						);
+		print_r($this->data_lib->getSubcategoryDeals($this->region,$subcategory,$where));
 	}
 
 	public function search()
