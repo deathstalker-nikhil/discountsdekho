@@ -311,16 +311,49 @@ class Home extends CI_Controller {
 	public function getFilteredDeals(){
 		$category = ($this->input->get('category'))?$this->input->get('category'):'';
 		$subcategory = ($this->input->get('subcategory'))?$this->input->get('subcategory'):'';
-		$locations = ($this->input->get('locations'))?$this->input->get('locations'):'';
+		$city = ($this->input->get('city'))?$this->input->get('city'):'';
 		$malls = ($this->input->get('malls'))?$this->input->get('malls'):'';
 		if($category == '' || $subcategory == ''){
 			return;
 		}
 		$where = array(
-							'malls'=>$malls,
-							'locations'=>$locations
+							'malls'=>($malls)?$malls:[],
+							'city'=>($city)?$city:[]
 						);
-		print_r($this->data_lib->getSubcategoryDeals($this->region,$subcategory,$where));
+		$result = $this->data_lib->getSubcategoryDeals($this->region,$subcategory,$where); 
+		if($result == []){
+			echo '';
+		}else{
+			$dealsHtml = ''; 
+      foreach ($result as $key => $value) { 
+          $value['images'] = json_decode(($value['images']),true);
+          $dealsHtml .= "<div class=\"col-lg-4\">
+             <div class=\"dealBox\">
+              <div class=\"heading\">
+                  <h2>".$value['brand']."</h2>
+              </div>
+              <div class=\"body\">
+                  <div class=\"img\">
+                      <img src=\"".$value['images']['Image1']."\">
+                  </div>
+                  <div class=\"details\">
+                      <div class=\"detailHead\">
+                          <p><strong>".$value['title']."</strong></p>
+                      </div>
+                      <div class=\"detailBody\">
+                          <p><strong>Offer Starts on:</strong> <span>".date('d-F-Y',strtotime($value['start_date']))."</span></p>
+                          <p><strong>Offer Ends on:</strong> <span>".(($value['end_date'] != "0000-00-00")?date('d-F-Y',strtotime($value['end_date'])):'Limited period offer')."</span></p>
+                      </div>
+                  </div>
+              </div>
+              <div class=\"viewButton\">
+                  <a href=\"/deal/".preg_replace('/\s+/','-',$value['title']).'-'.$value['id']."\">View Deal</a>
+              </div>
+          </div>
+      </div>";
+      }			
+      echo $dealsHtml;
+		}
 	}
 
 	public function search()

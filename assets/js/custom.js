@@ -25,14 +25,18 @@ function getFilteredDeals(){
 			malls.push($(this).find('input[type="checkbox"]').val());
 		}		
 	});
-	var data = {'locations':locations,'malls':malls,'category':$('#category').val(),'subcategory':$('#subcategory').val()};
+	var data = {'city':locations,'malls':malls,'category':$('#category').val(),'subcategory':$('#subcategory').val()};
 	$.ajax({
 	  url: "/home/getFilteredDeals",
 	  method: "GET",
 	  data:data
 	})
-	.done(function( msg ) {
-	  console.log(msg);
+	.done(function( data ) {
+	  if(data != ''){
+	  	$('.dealContainer').html(data);
+	  }else{
+	  	$('.dealContainer').html('<h2>No result</h2>');
+	  }
 	})
 	.fail(function( jqXHR, textStatus ) {
 	  alert( "Request failed: " + textStatus );

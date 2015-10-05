@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-9">
+    <div class="col-lg-9 dealContainer">
         <?php foreach ($subcategorydeals as $key => $value) { 
             $value['images'] = json_decode(($value['images']),true);
             ?>
