@@ -40,12 +40,14 @@
                                 </select>
                             </div>
                         <div class="col-md-4">
-                                <a href="/home"><img src="/assets/img/logos/web-logo.png" width="100%" style="margin-top:8px;"></a>
+                                <a href="/"><img src="/assets/img/logos/web-logo.png" width="100%" style="margin-top:20px;"></a>
                             </div>
                         <div class="col-md-5">
                             <div style="margin-top:35px;">
-                                <input type="text" class="btn" style="border: 1px solid #ccc; width: 85%;" placeholder="Search DiscountsDekho for deals, coupons, etc">
-                                <button class="btn">Go</button>
+                            <form onsubmit="window.location='/search?query='+$('#topSearchBar').val();return false;">
+                                <input type="text" class="form-control" required style="border:1px solid #ccc;width: 85%;display:inline-block" id="topSearchBar" placeholder="Search DiscountsDekho for deals, coupons, etc">
+                                <input type="submit" class="btn"  value="Go">
+                            </form>
                         </div></div>
 
                             <div class="col-md-3">

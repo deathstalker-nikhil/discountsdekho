@@ -22,7 +22,7 @@
                                     <li style="list-style: none">
                                         <div class="checkbox">
                                             <label>
-                                              <input type="checkbox" value="<?=$value2?>" onclick="getFilteredDeals()"> <?=$value2?>
+                                              <input type="checkbox" value="<?=$value2?>" onclick="getFilteredDealsBySubcategory()"> <?=$value2?>
                                             </label>
                                         </div>
                                     </li>
@@ -46,7 +46,7 @@
                         <li style="list-style: none">
                           <div class="checkbox">
                             <label>
-                              <input type="checkbox" value="<?=$value['name']?>" onclick="getFilteredDeals()"> <?=$value['name'];?>
+                              <input type="checkbox" value="<?=$value['name']?>" onclick="getFilteredDealsBySubcategory()"> <?=$value['name'];?>
                             </label>
                           </div>
                         </li>
@@ -62,7 +62,13 @@
                 </div>
                 <div class="panel-body">
                     <ul style="padding: 0px; margin: 0px;">
-                        <li style="list-style: none"><input type="checkbox">&nbsp;Offers with coupons</li>
+                        <li style="list-style: none">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" id="dealsWithCoupons" onclick="getFilteredDealsBySubcategory()"> Offers with coupons
+                            </label>
+                          </div>                            
+                        </li>
                     </ul>
                 </div>
             </div>

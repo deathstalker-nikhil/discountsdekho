@@ -233,12 +233,12 @@ class Data_lib {
 		$CI->load->model('data_model','data');
 		return $CI->data->getContent();    	
 	}
-  
- public function getCategoryDeals($region,$category)
+
+ 	public function getCategoryDeals($region,$category,$where='',$coupons = '')
 	{
 		$CI = & get_instance();
 		$CI->load->model('data_model','data'); 
-		return $CI->data->getCategoryDeals($region,$category);    	
+		return $CI->data->getCategoryDeals($region,$category,$where,$coupons);    	
 	}
   
   public function signup($data) 
@@ -301,11 +301,11 @@ class Data_lib {
 		return false;
 	}
   
-   public function getSubcategoryDeals($region,$subcategory,$where='')
+   public function getSubcategoryDeals($region,$subcategory,$where='',$coupons='')
 	{
 		$CI = & get_instance();
 		$CI->load->model('data_model','data'); 
-		return $CI->data->getSubcategoryDeals($region,$subcategory,$where);    	
+		return $CI->data->getSubcategoryDeals($region,$subcategory,$where,$coupons);    	
 	}
   
   public function getSubcategoryFromId($id)
@@ -344,11 +344,11 @@ class Data_lib {
 		return $CI->data-> saveReview($data);			
 	}
   
-  public function search($search) 
+  public function search($region,$query,$category,$subcategory,$where='',$coupons='') 
   {
 		$CI = &get_instance();
 		$CI->load->model('data_model','data');
-		return $CI->data->search($search);		
+		return $CI->data->search($region,$query,$category,$subcategory,$where,$coupons);		
 	}
   
 	public function subscribe($email){

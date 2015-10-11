@@ -10,65 +10,50 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <form name="sentMessage" id="contactForm" novalidate>
+                    <form id="mainSearchForm" onsubmit="return false;">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <select type="text" class="form-control" placeholder="Your Name *" id="name">
-                                        <option>Delhi NCR</option>
+                                    <select class="form-control" id="regions" name="region" onchange="setSubRegionsDropDown()">
+                                      <?php foreach ($regions as $key => $value) {?>
+                                        <option data-areas='<?=$value['areas']?>'><?= $value['region'] ?></option>
+                                      <?php } ?>
                                     </select>
-                                    <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                              <div class="col-md-9">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search Query" id="email">
-                                    <p class="help-block text-danger"></p>
+                                    <input type="text" class="form-control" name="query" placeholder="Search Query" required>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <select type="text" class="form-control" placeholder="Your Name *" id="name">
-                                        <option>Apparels</option>
-                                        <option>Electronics</option>
-                                        <option>Home & Living</option>
-                                        <option>Others</option>
+                                    <select class="form-control" id="categories" name="category" onchange="setSubcategoriesDropDown()">
+                                        <?php foreach ($subCategory as $key => $value) {?>    
+                                            <option data-subcategories='<?=json_encode($value)?>'><?=$key?></option>
+                                        <?php } ?>
                                     </select>
-                                    <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-
-                                    <select type="text" class="form-control" placeholder="Your Name *" id="name">
-                                        <option>Men Wear</option>
-                                          <option>Women Wear</option>
-                                    </select>
-                                    <p class="help-block text-danger"></p>
+                                    <select class="form-control" id="subcategories" name="subcategory"></select>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <select type="text" class="form-control" placeholder="Your Name *" id="name">
-                                        <option>Lajpat Nagar</option>
-                                          <option>Sarojini</option>
-                                    </select>
-                                    <p class="help-block text-danger"></p>
+                                    <select class="form-control" id="subRegions" name="subregion"></select>
                                 </div>
                             </div>
                                       
                             <div class="col-md-2 col-md-offset-5">
                                 <div class="form-group">
-                                      <button type="submit" class="btn btn-xl" style="width: 100%;">Search</button>
+                                    <button type="submit" class="btn btn-xl" style="width: 100%;">Search</button>
                                 </div>
                             </div>
-                           </div>
-                           <div class="row">
-                           </div>
-                            <div class="clearfix"></div>
-
+                          </div>
                     </form>
                 </div>
             </div>
@@ -213,39 +198,43 @@
                         </div>
                     </div>
                     <div class="viewButton">
-                        <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
+                      <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
                     </div>
                 </div>
             </div><?php }} ?>
         </div>   
     </div>            
-          
-    <?php
-        echo $foot;
-    ?>
-    <!-- Portfolio Modals -->
-    <!-- Use the modals below to showcase details about your portfolio projects! -->
-
-    <!-- Portfolio Modal 1 -->
-
-    <!-- jQuery -->
+    <?=$foot?>
     <script src="/assets/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
     <script src="/assets/js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="/assets/js/classie.js"></script>
     <script src="/assets/js/cbpAnimatedHeader.js"></script>
-
-    <!-- Contact Form JavaScript -->
     <script src="/assets/js/jqBootstrapValidation.js"></script>
     <script src="/assets/js/contact_me.js"></script>
-
-    <!-- Custom Theme JavaScript -->
     <script src="/assets/js/agency.js"></script>
+    <script>
+      $(document).ready(function(){
+        setSubRegionsDropDown();
+        setSubcategoriesDropDown();
+      });
+      function setSubRegionsDropDown () {
+        var subRegions = $.parseJSON($('#regions option:selected').attr('data-areas'));
+        var subRegionsHtml = '';
+        $.each(subRegions, function(index,value){
+          subRegionsHtml += '<option>'+value+'</option>';
+        });
+        $('#subRegions').html(subRegionsHtml);
+      }
+      function setSubcategoriesDropDown () {
+        var subcategories = $.parseJSON($('#categories option:selected').attr('data-subcategories'));
+        var subcategoriesHtml = '';
+        $.each(subcategories, function(index,value){
+          subcategoriesHtml += '<option>'+value+'</option>';
+        });
+        $('#subcategories').html(subcategoriesHtml);
+      }      
+    </script>
     <script src="/assets/js/custom.js"></script>
 </body>
-
 </html>

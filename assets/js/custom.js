@@ -12,9 +12,10 @@ $(document).ready(function(){
     });
 });
 
-function getFilteredDeals(){
+function getFilteredDealsBySubcategory(){
 	var locations = [];
 	var malls = [];
+	var dealsWithCoupons = 0;
 	$('#locationsList li').each(function(index){
 		if($(this).find('input[type="checkbox"]').is(':checked')){
 			locations.push($(this).find('input[type="checkbox"]').val());
@@ -25,9 +26,114 @@ function getFilteredDeals(){
 			malls.push($(this).find('input[type="checkbox"]').val());
 		}		
 	});
-	var data = {'city':locations,'malls':malls,'category':$('#category').val(),'subcategory':$('#subcategory').val()};
+
+	if($('#dealsWithCoupons').is(':checked')){
+		dealsWithCoupons = 1;
+	}	
+	
+	var data = {'city':locations,'malls':malls,'category':$('#category').val(),'subcategory':$('#subcategory').val(),'coupons':dealsWithCoupons};
 	$.ajax({
-	  url: "/home/getFilteredDeals",
+	  url: "/home/getFilteredDealsBySubcategory",
+	  method: "GET",
+	  data:data
+	})
+	.done(function( data ) {
+	  if(data != ''){
+	  	$('.dealContainer').html(data);
+	  }else{
+	  	$('.dealContainer').html('<h2>No result</h2>');
+	  }
+	})
+	.fail(function( jqXHR, textStatus ) {
+	  alert( "Request failed: " + textStatus );
+	});	
+}
+
+function getFilteredDealsByCategory(){
+	var locations = [];
+	var malls = [];
+	var subcategory = [];
+	var dealsWithCoupons = 0;
+	$('#locationsList li').each(function(index){
+		if($(this).find('input[type="checkbox"]').is(':checked')){
+			locations.push($(this).find('input[type="checkbox"]').val());
+		}
+	});
+	
+	$('#subCategoryList li').each(function(index){
+		if($(this).find('input[type="checkbox"]').is(':checked')){
+			subcategory.push($(this).find('input[type="checkbox"]').val());
+		}
+	});	
+
+	$('#mallsList li').each(function(index){
+		if($(this).find('input[type="checkbox"]').is(':checked')){
+			malls.push($(this).find('input[type="checkbox"]').val());
+			console.log(malls);
+		}		
+	});
+
+	if($('#dealsWithCoupons').is(':checked')){
+		dealsWithCoupons = 1;
+	}
+
+	var data = {'city':locations,'malls':malls,'subcategory':subcategory,'category':$('#category').val(),'coupons':dealsWithCoupons};
+	$.ajax({
+	  url: "/home/getFilteredDealsByCategory",
+	  method: "GET",
+	  data:data
+	})
+	.done(function( data ) {
+	  if(data != ''){
+	  	$('.dealContainer').html(data);
+	  }else{
+	  	$('.dealContainer').html('<h2>No result</h2>');
+	  }
+	})
+	.fail(function( jqXHR, textStatus ) {
+	  alert( "Request failed: " + textStatus );
+	});		
+}
+
+$('#mainSearchForm').submit(function (){
+	var params = '';
+	$.each($('#mainSearchForm').serializeArray(), function(i, field) {
+		params += '&'+field.name+'='+field.value;
+	});
+	params = params.substring(1, params.length);
+	window.location = '/search?'+params;
+});
+
+function getFilteredDealsFromSearch(){
+	var locations = [];
+	var malls = [];
+	var category = [];
+	var dealsWithCoupons = 0;
+	$('#locationsList li').each(function(index){
+		if($(this).find('input[type="checkbox"]').is(':checked')){
+			locations.push($(this).find('input[type="checkbox"]').val());
+		}
+	});
+	
+	$('#categoriesList li').each(function(index){
+		if($(this).find('input[type="checkbox"]').is(':checked')){
+			category.push($(this).find('input[type="checkbox"]').val());
+		}
+	});	
+
+	$('#mallsList li').each(function(index){
+		if($(this).find('input[type="checkbox"]').is(':checked')){
+			malls.push($(this).find('input[type="checkbox"]').val());
+			console.log(malls);
+		}		
+	});
+
+	if($('#dealsWithCoupons').is(':checked')){
+		dealsWithCoupons = 1;
+	}
+	var data = {'city':locations,'malls':malls,'category':category,'region':$('#region').val(),'query':$('#query').val(),'coupons':dealsWithCoupons};
+	$.ajax({
+	  url: "/home/filteredSearchData",
 	  method: "GET",
 	  data:data
 	})

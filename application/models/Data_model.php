@@ -278,9 +278,29 @@ class Data_model extends CI_Model {
 		return $result->result_array();
 	}
   
-  public function getCategoryDeals($region,$category)
+  public function getCategoryDeals($region,$category,$where,$coupons)
 	{
 		$this->db->where(array('region'=>$region,'category'=> $category,'active'=>1));
+		if($coupons != ''){
+			$this->db->where(array('coupons'=>$coupons));
+		}
+		$x = '';
+		if($where != ''){
+			foreach ($where as $key => $value) {
+				if($value != []){
+					$x .= ' (';
+					foreach ($value as $key2 => $value2) {
+						$x .= "$key LIKE '%$value2%' OR ";
+					}
+					$x = substr($x, 0, -3);
+					$x .= ') AND';
+				}
+			}
+			if($x != ''){	
+				$x = substr($x, 0, -4);
+				$this->db->where($x);
+			}
+		}		
 		$this->db->order_by("id", "desc"); 
 		$result = $this->db->get('deals');
 		return $result->result_array();		
@@ -311,9 +331,12 @@ class Data_model extends CI_Model {
 		return $result->row_array();
 	}
   
- public function getSubcategoryDeals($region,$subcategory,$where)
+ public function getSubcategoryDeals($region,$subcategory,$where,$coupons)
 	{ 
 		$this->db->where(['active'=>1,'region'=>$region]);
+		if($coupons != ''){
+			$this->db->where(array('coupons'=>$coupons));
+		}		
 		$x = '';
 		if($where != ''){
 			foreach ($where as $key => $value) {
@@ -370,13 +393,47 @@ class Data_model extends CI_Model {
   }
   
   
-  public function search($search)
+  public function search($region,$query,$category,$subcategory,$where,$coupons)
   {
-  	$data = array('title'=>$search,'brand'=>$search,'city'=>$search,'region'=>$search,'locations'=>$search,'malls'=>$search);
-  	$this->db->or_like($data);
-  	$this->db->group_by("title"); 
-  	$result = $this->db->get('deals');
-  	return $result->result_array();  	 
+  	$data = array('title'=>$query,'brand'=>$query,'city'=>$query,'locations'=>$query,'malls'=>$query);
+  	if($query != ''){  		
+	  	$x = ' (';
+	  	foreach ($data as $key => $value) {
+	  		$x .= " `$key` LIKE '%$value%' ESCAPE '!' OR"; 
+	  	}
+	  	$x = substr($x, 0, -3);
+	  	$x .= ' )';
+			$this->db->where($x);
+  	}
+		$this->db->where(['active'=>1,'region'=>$region]);
+		if($coupons != ''){
+			$this->db->where(array('coupons'=>$coupons));
+		}		
+		$x = '';
+		if($where != ''){
+			foreach ($where as $key => $value) {
+				if($value != []){
+					$x .= ' (';
+					foreach ($value as $key2 => $value2) {
+						$x .= "$key LIKE '%$value2%' OR ";
+					}
+					$x = substr($x, 0, -3);
+					$x .= ') AND';
+				}
+			}
+			if($x != ''){	
+				$x = substr($x, 0, -4);
+				$this->db->where($x);
+			}
+		}
+		if($category != [])
+			$this->db->where_in('category', $category);
+		if($subcategory != '')
+		$this->db->like(['subcategory'=> $subcategory]);
+  	$this->db->group_by("title");
+		$this->db->order_by("id", "desc"); 
+		$result = $this->db->get('deals');
+		return $result->result_array();	  	 	 
   }
 
   public function subscribe($email){

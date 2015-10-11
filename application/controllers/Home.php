@@ -479,11 +479,7 @@ class Home extends CI_Controller {
 		$category = urldecode($category);
 		$data['categorydeals'] = $this->data_lib->getCategoryDeals($this->region,$category);
 		$data['category'] = $category;
-		$data['subcategories'] = [];
-		foreach ($this->data_lib->getSubCategories() as $key => $value) {
-			if($value['category'] == $category)
-				array_push($data['subcategories'], $value['subcategory']); 
-		}
+		$data['malls'] = $this->data_lib->getMalls();
 		$this->load->view('category', $data);
 	}
 
@@ -509,11 +505,62 @@ class Home extends CI_Controller {
 		$this->load->view('subcategory',$data);
 	}
 
-	public function getFilteredDeals(){
+	public function getFilteredDealsByCategory(){
 		$category = ($this->input->get('category'))?$this->input->get('category'):'';
 		$subcategory = ($this->input->get('subcategory'))?$this->input->get('subcategory'):'';
 		$city = ($this->input->get('city'))?$this->input->get('city'):'';
 		$malls = ($this->input->get('malls'))?$this->input->get('malls'):'';
+		$coupons = ($this->input->get('coupons'))?$this->input->get('coupons'):'';
+		if($category == ''){
+			return;
+		}
+		$where = array(
+							'malls'=>($malls)?$malls:[],
+							'city'=>($city)?$city:[],
+							'subcategory'=>($subcategory)?$subcategory:[]
+						);
+		$result = $this->data_lib->getCategoryDeals($this->region,$category,$where,$coupons); 
+		if($result == []){
+			echo '';
+		}else{
+			$dealsHtml = ''; 
+      foreach ($result as $key => $value) { 
+          $value['images'] = json_decode(($value['images']),true);
+          $dealsHtml .= "<div class=\"col-lg-4\">
+             <div class=\"dealBox\">
+              <div class=\"heading\">
+                  <h2>".$value['brand']."</h2>
+              </div>
+              <div class=\"body\">
+                  <div class=\"img\">
+                      <img src=\"".$value['images']['Image1']."\">
+                  </div>
+                  <div class=\"details\">
+                      <div class=\"detailHead\">
+                          <p><strong>".$value['title']."</strong></p>
+                      </div>
+                      <div class=\"detailBody\">
+                          <p><strong>Offer Starts on:</strong> <span>".date('d-F-Y',strtotime($value['start_date']))."</span></p>
+                          <p><strong>Offer Ends on:</strong> <span>".(($value['end_date'] != "0000-00-00")?date('d-F-Y',strtotime($value['end_date'])):'Limited period offer')."</span></p>
+                      </div>
+                  </div>
+              </div>
+              <div class=\"viewButton\">
+                  <a href=\"/deal/".preg_replace('/\s+/','-',$value['title']).'-'.$value['id']."\">View Deal</a>
+              </div>
+          </div>
+      </div>";
+      }			
+      echo $dealsHtml;
+		}
+	}
+
+	public function getFilteredDealsBySubcategory(){
+		$category = ($this->input->get('category'))?$this->input->get('category'):'';
+		$subcategory = ($this->input->get('subcategory'))?$this->input->get('subcategory'):'';
+		$city = ($this->input->get('city'))?$this->input->get('city'):'';
+		$malls = ($this->input->get('malls'))?$this->input->get('malls'):'';
+		$coupons = ($this->input->get('coupons'))?$this->input->get('coupons'):'';
 		if($category == '' || $subcategory == ''){
 			return;
 		}
@@ -521,7 +568,7 @@ class Home extends CI_Controller {
 							'malls'=>($malls)?$malls:[],
 							'city'=>($city)?$city:[]
 						);
-		$result = $this->data_lib->getSubcategoryDeals($this->region,$subcategory,$where); 
+		$result = $this->data_lib->getSubcategoryDeals($this->region,$subcategory,$where,$coupons); 
 		if($result == []){
 			echo '';
 		}else{
@@ -559,9 +606,73 @@ class Home extends CI_Controller {
 
 	public function search()
 	{
+		$data['region'] = ($this->input->get('region'))?$this->input->get('region'):$this->region;
+		$data['query'] = ($this->input->get('query'))?$this->input->get('query'):'';
+		$data['category'] = ($this->input->get('category'))?$this->input->get('category'):[];
+		$data['city'] = ($this->input->get('subregion'))?$this->input->get('subregion'):[];
+		$data['subcategory'] = ($this->input->get('subcategory'))?$this->input->get('subcategory'):'';
+		$data['category'] = (is_array($data['category']))?$data['category']:[$data['category']];
+		$data['city'] = (is_array($data['city']))?$data['city']:[$data['city']];
+		$where = array(
+							'malls'=>[],
+							'city'=>($data['city'])?$data['city']:[]
+						);
+		$data['deals'] = $this->data_lib->search($data['region'],$data['query'],$data['category'],$data['subcategory'],$where);
 		$data['head'] = $this->head;
+		$data['malls'] = $this->data_lib->getMalls();
 		$data['foot'] = $this->foot;
 		$this->load->view('search', $data);
+	}
+
+	public function filteredSearchData()
+	{
+		$data['region'] = ($this->input->get('region'))?$this->input->get('region'):$this->region;
+		$data['query'] = ($this->input->get('query'))?$this->input->get('query'):'';
+		$data['category'] = ($this->input->get('category'))?$this->input->get('category'):[];
+		$data['city'] = ($this->input->get('city'))?$this->input->get('city'):[];
+		$data['malls'] = ($this->input->get('malls'))?$this->input->get('malls'):'';
+		$data['subcategory'] = ($this->input->get('subcategory'))?$this->input->get('subcategory'):'';
+		$data['coupons'] = ($this->input->get('coupons'))?$this->input->get('coupons'):'';
+		$data['category'] = (is_array($data['category']))?$data['category']:[$data['category']];
+		$data['city'] = (is_array($data['city']))?$data['city']:[$data['city']];
+		$where = array(
+							'malls'=>($data['malls'])?$data['malls']:[],
+							'city'=>($data['city'])?$data['city']:[]
+						);
+		$result = $this->data_lib->search($data['region'],$data['query'],$data['category'],$data['subcategory'],$where,$data['coupons']); 	
+		if($result == []){
+			echo '';
+		}else{
+			$dealsHtml = ''; 
+      foreach ($result as $key => $value) { 
+          $value['images'] = json_decode(($value['images']),true);
+          $dealsHtml .= "<div class=\"col-lg-4\">
+             <div class=\"dealBox\">
+              <div class=\"heading\">
+                  <h2>".$value['brand']."</h2>
+              </div>
+              <div class=\"body\">
+                  <div class=\"img\">
+                      <img src=\"".$value['images']['Image1']."\">
+                  </div>
+                  <div class=\"details\">
+                      <div class=\"detailHead\">
+                          <p><strong>".$value['title']."</strong></p>
+                      </div>
+                      <div class=\"detailBody\">
+                          <p><strong>Offer Starts on:</strong> <span>".date('d-F-Y',strtotime($value['start_date']))."</span></p>
+                          <p><strong>Offer Ends on:</strong> <span>".(($value['end_date'] != "0000-00-00")?date('d-F-Y',strtotime($value['end_date'])):'Limited period offer')."</span></p>
+                      </div>
+                  </div>
+              </div>
+              <div class=\"viewButton\">
+                  <a href=\"/deal/".preg_replace('/\s+/','-',$value['title']).'-'.$value['id']."\">View Deal</a>
+              </div>
+          </div>
+      </div>";
+      }			
+      echo $dealsHtml;
+		}
 	}
 
 	public function faq()
