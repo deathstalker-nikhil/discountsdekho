@@ -30,12 +30,29 @@ class Data_lib {
 		return $CI->data->saveDeal($data);
 	}
 
+	public function addCoupon($data) 
+	{
+		$CI = & get_instance();
+		$CI->load->model('data_model','data');
+		return $CI->data->addCoupon($data);
+	}
+
+
+	public function saveOffer($data) 
+	{
+		$CI = & get_instance();
+		$CI->load->model('data_model','data');
+		return $CI->data->saveOffer($data);
+	}
+
 	public function getDeals()
 	{
 		$CI = & get_instance();
 		$CI->load->model('data_model','data');
 		return $CI->data->getDeals();    	
 	}
+
+
 	public function delete($type = '',$id = '')
 	{
 		if ($type == '' || $id == '') {

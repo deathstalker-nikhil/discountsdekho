@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <select type="text" class="form-control" placeholder="Your Name *" id="name">
                                         <option>Apparels</option>
@@ -39,7 +39,7 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
 
                                     <select type="text" class="form-control" placeholder="Your Name *" id="name">
@@ -49,7 +49,7 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <select type="text" class="form-control" placeholder="Your Name *" id="name">
                                         <option>Lajpat Nagar</option>
@@ -58,16 +58,8 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
-                                       <div class="col-md-3">
-                                <div class="form-group">
-                                    <select type="text" class="form-control" placeholder="Your Name *" id="name">
-                                        <option>Lajpat Nagar</option>
-                                          <option>Sarojini</option>
-                                    </select>
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-md-offset-4">
+                                      
+                            <div class="col-md-2 col-md-offset-5">
                                 <div class="form-group">
                                       <button type="submit" class="btn btn-xl" style="width: 100%;">Search</button>
                                 </div>

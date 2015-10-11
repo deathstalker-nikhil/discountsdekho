@@ -32,6 +32,16 @@ class Data_model extends CI_Model {
 		return $this->db->insert('deals',$data);
 	}
 
+	public function addCoupon($data)
+	{
+		return $this->db->insert('coupons',$data);
+	}
+
+	public function saveOffer($data)
+	{
+		return $this->db->insert('deals',$data);
+	}
+
 	public function getDeals()
 	{
 		$result = $this->db->get('deals');
@@ -111,6 +121,25 @@ class Data_model extends CI_Model {
 		$result = $this->db->get('deals',3,0);
 		return $result->result_array();	
 	}
+
+
+	public function getDealsWithoutCoupons($merchant_id)
+	{
+		$this->db->where(array('merchant_id'=>$merchant_id,'added_by_merchant'=> 1,'coupons'=>0));
+		$this->db->order_by("id", "desc"); 
+		$result = $this->db->get('deals');
+		return $result->result_array();	
+	}
+
+	public function getDealsByMerchant($merchant_id)
+	{
+		$this->db->where(array('merchant_id'=>$merchant_id,'added_by_merchant'=> 1));
+		$this->db->order_by("id", "desc"); 
+		$result = $this->db->get('deals');
+		return $result->result_array();	
+	}
+
+
 
 	public function getMallsFromId($value3)
 	{
@@ -217,7 +246,23 @@ class Data_model extends CI_Model {
 
 
 	}
+
+
+	public function changeMerchantPassword($data, $id)
+	{
+		$this->db->where('merchant_id', $id);
+		return $this->db->update('merchant', $data); 
+	}
   
+   public function getMerchantPassword($id)
+	{
+		$this->db->where('merchant_id',$id);
+     $this->db->select('password');
+		$result = $this->db->get('merchant');
+		
+		return $result->row_array();
+	}
+
    public function getUserPassword($id)
 	{
 		$this->db->where('id',$id);

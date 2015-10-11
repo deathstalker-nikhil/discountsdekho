@@ -39,6 +39,7 @@
                     </div>
                     <div class="form-group">
                         <input type="hidden" name="<?php echo $csrf_token_name; ?>" value="<?php echo $csrf_token; ?>">
+                       
                           <input type="hidden" name="id" value="<?php echo $_SESSION['user_data']['id']; ?>">
                         <button type="submit" name="submit" value="submitted" class="btn" style="background: #C80237; color: #fff; float: right;">Change Password</button>
                     </div>

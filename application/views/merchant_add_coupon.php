@@ -26,20 +26,21 @@
             <!-- Content Column -->
             <div class="col-md-9">
                 <h3>ADD COUPON</h3>
-                <form>
+                <form method="post" action="/home/addCoupon">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Deal Title</label>
-                        <select class="form-control">
-                            <option>Get off of INR 500 on purchase of 3 or more apparels</option>
-                            <option>Get 15% off. Terms and Conditions Apply</option>
+                        <select class="form-control" name="deal_id">
+                            <?php foreach ($deals_without_coupons as $key => $value) {?>
+                            <option value="<?php echo $value['id']; ?>"><?php echo $value['title']; ?></option>
+                            <?php } ?>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Coupon Type</label>
-                        <select class="form-control" nmae="couponType" id="couponType">
+                        <select class="form-control" name="couponType" id="couponType">
                             <option value="variable">Variable</option>
                             <option value="fixed">Fixed</option>
                         </select>
@@ -48,13 +49,13 @@
                 <div id="couponCode" class="col-md-6" style="display:none">
                     <div class="form-group">
                         <label>Coupon Code</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="coupon_code" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Coupon Details</label>
-                        <textarea class="form-control"></textarea>
+                        <textarea name="coupon_details" class="form-control"></textarea>
                     </div>
                 </div>
                 
@@ -62,7 +63,9 @@
 
                 <div class="col-md-12">
                     <div class="form-group">
-                        <button class="btn" style="background: #C80237; color: #fff; float: right;">Add Coupon</button>
+                        <input type="hidden" name="merchant_id" value="<?php echo $_SESSION['user_data']['merchant_id']; ?>">
+                         <input type="hidden" name="<?php echo $csrf_token_name ?>" value="<?php echo $csrf_token ?>">
+                        <button type="submit" class="btn" style="background: #C80237; color: #fff; float: right;">Add Coupon</button>
                     </div>
                 </div>
 
