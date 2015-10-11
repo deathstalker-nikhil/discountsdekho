@@ -9,26 +9,21 @@
                             <div class="col-md-4 col-md-offset-1">
                                   <ul id="etalage">
 
-                                <li>                                 
-                                    <img class="etalage_thumb_image" src="/assets/img/deals/1.jpg" />
-                                    <img class="etalage_source_image" src="/assets/img/deals/1.jpg" />   
-                                </li>
-                                <li>                                
-                                    <img class="etalage_thumb_image" src="/assets/img/deals/2.jpg" />
-                                    <img class="etalage_source_image" src="/assets/img/deals/2.jpg" />   
-                                </li>
-                                <li>                                
-                                    <img class="etalage_thumb_image" src="/assets/img/deals/3.jpg" />
-                                    <img class="etalage_source_image" src="/assets/img/deals/3.jpg" />   
-                                </li>
-                                  <li>                                
-                                    <img class="etalage_thumb_image" src="/assets/img/deals/4.jpg" />
-                                    <img class="etalage_source_image" src="/assets/img/deals/4.jpg" />   
-                                </li>
-                                  <li>                                
-                                    <img class="etalage_thumb_image" src="/assets/img/deals/3.jpg" />
-                                    <img class="etalage_source_image" src="/assets/img/deals/3.jpg" />   
-                                </li>
+                               
+                               <?php 
+                               $i = 0;
+                               foreach ($dealData['images'] as $key => $value) {
+                if ($value != '') { $i++; ?>
+                <li>                
+                  <img class="etalage_thumb_image" src="<?php echo $value ?>" />
+                  <img class="etalage_source_image" src="<?php echo $value ?>" />
+                 
+                  <a style="float:right;" href="<?php echo $value; ?>" onclick="window.open('<?php echo $value; ?>', 'newwindow', 'width=600, height=650'); return false;"><i class="fa fa-arrows-alt"></i> View Full Screen</a>
+
+                </li>
+      
+<?php } 
+              } ?>
 </ul>
                         </div>
                          <div class="col-md-6">

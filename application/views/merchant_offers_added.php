@@ -31,24 +31,22 @@
                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>S.No</th>
-                                            <th>Deal Title</th>
-                                            <th>Deal Expiry</th>
-                                            <th>Edit</th>
+                                            <th>Offer ID</th>
+                                            <th>Offer Title</th>
+                                            <th>Offer Expiry</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                   
+                                   <?php foreach ($deals_by_merchant as $key => $value) {?>
                                         <tr class="odd gradeX">
-                                            <td>1</td>
-                                            <td>Get 15% off</td>
-                                            <td>30-08-2015</td>
-                                            <td><button>Edit</button></td>    
+                                            <td><?php echo $value['id']; ?></td>
+                                            <td><?php echo $value['title']; ?></td>
+                                            <td><?php echo $value['end_date']; ?></td>
                                             <td><button>Delete</button></td>
                                           
                                         </tr>
-                                      
+                                     <?php } ?> 
                                     </tbody>
                                 </table></div></div>
             </div>

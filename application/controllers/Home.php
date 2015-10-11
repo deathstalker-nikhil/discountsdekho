@@ -80,8 +80,168 @@ class Home extends CI_Controller {
 	{		
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
+		$data['malls'] = $this->data_lib->getMalls();
+		$data['regions'] = $this->data_lib->getRegions();
+		$categoryData = $this->data_lib->getCategoryData();
+		foreach ($categoryData as $key => $value) {
+			$x[''.$value['category']] = array();
+		}
+		foreach ($categoryData as $key => $value) {
+			array_push($x[''.$value['category']],$value['subcategory']);
+		}
+		$data['categoryData'] = $x;
 		$this->load->view('merchant_add_offer', $data);
 	}
+
+	public function saveDeal()
+	{
+		$this->load->library('upload');
+		$title = '';
+		$category = '';
+		$subcategory = '';
+		$brand = '';
+		$brandDetails = '';
+		$region = '';
+		$activeCities = '';
+		$dealDetails = '';
+		$dealLocations = '';
+		$startDate = '';
+		$endDate = '';
+		$malls = '';
+		$merchant_id = '';
+		$images = array('Image1'=>'','Image2'=>'','Image3'=>'','Image4'=>'','Image5'=>'');
+		if ($x = $this->input->post('title')) {
+			$title = $x;
+		}
+		if ($x = $this->input->post('category')) {
+			$category = $x;
+		}
+		if ($x = $this->input->post('subcategory')) {
+			$subcategory = $x;
+		}
+		if ($x = $this->input->post('brand')) {
+			$brand = $x;
+		}
+		if ($x = $this->input->post('brandDetails')) {
+			$brandDetails = $x;
+		}
+		if ($x = $this->input->post('region')) {
+			$region = $x;
+		}
+		
+		if ($x = $this->input->post('dealDetails')) {
+			$dealDetails = $x;
+		}
+		if ($x = $this->input->post('merchant_id')) {
+			$merchant_id = $x;
+		}
+		if ($x = $this->input->post('dealLocations')) {
+			$dealLocations = $x;
+		}
+		if ($x = $this->input->post('startDate')) {
+			$startDate = $x;
+		}
+		if ($x = $this->input->post('endDate')) {
+			$endDate = $x;
+		}
+		if ($x = $this->input->post('malls')) {
+			$malls = $x;
+		}
+		if ($title==''||$category==''||$subcategory==''||$region==''||$dealDetails==''||$startDate=='') {
+			die("Incomple Details");
+		}
+		$added_by_merchant = 1;
+		$config['upload_path'] = 'assets/uploads/';
+		$config['allowed_types'] = 'gif|jpg|png|JPG';
+		$config['max_size']	= '1000';
+		$config['max_width'] = '4000';
+		$config['max_height'] = '4000';
+		$this->upload->initialize($config);
+		for ($i=0;$i<5;$i++) {
+			if ($this->upload->do_upload('Image'.($i+1))) {
+				$x = $this->upload->data();
+				$images['Image'.($i+1)] = '/assets/uploads/'.$x['file_name'];
+			}
+		}
+		$activeCities = json_encode($activeCities);
+		$malls = json_encode($malls);
+		$images = json_encode($images);
+		$subcategory = json_encode($subcategory);
+			$data = array(
+				'title' => $title,
+				'brand' => $brand,
+				'brand_details' => $brandDetails,
+				'category' => $category,
+				'subcategory' => $subcategory,
+				'city' => $activeCities,
+				'merchant_id' => $merchant_id,
+				'details' => $dealDetails,
+				'region' => $region,
+				'locations' => $dealLocations,
+				'malls' => $malls,
+				'start_date' => $startDate,
+				'added_by_merchant' => $added_by_merchant,
+				'end_date' => $endDate,
+				'images' => $images
+				);
+		$result = $this->data_lib->saveOffer($data);
+		if ($result) {
+			redirect(base_url('Home/merchant_offers_added'));
+		}
+		else {
+			die("Some error Occured..:(");
+		}
+	}
+
+	public function addCoupon()
+	{
+		$dealID = '';
+		$couponType = '';
+		$coupon_code = '';
+		$coupon_details = '';
+		$merchant_id = '';
+
+		if ($x = $this->input->post('deal_id')) {
+			$dealID = $x;
+		}
+		if ($x = $this->input->post('couponType')) {
+			$couponType = $x;
+		}
+		if ($x = $this->input->post('coupon_code')) {
+			$coupon_code = $x;
+		}
+		if ($x = $this->input->post('merchant_id')) {
+			$merchant_id = $x;
+		}
+		if ($x = $this->input->post('coupon_details')) {
+			$coupon_details = $x;
+		}
+	
+		if ($dealID==''||$couponType==''||$coupon_details=='') {
+			die("Incomple Details");
+		}
+
+		if ($couponType==="variable"){
+			$coupon_code="DD";
+		}
+		
+			$data = array(
+				'deal_id' => $dealID,
+				'coupon_type' => $couponType,
+				'coupon_code' => $coupon_code,
+				'coupon_details' => $coupon_details,
+				'merchant_id' => $merchant_id
+				);
+		$result = $this->data_lib->addCoupon($data);
+		if ($result) {
+			redirect(base_url('Home/merchant_add_coupon'));
+		}
+		else {
+			die("Some error Occured..:(");
+		}
+	}
+
+
 
 	public function merchant_register()
 	{
@@ -524,12 +684,50 @@ class Home extends CI_Controller {
 	{
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
+		$merchant_id = $_SESSION['user_data']['merchant_id'];
+		$this->load->model('data_model');
+		$data['deals_without_coupons'] = $this->data_model->getDealsWithoutCoupons($merchant_id);
 		$this->load->view('merchant_add_coupon', $data);
 	}
 
 	public function merchant_settings()
 	{
-		$data['head'] = $this->head;
+		if($this->input->post('submit') == 'submitted') {
+		$id = $this->input->post('id');
+		 $cpass = $this->input->post('cpass');
+      $npass = $this->input->post('npass');
+      $conpass = $this->input->post('conpass');
+
+      $this->load->model('data_model');
+    $pass = $this->data_model->getMerchantPassword($id);
+   
+    if ($pass['password'] == $cpass)
+    {
+      if ($npass == $conpass){
+      $data = array('password'=> $npass);
+      	$result = $this->load->model('data_model');
+        $result = $this->data_model->changeMerchantPassword($data,$id);
+		if ($result) {
+			
+			redirect(base_url('/merchant_settings'));
+		}
+		else {
+			die("Some error Occured..:(");
+		}
+      }
+      else
+      {
+       $this->session->set_flashdata('errorMsg','New Password not matches your re-typed password');
+   redirect(base_url('/merchant_settings'));
+      }
+      
+  }
+  else
+  {
+    $this->session->set_flashdata('errorMsg','Current Password Entered is Incorrect');
+    redirect(base_url('/merchant_settings'));
+  }}
+  		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
 		$this->load->view('merchant_settings', $data);
 	}
@@ -538,6 +736,9 @@ class Home extends CI_Controller {
 	{
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
+		$merchant_id = $_SESSION['user_data']['merchant_id'];
+		$this->load->model('data_model');
+		$data['deals_by_merchant'] = $this->data_model->getDealsByMerchant($merchant_id);
 		$this->load->view('merchant_offers_added', $data);
 	}
 

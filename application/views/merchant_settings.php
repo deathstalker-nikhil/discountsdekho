@@ -59,24 +59,24 @@
 
              <div class="col-md-9 col-md-offset-3">
                 <h3>CHANGE PASSWORD</h3>
-                <form>
+                <form method="post">
 
                 <div class="col-md-7">
                     <div class="form-group">
                         <label>Current Password</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="cpass" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-7">
                     <div class="form-group">
                         <label>New Password</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="npass" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-7">
                     <div class="form-group">
                         <label>Confirm New Password</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="conpass" class="form-control">
                     </div>
                 </div>
               
@@ -84,7 +84,9 @@
                 
                 <div class="col-md-7">
                     <div class="form-group">
-                        <button class="btn" style="background: #C80237; color: #fff; float: right;">Change Password</button>
+                        <input type="hidden" name="<?php echo $csrf_token_name; ?>" value="<?php echo $csrf_token; ?>">
+                          <input type="hidden" name="id" value="<?php echo $_SESSION['user_data']['merchant_id']; ?>">
+                        <button type="submit" name="submit" value="submitted" class="btn" style="background: #C80237; color: #fff; float: right;">Change Password</button>
                     </div>
                 </div>
 
