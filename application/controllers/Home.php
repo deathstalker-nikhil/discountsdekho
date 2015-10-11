@@ -319,6 +319,11 @@ class Home extends CI_Controller {
 		$category = urldecode($category);
 		$data['categorydeals'] = $this->data_lib->getCategoryDeals($this->region,$category);
 		$data['category'] = $category;
+		$data['subcategories'] = [];
+		foreach ($this->data_lib->getSubCategories() as $key => $value) {
+			if($value['category'] == $category)
+				array_push($data['subcategories'], $value['subcategory']); 
+		}
 		$this->load->view('category', $data);
 	}
 
