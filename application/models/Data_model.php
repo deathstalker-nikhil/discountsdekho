@@ -20,6 +20,24 @@ class Data_model extends CI_Model {
 		return $result->result_array();		
 	}
 
+	public function getAllCoupons()
+	{
+		$result = $this->db->get('coupons');
+		return $result->result_array();		
+	}
+
+	public function getAllMerchants()
+	{
+		$result = $this->db->get('merchant');
+		return $result->result_array();		
+	}
+
+		public function getCouponsIssued()
+	{
+		$result = $this->db->get('user_coupons');
+		return $result->result_array();		
+	}
+
 	public function getCategoryData()
 	{
 		$query = "SELECT A.id,B.id as categoryId,A.category,A.subcategory FROM subcategory AS A JOIN category AS B ON A.category=B.category";
@@ -34,6 +52,9 @@ class Data_model extends CI_Model {
 
 	public function addCoupon($data)
 	{
+		$deal_id = $data['deal_id'];
+		$query = "UPDATE deals SET coupons='1' WHERE id=$deal_id";
+		$this->db->query($query);
 		return $this->db->insert('coupons',$data);
 	}
 
@@ -63,6 +84,25 @@ class Data_model extends CI_Model {
 		$result = $this->db->get('deals');
 		return $result->result_array();
 	}
+
+	public function getCouponData($id)
+	{
+		
+		$this->db->where(array('deal_id'=>$id));
+		$result = $this->db->get('coupons');
+		return $result->result_array();
+	}
+
+	public function getCouponCount($coupon_id)
+	{
+
+		$result = $this->db->query("SELECT count(*) AS total from user_coupons WHERE coupon_id = '$coupon_id' ");
+
+		
+		return $result->result_array()[0]['total'];
+	}
+
+
 
 	public function getUsers()
 	{
@@ -131,11 +171,17 @@ class Data_model extends CI_Model {
 		return $result->result_array();	
 	}
 
-	public function getDealsByMerchant($merchant_id)
+	public function getCouponsByMerchant($merchant_id)
 	{
-		$this->db->where(array('merchant_id'=>$merchant_id,'added_by_merchant'=> 1));
+		$this->db->where(array('merchant_id'=>$merchant_id));
 		$this->db->order_by("id", "desc"); 
-		$result = $this->db->get('deals');
+		$result = $this->db->get('coupons');
+		return $result->result_array();	
+	}
+
+public function getUserCoupons($user_id)
+	{
+		$result = $this->db->query('SELECT A.id,B.id as coupon_id,B.merchant_id,B.deal_id,B.coupon_type,B.coupon_details,A.user_id,A.coupon_code,A.redeem FROM user_coupons AS A JOIN coupons AS B WHERE A.coupon_id = B.id AND user_id = '.$user_id);
 		return $result->result_array();	
 	}
 
@@ -171,13 +217,10 @@ class Data_model extends CI_Model {
 		return $result->result_array();
 	}
 	
-	public function getReview()
+	public function getReview($id)
 	{
-		$this->db->select('review.id,review.name,review.review,deals.id as deal_id,deals.title');
-		$this->db->from('review');
-		$this->db->join('deals', 'review.deal_id = deals.id');
-		$this->db->where('app', '0');
-		$result = $this->db->get();
+		$this->db->where(array('deal_id'=>$id,'approval'=>1));
+		$result = $this->db->get('review');
 		return $result->result_array();
 	}
 	
@@ -191,6 +234,12 @@ class Data_model extends CI_Model {
 	{
 		return $this->db->insert('faq',$data);
 	}
+
+	public function addUserCoupon($data)
+	{
+		return $this->db->insert('user_coupons',$data);
+	}
+
   
   public function getContent()
 	{
@@ -270,6 +319,15 @@ class Data_model extends CI_Model {
 		$result = $this->db->get('userdb');
 		
 		return $result->row_array();
+	}
+
+
+	 public function getReviews()
+	{
+		$this->db->where('approval',0);
+		$result = $this->db->get('review');
+		
+		return $result->result_array();
 	}
   
   	public function getTopDeals()
@@ -376,16 +434,10 @@ class Data_model extends CI_Model {
    public function approveReview($dealId,$id)
   {
 		$this->db->where(array('id'=> $id,'deal_id'=>$dealId));
-		return $this->db->update('review', array('app'=>'1'));   	
+		return $this->db->update('review', array('approval'=>'1'));   	
   }
 
-  public function getReviews($deal_id)
-  {
-  	echo "review to work";
-  	//$this->db->where(['app'=>'1','deal_id'=>$deal_id]);
-  	//$result = $this->db->get('review');
-  	//return $result->result_array();
-  }
+ 
 
   public function  saveReview($data)
   {

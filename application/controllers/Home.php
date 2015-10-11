@@ -93,6 +93,49 @@ class Home extends CI_Controller {
 		$this->load->view('merchant_add_offer', $data);
 	}
 
+	public function getCouponForUser()
+	{		
+		$coupon_id = '';
+		$user_id = '';
+		$coupon_type = '';
+		$coupon_code = '';
+		
+		if ($x = $this->input->post('coupon_id')) {
+			$coupon_id = $x;
+		}
+		if ($x = $this->input->post('user_id')) {
+			$user_id = $x;
+		}
+		if ($x = $this->input->post('coupon_type')) {
+			$coupon_type = $x;
+		}
+		if ($x = $this->input->post('coupon_code')) {
+			$coupon_code = $x;
+		}
+
+		if($coupon_type ===  "variable"){
+		$this->load->model('data_model');
+    	$count = $this->data_model->getCouponCount($coupon_id);
+    	$new_count = $count + 1;
+    	$coupon_code = $coupon_code.$new_count; }
+
+    	$data = array(
+				'coupon_id' => $coupon_id,
+				'user_id' => $user_id,
+				'coupon_code' => $coupon_code
+				);
+		$result = $this->data_lib->addUserCoupon($data);
+		if ($result) {
+			redirect(base_url('Home/user_coupons'));
+		}
+		else {
+			die("Some error Occured..:(");
+		}
+
+
+
+	}
+
 	public function saveDeal()
 	{
 		$this->load->library('upload');
@@ -222,7 +265,7 @@ class Home extends CI_Controller {
 		}
 
 		if ($couponType==="variable"){
-			$coupon_code="DD";
+			$coupon_code="DD".$dealID."cou".$merchant_id;
 		}
 		
 			$data = array(
@@ -275,10 +318,12 @@ class Home extends CI_Controller {
 		}
 		$userdata = $this->session->userdata('user_data');
 		$id = $userdata['id'];
+		$name = $userdata['name'];
 		$data = array(
 			'user_id'=>$id,
 			'review'=>$review,
-			'deal_id'=>$dealId
+			'deal_id'=>$dealId,
+			'user_name' => $name
 			);
 		$result = $this->data_lib->saveReview($data);
 		if ($result) {
@@ -466,6 +511,13 @@ class Home extends CI_Controller {
 	{
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
+		$user_id = $_SESSION['user_data']['id'];
+		$this->load->model('data_model');
+		$data['user_coupons'] = $this->data_model->getUserCoupons($user_id);
+		foreach ($data['user_coupons'] as $key => $value) {
+			
+			$data['user_coupons'][$key]['deal_title'] = $this->data_lib->getDealData($this->region,$value['deal_id'])[0]['title'];
+		}
 		$this->load->view('user_coupons', $data);
 	}
 
@@ -853,8 +905,21 @@ class Home extends CI_Controller {
 		$this->load->view('merchant_offers_added', $data);
 	}
 
+	public function users_with_coupons()
+	{
+		$data['head'] = $this->head;
+		$data['foot'] = $this->foot;
+		$merchant_id = $_SESSION['user_data']['merchant_id'];
+		//$this->load->model('data_model');
+		//$data['users_with_coupons'] = $this->data_model->getUsersWithCoupons($merchant_id);
+		$this->load->view('users_with_coupons', $data);
+	}
+
 	public function merchant_coupons_issued()
 	{
+		$merchant_id = $_SESSION['user_data']['merchant_id'];
+		$this->load->model('data_model');
+		$data['coupons_by_merchant'] = $this->data_model->getCouponsByMerchant($merchant_id);
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
 		$this->load->view('merchant_coupons_issued', $data);
@@ -876,7 +941,10 @@ class Home extends CI_Controller {
 		$data['isLoggedIn'] = $this->data_lib->isLoggedIn();
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
-		$dealData = $this->data_lib->getDealData($this->region,$id,$title);
+		$dealData = $this->data_lib->getDealData($this->region,$id);
+		$this->load->model('data_model');
+		$data['couponData'] = $this->data_model->getCouponData($id);
+		$data['review'] = $this->data_model->getReview($id);
 		if ($dealData == array()) {
 			redirect(base_url());
 		}
@@ -905,7 +973,6 @@ class Home extends CI_Controller {
 		}
 		$headData['csrf_token_name'] = $this->security->get_csrf_token_name();
 		$headData['csrf_token'] = $this->security->get_csrf_hash();
-		$data['reviews'] = $this->data_lib->getReviews($dealData['id']);
 		$data['dealData'] = $dealData;
 		$this->load->view('deal',$data);
 	}
@@ -918,5 +985,19 @@ class Home extends CI_Controller {
 		$this->load->view('testimonials', $data);
 	}
 
+	public function delete($type ='',$id ='')
+	{
+		if ($type == '' || $id =='') {
+			die('Incomple Details');
+		}
+		$result = $this->data_lib->delete($type,$id);
+		if ($result) {
+			redirect(base_url('Home/merchant_offers_added'));
+		}
+		else {
+			die('Some error Occured..:(');
+		}
+
+	}
 
 }

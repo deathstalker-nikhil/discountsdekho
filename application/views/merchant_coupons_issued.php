@@ -20,6 +20,7 @@
                     <a href="/merchant_add_offer" class="list-group-item">Add Offer</a>
                     <a href="/merchant_add_coupon" class="list-group-item">Add New Coupon</a>
                     <a href="/merchant_coupons_issued" class="list-group-item active">Coupons Issued</a>
+                    <a href="/users_with_coupons" class="list-group-item">Users With Coupons</a>
                     <a href="/merchant_settings" class="list-group-item">Settings</a>
                 </div>
             </div>
@@ -31,27 +32,23 @@
                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>S.No</th>
-                                            <th>Brand</th>
+                                            <th>Deal ID</th>
                                             <th>Coupon Code</th>
                                             <th>Deal Details</th>
                                             <th>Coupon Details</th>
-                                            <th>Expiry</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                   
+                                    <?php foreach ($coupons_by_merchant as $key => $value) {?>
                                         <tr class="odd gradeX">
-                                            <td>1</td>
-                                            <td>Pantaloons</td>
-                                            <td>DDPaXX1058</td>
+                                            <td><?php echo $value['deal_id']; ?></td>
+                                            <td><?php echo $value['coupon_code']; ?></td>
                                             <td><button>View Deal</button></td>    
                                             <td><button>Coupon Details</button></td>
-                                            <td>30-08-2015</td>
                                             <td><button class="btn btn-danger">Delete</button></td>
                                         </tr>
-                                      
+                                      <?php } ?>
                                     </tbody>
                                 </table></div></div>
             </div>

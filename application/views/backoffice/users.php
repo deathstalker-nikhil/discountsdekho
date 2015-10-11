@@ -54,6 +54,7 @@ echo $head;
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
+                                            <th>User ID</th>
                                             <th>Name</th>
                                             <th>E-Mail</th>
                                             <th>Mobile</th>
@@ -65,6 +66,7 @@ echo $head;
                                     <tbody>
                                       <?php foreach ($users as $key => $value) { ?>
                                         <tr class="odd gradeX">
+                                            <td><?php echo $value['id']; ?></td>
                                             <td><?php echo $value['name']; ?></td>
                                             <td><?php echo $value['email']; ?></td>
                                             <td><?php echo $value['mobile']; ?></td>

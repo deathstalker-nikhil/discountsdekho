@@ -62,11 +62,11 @@
                                     <tbody>
                                       <?php foreach ($review as $key => $value) { ?>
                                         <tr class="odd gradeX">
-                                            <td><?php echo $value['name']; ?></td>
-                                            <td><?php echo $value['title']; ?></td>
+                                            <td><?php echo $value['user_name']; ?></td>
+                                            <td><?php echo $value['deal_id']; ?></td>
                                             <td><?php echo $value['review']; ?></td>
-                                            <td><a href="/backoffice/approveReview/<?php echo $value['deal_id'] ?>/<?php echo $value['id'] ?>" class="btn btn-default">Approve</a></td>
-                                             <td><a href="/backoffice/delete/review/<?php echo $value['id'] ?>" title="Delete" class="btn btn-danger delete">Decline</a></td>
+                                            <td><a href="/Backoffice/approveReview/<?php echo $value['deal_id'] ?>/<?php echo $value['id'] ?>" class="btn btn-default">Approve</a></td>
+                                             <td><a href="/Backoffice/delete/review/<?php echo $value['id'] ?>" title="Delete" class="btn btn-danger delete">Decline</a></td>
                                         </tr>
                                       <?php } ?>
                                     </tbody>

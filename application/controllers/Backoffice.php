@@ -391,7 +391,8 @@ class Backoffice extends CI_Controller {
 		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
 		$data['csrf_token'] = $this->security->get_csrf_hash();
 		$data['head'] = $this->load->view('backoffice/common/head',array(),true);
-		$data['faq'] = $this->data_lib->getFaq();
+		$this->load->model('data_model');
+		$data['merchant'] = $this->data_model->getAllMerchants();
 		$this->load->view('backoffice/merchants',$data);
 
 	}  
@@ -405,7 +406,8 @@ class Backoffice extends CI_Controller {
 		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
 		$data['csrf_token'] = $this->security->get_csrf_hash();
 		$data['head'] = $this->load->view('backoffice/common/head',array(),true);
-		$data['faq'] = $this->data_lib->getFaq();
+		$this->load->model('data_model');
+		$data['coupons'] = $this->data_model->getAllCoupons();
 		$this->load->view('backoffice/coupons',$data);
 
 	}  
@@ -419,7 +421,8 @@ class Backoffice extends CI_Controller {
 		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
 		$data['csrf_token'] = $this->security->get_csrf_hash();
 		$data['head'] = $this->load->view('backoffice/common/head',array(),true);
-		$data['faq'] = $this->data_lib->getFaq();
+		$this->load->model('data_model');
+		$data['coupons'] = $this->data_model->getCouponsIssued();
 		$this->load->view('backoffice/coupons_issued',$data);
 
 	}  
@@ -447,7 +450,8 @@ class Backoffice extends CI_Controller {
 			redirect(base_url('backoffice/login'));
 		}
 		$data['head'] = $this->load->view('backoffice/common/head',array(),true);
-		$data['review'] = $this->data_lib->getReview();
+		$this->load->model('data_model');
+		$data['review'] = $this->data_model->getReviews();
 		$this->load->view('backoffice/review',$data);
 
 	}   

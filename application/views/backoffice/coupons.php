@@ -54,30 +54,30 @@ echo $head;
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Merchant Name</th>
+                                            <th>Coupon ID</th>
+                                            <th>Merchant ID</th>
                                             <th>Coupon Code</th>
-                                            <th>Deal Title</th>
-                                
-                                            <th>View</th>
+                                            <th>Deal ID</th>
+                                            <th>Coupon Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      
+                                       <?php foreach ($coupons as $key => $value) {?>
                                         <tr class="odd gradeX">
-                                            <td>Merchant Name</td>
-                                            <td>Coupon Code</td>
-                                            <td>Deal Title</td>
-                                            <td><a class="btn btn-warning">View</a></td>
-                                            
+                                             <td><?php echo $value['id']; ?></td>
+                                            <td><?php echo $value['deal_id']; ?></td>
+                                            <td><?php echo $value['coupon_code']; ?></td>
+                                            <td><?php echo $value['deal_id']; ?></td>
+                                            <td><?php echo $value['coupon_type'] ?></td>
                                         </tr>
-                                  
+                                  <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
-                    </div>
+                    </div
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-12 -->
