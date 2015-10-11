@@ -72,6 +72,7 @@ $route['faq'] = 'Home/faq';
 $route['deal/(:any)'] = "Home/deal/$1";
 $route['testimonials'] = 'Home/testimonials';
 $route['merchant_offers_added'] = 'Home/merchant_offers_added';
+$route['users_with_coupons'] = 'Home/users_with_coupons';
 $route['merchant_coupons_issued'] = 'Home/merchant_coupons_issued';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

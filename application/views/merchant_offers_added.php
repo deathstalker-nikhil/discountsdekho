@@ -20,6 +20,7 @@
                     <a href="/merchant_add_offer" class="list-group-item">Add Offer</a>
                     <a href="/merchant_add_coupon" class="list-group-item">Add New Coupon</a>
                     <a href="/merchant_coupons_issued" class="list-group-item">Coupons Issued</a>
+                       <a href="/users_with_coupons" class="list-group-item">Users With Coupons</a>
                     <a href="/merchant_settings" class="list-group-item">Settings</a>
                 </div>
             </div>
@@ -34,6 +35,7 @@
                                             <th>Offer ID</th>
                                             <th>Offer Title</th>
                                             <th>Offer Expiry</th>
+                                            <th>View</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
@@ -42,8 +44,9 @@
                                         <tr class="odd gradeX">
                                             <td><?php echo $value['id']; ?></td>
                                             <td><?php echo $value['title']; ?></td>
-                                            <td><?php echo $value['end_date']; ?></td>
-                                            <td><button>Delete</button></td>
+                                            <td><?php if($value['end_date'] != '0000-00-00') echo date('d-F-Y',strtotime($value['end_date']));else echo "Limited period offer"; ?></td>
+                                            <td><a target="_blank" href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>" class="btn">View Offer</a></td>
+                                            <td><a href="/Home/delete/deals/<?php echo $value['id'] ?>" title="Delete" class="btn btn-default delete">Delete</a></td>
                                           
                                         </tr>
                                      <?php } ?> 
@@ -82,6 +85,14 @@
         $('#dataTables-example').DataTable({
                 responsive: true
         });
+    });
+    </script>
+
+    <script type="text/javascript">
+     $(document).on('click','.delete',function(event){
+      if (!confirm("Sure to delete this deal ?")) {
+        event.preventDefault();
+      }
     });
     </script>
 

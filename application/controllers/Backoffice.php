@@ -447,7 +447,8 @@ class Backoffice extends CI_Controller {
 			redirect(base_url('backoffice/login'));
 		}
 		$data['head'] = $this->load->view('backoffice/common/head',array(),true);
-		$data['review'] = $this->data_lib->getReview();
+		$this->load->model('data_model');
+		$data['review'] = $this->data_model->getReviews();
 		$this->load->view('backoffice/review',$data);
 
 	}   

@@ -32,6 +32,7 @@
                     <a href="/merchant_add_offer" class="list-group-item active">Add Offer</a>
                     <a href="/merchant_add_coupon" class="list-group-item">Add New Coupon</a>
                     <a href="/merchant_coupons_issued" class="list-group-item">Coupons Issued</a>
+                       <a href="/users_with_coupons" class="list-group-item">Users With Coupons</a>
                     <a href="/merchant_settings" class="list-group-item">Settings</a>
                 </div>
             </div>

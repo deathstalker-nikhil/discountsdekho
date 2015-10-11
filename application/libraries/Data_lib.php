@@ -103,6 +103,17 @@ class Data_lib {
 		$CI->load->model('data_model','data');
 		return $CI->data->getUsers();    	
 	}
+
+
+	public function addUserCoupon($data)
+	{
+		$CI = & get_instance();
+		$CI->load->model('data_model','data');
+		return $CI->data->addUserCoupon($data);    	
+	}
+
+
+
 	public function getNewsletters()
 	{
 		$CI = & get_instance();
@@ -220,12 +231,7 @@ class Data_lib {
 		return $CI->data->addFaq($data);
 	}
 	
-	public function getReview()
-	{
-		$CI = & get_instance();
-		$CI->load->model('data_model','data');
-		return $CI->data->getReview();    	
-	}
+
   
   	public function getContent()
 	{
@@ -330,13 +336,7 @@ class Data_lib {
 		return $CI->data->approveReview($dealId,$id);		
 	}
 
-	public function getReviews($deal_id)
-	{
-		$CI = &get_instance();
-		$CI->load->model('data_model','data');
-		return $CI->data->getReviews($deal_id);			
-	}
-
+	
 	public function saveReview($data)
 	{
 		$CI = &get_instance();
