@@ -20,6 +20,24 @@ class Data_model extends CI_Model {
 		return $result->result_array();		
 	}
 
+	public function getAllCoupons()
+	{
+		$result = $this->db->get('coupons');
+		return $result->result_array();		
+	}
+
+	public function getAllMerchants()
+	{
+		$result = $this->db->get('merchant');
+		return $result->result_array();		
+	}
+
+		public function getCouponsIssued()
+	{
+		$result = $this->db->get('user_coupons');
+		return $result->result_array();		
+	}
+
 	public function getCategoryData()
 	{
 		$query = "SELECT A.id,B.id as categoryId,A.category,A.subcategory FROM subcategory AS A JOIN category AS B ON A.category=B.category";

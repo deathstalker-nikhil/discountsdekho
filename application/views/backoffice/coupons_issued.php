@@ -54,23 +54,22 @@ echo $head;
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>User Name</th>
+                                            <th>User ID</th>
                                             <th>Coupon Code</th>
-                                            <th>Deal Title</th>
+                                            <th>Coupon ID</th>
                                 
-                                            <th>View</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      
+                                      <?php foreach ($coupons as $key => $value) {?>
                                         <tr class="odd gradeX">
-                                            <td>User Name</td>
-                                            <td>Coupon Code</td>
-                                            <td>Deal Title</td>
-                                            <td><a class="btn btn-warning">View</a></td>
-                                            
+                                            <td><?php echo $value['user_id']; ?></td>
+                                            <td><?php echo $value['coupon_code']; ?></td>
+                                            <td><?php echo $value['coupon_id']; ?></td>
+                                          
                                         </tr>
-                                  
+                                  <?php } ?>
                                     </tbody>
                                 </table>
                             </div>

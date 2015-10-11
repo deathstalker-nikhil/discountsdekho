@@ -54,19 +54,23 @@ echo $head;
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
+                                            <th>Merchant ID</th>
                                             <th>Name</th>
                                             <th>E-Mail</th>
                                             <th>Mobile</th>
-                                            <th>Region</th>
+                                            <th>Password</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                         <?php foreach ($merchant as $key => $value) {?>
                                         <tr class="odd gradeX">
-                                            <td>XYZ</td>
-                                            <td>a@a.com</td>
-                                            <td>5412357895</td>
-                                            <td>Delhi NCR</td>
+                                            <td><?php echo $value['merchant_id']; ?></td>
+                                            <td><?php echo $value['name']; ?></td>
+                                            <td><?php echo $value['email']; ?></td>
+                                            <td><?php echo $value['contact']; ?></td>
+                                            <td><?php echo $value['password']; ?></td>
                                         </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
