@@ -203,6 +203,7 @@ class Backoffice extends CI_Controller {
 		$activeCities = json_encode($activeCities);
 		$malls = json_encode($malls);
 		$images = json_encode($images);
+		$t = 1;
 		$subcategory = json_encode($subcategory);
 			$data = array(
 				'title' => $title,
@@ -217,7 +218,8 @@ class Backoffice extends CI_Controller {
 				'malls' => $malls,
 				'start_date' => $startDate,
 				'end_date' => $endDate,
-				'images' => $images
+				'images' => $images,
+				'authorized' => $t
 				);
 			$result = $this->data_lib->saveDeal($data);
 		if ($result) {
@@ -438,7 +440,8 @@ class Backoffice extends CI_Controller {
 		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
 		$data['csrf_token'] = $this->security->get_csrf_hash();
 		$data['head'] = $this->load->view('backoffice/common/head',array(),true);
-		$data['faq'] = $this->data_lib->getFaq();
+		$this->load->model('data_model');
+		$data['deal_requests'] = $this->data_model->getDealRequests();
 		$this->load->view('backoffice/merchant_deal_requests',$data);
 
 	}  
@@ -846,6 +849,36 @@ class Backoffice extends CI_Controller {
   		die("Some error occured");
   	}
   }
+
+    public function approveOffer($id = '')
+  {
+  	if ($id == '') {
+  		die("No id given");
+  	}
+  	$result = $this->data_lib->approveOffer($id);
+  	if ($result) {
+  		redirect(base_url('backoffice/merchant_deal_requests'));
+  	}
+  	else {
+  		die("Some error occured");
+  	}
+  }
+
+   public function expireOffer($id = '')
+  {
+  	if ($id == '') {
+  		die("No id given");
+  	}
+  	$result = $this->data_lib->expireOffer($id);
+  	if ($result) {
+  		redirect(base_url('backoffice/deals'));
+  	}
+  	else {
+  		die("Some error occured");
+  	}
+  }
+
+
 
   public function uploadImages() 
   {

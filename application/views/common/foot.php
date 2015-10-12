@@ -24,10 +24,11 @@
             <div class="col-sm-4">
                 <p>Subscribe to our newsletter and save more</p>
 
-                <form>
+                <form action="/Home/subscribe" method="post">
                     <div class="form-group">
-                        <input type="email" name="email" required class="form-control">
-                        <input type="submit" value="&#62;" class="btn">
+                        <input type="email" name="email" placeholder="Your E-Mail Address" required class="form-control">
+                         <input type="hidden" name="<?php echo $csrf_token_name ?>" value="<?php echo $csrf_token ?>">
+                        <input type="submit" value="Go" style="color: #fff;" class="btn">
                     </div>
                 </form>     
             </div>

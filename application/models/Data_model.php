@@ -65,6 +65,7 @@ class Data_model extends CI_Model {
 
 	public function getDeals()
 	{
+		$this->db->where('active', '1');
 		$result = $this->db->get('deals');
 		return $result->result_array();
 	}
@@ -87,9 +88,17 @@ class Data_model extends CI_Model {
 
 	public function getCouponData($id)
 	{
-		
 		$this->db->where(array('deal_id'=>$id));
 		$result = $this->db->get('coupons');
+		return $result->result_array();
+	}
+
+	public function getDealRequests()
+	{
+		$authorized = 0;
+		$added_by_merchant = 1;
+		$this->db->where(array('authorized'=>$authorized,'added_by_merchant'=> $added_by_merchant));
+		$result = $this->db->get('deals');
 		return $result->result_array();
 	}
 
@@ -162,6 +171,13 @@ class Data_model extends CI_Model {
 		return $result->result_array();	
 	}
 
+	public function getDealsByMerchant($merchant_id)
+	{
+		$this->db->where(array('merchant_id'=>$merchant_id));
+		$result = $this->db->get('deals');
+		return $result->result_array();	
+	}
+
 
 	public function getDealsWithoutCoupons($merchant_id)
 	{
@@ -170,6 +186,15 @@ class Data_model extends CI_Model {
 		$result = $this->db->get('deals');
 		return $result->result_array();	
 	}
+
+
+public function getUsersWithCoupons($merchant_id)
+	{
+		$result = $this->db->query('SELECT A.id,B.id as coupon_id,B.merchant_id,B.deal_id,B.coupon_type,B.coupon_details,A.user_id,A.coupon_code,A.redeem FROM user_coupons AS A JOIN coupons AS B WHERE A.coupon_id = B.id AND B.merchant_id = '.$merchant_id);
+		return $result->result_array();	
+	}
+
+
 
 	public function getCouponsByMerchant($merchant_id)
 	{
@@ -326,6 +351,15 @@ public function getUserCoupons($user_id)
 		return $result->row_array();
 	}
 
+	  public function getUserByID($id)
+	{
+		$this->db->where('id',$id);
+     
+		$result = $this->db->get('userdb');
+		
+			return $result->result_array();
+	}
+
 
 	 public function getReviews()
 	{
@@ -442,6 +476,25 @@ public function getUserCoupons($user_id)
 		return $this->db->update('review', array('approval'=>'1'));   	
   }
 
+   public function approveOffer($id)
+  {
+		$this->db->where(array('id'=> $id));
+		return $this->db->update('deals', array('authorized'=>'1','active' => '1'));   	
+  }
+
+   public function redeemCoupon($id)
+  {
+		$this->db->where(array('id'=> $id));
+		return $this->db->update('user_coupons', array('redeem'=>'1'));   	
+  }
+
+
+   public function expireOffer($id)
+  {
+		$this->db->where(array('id'=> $id));
+		return $this->db->update('deals', array('active'=>'0'));   	
+  }
+
  
 
   public function  saveReview($data)
@@ -495,12 +548,7 @@ public function getUserCoupons($user_id)
 
   public function subscribe($email){
       $data = array('email' => $email);   
-      $result = $this->db->get_where('newsletter',$data);
-      if($result->num_rows() > 0){
-          return 0;
-      }
-      $query =  $this->db->insert_string('newsletter', $data);
-      return $this->db->query($query);
+      return $this->db->insert('newsletter',$data);  
   }
 
   public function uploadContentData($table,$data)

@@ -53,6 +53,7 @@
                         <th>Brand-Name</th>
                         <th>Edit</th>
                         <th>Delete</th>
+                        <th>Expire</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -62,6 +63,7 @@
                         <td><?php echo $value['brand']; ?></td>
                         <td><a href="/backoffice/editDeals/<?php echo $value['id'] ?>" title="Edit" class="btn btn-default">Edit</a></td>
                         <td><a href="/backoffice/delete/deals/<?php echo $value['id'] ?>" title="Delete" class="btn btn-default delete">Delete</a></td>
+                        <td><a href="/Backoffice/expireOffer/<?php echo $value['id'] ?>" class="btn btn-danger">Expire</a></td>
                       </tr>
                     <?php } ?>
                     </tbody>

@@ -209,9 +209,8 @@ footer .section2 form .btn{
 	border-radius: 0;
 	max-width: 40px;
 	min-width: 30px; 	
-	text-indent: -9999px;
 	cursor: pointer;
-	background: #08080B url("../img/s_arrow.png") no-repeat center center;
+	background: #08080B;
 }
 footer .section3 .sub_list{
 	margin-bottom: 10px;
