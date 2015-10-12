@@ -79,7 +79,7 @@ class Data_model extends CI_Model {
 	{
 		if($title != '')
 			$this->db->where(array('id'=>$id,'region'=>$region,'title'=>$title));
-		else
+		else if($region != '')
 			$this->db->where(array('id'=>$id,'region'=>$region));
 		$result = $this->db->get('deals');
 		return $result->result_array();

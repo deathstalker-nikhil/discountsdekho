@@ -109,7 +109,7 @@ class Backoffice extends CI_Controller {
 		}
 		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
 		$data['csrf_token'] = $this->security->get_csrf_hash();
-		$data['dealData'] = $this->data_lib->getDealData($id)[0];
+		$data['dealData'] = $this->data_lib->getDealData('',$id)[0];
 		if ($x = json_decode($data['dealData']['subcategory'])) {
 			$data['dealData']['subcategory'] = $x;
 		}
