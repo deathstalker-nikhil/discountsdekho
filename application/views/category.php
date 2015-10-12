@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="viewButton">
-                        <a href="javascript:">View Deal</a>
+                        <a href="/deal/<?=preg_replace('/\s+/','-',$value['title']).'-'.$value['id']?>">View Deal</a>
                     </div>
                 </div>
             </div>
