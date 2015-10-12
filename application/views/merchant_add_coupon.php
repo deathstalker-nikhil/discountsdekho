@@ -56,7 +56,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Coupon Details</label>
-                        <textarea name="coupon_details" class="form-control"></textarea>
+                        <textarea name="coupon_details" id="coupon_details" class="form-control"></textarea>
                     </div>
                 </div>
                 
@@ -74,39 +74,28 @@
             </div>
         </div>
 </div>
-   <?php
-    echo $foot;
-   ?>
-
-
-
-    <!-- jQuery -->
-    <script src="/assets/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/assets/js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="/assets/js/classie.js"></script>
-    <script src="/assets/js/cbpAnimatedHeader.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="/assets/js/jqBootstrapValidation.js"></script>
-    <script src="/assets/js/contact_me.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="/assets/js/agency.js"></script>
-     <script type="text/javascript">
-$('#couponType').on('change',function(){
-    if( $(this).val()==="fixed"){
-    $("#couponCode").show()
-    }
-    else{
-    $("#couponCode").hide()
-    }
-});
-                </script>
+   <?=$foot?>
+   <script src="/assets/js/jquery.js"></script>
+   <script src="/assets/js/bootstrap.min.js"></script>
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+   <script src="/assets/js/classie.js"></script>
+   <script src="/assets/js/cbpAnimatedHeader.js"></script>
+   <script src="/assets/js/jqBootstrapValidation.js"></script>
+   <script src="/assets/js/contact_me.js"></script>
+   <script src="/assets/js/agency.js"></script>
+   <script src="/assets/backoffice/js/ckeditor/ckeditor.js"></script>
+   <script type="text/javascript">
+        $('#couponType').on('change',function(){
+            if( $(this).val()==="fixed"){
+                $("#couponCode").show()
+            }
+            else{
+                $("#couponCode").hide()
+            }
+        });
+        $(document).ready(function(){
+            CKEDITOR.replace('coupon_details');
+        });
+    </script>
 </body>
-
 </html>

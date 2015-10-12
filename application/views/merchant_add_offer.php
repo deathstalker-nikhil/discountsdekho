@@ -176,60 +176,48 @@
             </div>
         </div>
 </div>
- <?php
-    echo $foot;
-   ?>
-
-    <!-- jQuery -->
-    <script src="/assets/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/assets/js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="/assets/js/classie.js"></script>
-    <script src="/assets/js/cbpAnimatedHeader.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="/assets/js/jqBootstrapValidation.js"></script>
-    <script src="/assets/js/contact_me.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="/assets/js/agency.js"></script>
-
-       <script type="text/javascript">
-   function setOptions() 
+<?=$foot;?>
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+<script src="/assets/js/classie.js"></script>
+<script src="/assets/js/cbpAnimatedHeader.js"></script>
+<script src="/assets/js/jqBootstrapValidation.js"></script>
+<script src="/assets/js/contact_me.js"></script>
+<script src="/assets/js/agency.js"></script>
+<script src="/assets/backoffice/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    function setOptions() 
     {
-      subcategory = $.parseJSON($('select[name="category"] option:selected').attr('data-data'));
-      html = '';
-      $.each(subcategory,function(key,value){
-        html += '<option>'+value+'</opiton>';
-      });
-      $('select[name="subcategory[]"]').html(html);
+        subcategory = $.parseJSON($('select[name="category"] option:selected').attr('data-data'));
+        html = '';
+        $.each(subcategory,function(key,value){
+            html += '<option>'+value+'</opiton>';
+        });
+        $('select[name="subcategory[]"]').html(html);
     }
-   
+
     function setSubAreas()
     {
-      areas = $('select[name="region"] option:selected').attr('data-areas');
-      if (areas == '') {return}
-      areas = $.parseJSON(areas);
-      html = '';
-      $.each(areas,function(index,value){
-        html += '<option>'+value+'</opiton>';
-      });
-      $('select[name="activeCities[]"]').html(html);
+        areas = $('select[name="region"] option:selected').attr('data-areas');
+        if (areas == '') {return}
+            areas = $.parseJSON(areas);
+        html = '';
+        $.each(areas,function(index,value){
+            html += '<option>'+value+'</opiton>';
+        });
+        $('select[name="activeCities[]"]').html(html);
     }
     $(document).on('change','select[name="category"]',function(){
-      setOptions();
+        setOptions();
     });
-      $(document).on('change','select[name="region"]',function(){setSubAreas()});
+    $(document).on('change','select[name="region"]',function(){setSubAreas()});
     $(document).ready(function(){
         setOptions();
         setSubAreas();
+        CKEDITOR.replace('dealDetails');
+        CKEDITOR.replace('brandDetails');        
     });
-    </script>
-
+</script>
 </body>
-
 </html>
