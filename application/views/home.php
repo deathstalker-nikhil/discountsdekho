@@ -205,6 +205,22 @@
         </div>   
     </div>            
     <?=$foot?>
+    <input type="hidden" id="message" value="<?=$message?>">
+    <div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Message</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>    
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
@@ -217,6 +233,10 @@
       $(document).ready(function(){
         setSubRegionsDropDown();
         setSubcategoriesDropDown();
+        if($('#message').val()!=''){
+            $('#msgModal').find('.modal-body').html($('#message').val());
+            $('#msgModal').modal('toggle');
+        }
       });
       function setSubRegionsDropDown () {
         var subRegions = $.parseJSON($('#regions option:selected').attr('data-areas'));

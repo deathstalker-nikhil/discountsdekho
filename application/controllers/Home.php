@@ -51,6 +51,7 @@ class Home extends CI_Controller {
 				$deals[$key][$key2]['malls'] = json_decode($value2['malls'],true);
 			}
 		}
+		$data['message'] = ($this->session->flashdata('message'))?$this->session->flashdata('message'):'';
 		$data['deals'] = $deals;
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
@@ -330,6 +331,7 @@ class Home extends CI_Controller {
 			redirect(base_url('/deal/'.$url));
 		}
 		else {
+
 			die('Some error occured.. :(');
 		}
 	}
@@ -481,7 +483,9 @@ class Home extends CI_Controller {
 			$this->email->to("v.nikhil323@gmail.com");
 			$this->email->subject("Contact Us");
 			$this->email->message('<p><strong>Email</strong> : '.$this->input->post('email').'</p><p><strong>Message</strong> : '.$this->input->post('message').'</p><p><strong>Mobile</strong> : '.$this->input->post('mobile').'</p><p><strong>Name</strong> : '.$this->input->post('name').'</p>');
-		  	$this->email->send();
+		  $this->email->send();
+		  $this->session->set_flashdata('message', 'Mail Sent');
+			redirect(base_url());	
 		}
 		$this->load->view('contact_us', $data);
 	}
@@ -745,20 +749,19 @@ class Home extends CI_Controller {
 	public function login(){
 		$email = ($this->input->post('email'))?$this->input->post('email'):'';
 		$password = ($this->input->post('password'))?$this->input->post('password'):'';
-
 		if ($email==''||$password=='') {
 			die("Incomplete Details");
+			$this->session->set_flashdata('message', 'Incorrect Details');
+			redirect(base_url());			
 		}		
-
 		$result = $this->data_lib->login($email,$password);
-
 		if ($result) {
 			redirect(base_url());
 		}
 		else {
-			die('Some Error occured');
-		}		
-
+			$this->session->set_flashdata('message', 'Incorrect Credentials');
+			redirect(base_url());
+		}	
 	}
 
 	public function logout()
@@ -777,9 +780,9 @@ class Home extends CI_Controller {
 		$password = ($this->input->post('password'))?$this->input->post('password'):'';
 		$city = ($this->input->post('city'))?$this->input->post('city'):'';
 		$gender = ($this->input->post('gender'))?$this->input->post('gender'):'';
-			
 		if ($name==''||$email==''||$mobile==''||$dob==''||$password==''||$city==''||$gender=='') {
-			die("Incomplete Details");
+			$this->session->set_flashdata('message', 'Incorrect Details');
+			redirect(base_url());			
 		}
 
 		$data = array(
@@ -794,7 +797,8 @@ class Home extends CI_Controller {
 		
 		$result = $this->data_lib->checkMailExist($email,'userdb');
 		if ($result) {
-			die('Email already exist..');
+			$this->session->set_flashdata('message', 'Email already exist.');
+			redirect(base_url());
 		}
 		$result = $this->data_lib->signup($data);
 		if ($result) {
@@ -803,7 +807,8 @@ class Home extends CI_Controller {
 				redirect(base_url());
 			}
 			else {
-				die('Some Error occured');
+			$this->session->set_flashdata('message', 'Some Error Occured');
+			redirect(base_url());
 			}			
 		}
 	}
@@ -832,6 +837,8 @@ class Home extends CI_Controller {
 			$this->email->subject("Sales");
 			$this->email->message('<p><strong>Email</strong> : '.$this->input->post('email').'</p><p><strong>Company Name</strong> : '.$this->input->post('company_name').'</p><p><strong>Brand Name</strong> : '.$this->input->post('brand_name').'</p><p><strong>Mobile</strong> : '.$this->input->post('mobile').'</p><p><strong>Link</strong> : '.$this->input->post('link').'</p>');
 		  	$this->email->send();
+		  	$this->session->set_flashdata('message', 'Mail Sent');
+				redirect(base_url());
 		}
 		$this->load->view('listoffers', $data);
 	}
