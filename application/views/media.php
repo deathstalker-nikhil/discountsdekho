@@ -9,26 +9,27 @@
             <div class="row">
                 <div class="col-lg-12">
                         <div class="row">
+                             <?php foreach ($media as $key => $value) { ?>
                             <div class="col-lg-4">
                 <div class="dealBox">
                 
                     <div class="body">
+                        
                         <div class="img">
-                            <img src="/assets/img/YourStory_Media-Logo.png">
+                            <a href="<?php echo $value['link']; ?>"><img src="<?php echo $value['image']; ?>"></a>
                         </div>
                         <div class="details">
                             <div class="detailHead">
-                                <p style="font-size: 20px;"><strong>YOURSTORY.COM</strong></p>
+                                <p style="font-size: 20px;"><strong><?php echo $value['name'] ?></strong></p>
                             </div>
-                            <div class="detailBody"><br>
-                                <p>Its a great website, where you can find discounts and all across Delhi NCR. It follows Its a great website, where you can find discounts and all across Delhi NCR. It follows <a>more</a></p>
-                            </div>
+                        
                         </div>
+                      
                     </div>
                    
                 </div>
             </div>
-                            
+                     <?php } ?>         
                            </div>
                           
                             <div class="clearfix"></div>

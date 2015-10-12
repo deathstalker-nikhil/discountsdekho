@@ -25,40 +25,9 @@
                 </div>
             </div>
             <!-- Content Column -->
-            <div class="col-md-9">
-                <h3>UPDATE PROFILE</h3>
-                <form>
+           
 
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Business Name</label>
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>E-Mail</label>
-                        <input type="email" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                
-                
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <button class="btn" style="background: #C80237; color: #fff; float: right;">Update Profile</button>
-                    </div>
-                </div>
-
-                </form>
-            </div>
-
-             <div class="col-md-9 col-md-offset-3">
+             <div class="col-md-9">
                 <h3>CHANGE PASSWORD</h3>
                 <form method="post">
 

@@ -82,11 +82,16 @@
                     <div class="form-group">
                         <label>Sub-Category</label>
                         <select class="form-control" name="subcategory[]" multiple>
-                            <option>Men Wear</option>
-                            <option>Women Wear</option>
-                            <option>Kids Wear</option>
                         </select>
                     </div>
+                </div>
+                <div class="col-md-12">
+                     <div class="form-group">
+                  <label>Areas, where deal is active</label>
+                  <select class="form-control" multiple name="activeCities[]" required>
+    
+                  </select>
+                </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
@@ -204,8 +209,24 @@
       $('select[name="subcategory[]"]').html(html);
     }
    
+    function setSubAreas()
+    {
+      areas = $('select[name="region"] option:selected').attr('data-areas');
+      if (areas == '') {return}
+      areas = $.parseJSON(areas);
+      html = '';
+      $.each(areas,function(index,value){
+        html += '<option>'+value+'</opiton>';
+      });
+      $('select[name="activeCities[]"]').html(html);
+    }
     $(document).on('change','select[name="category"]',function(){
       setOptions();
+    });
+      $(document).on('change','select[name="region"]',function(){setSubAreas()});
+    $(document).ready(function(){
+        setOptions();
+        setSubAreas();
     });
     </script>
 

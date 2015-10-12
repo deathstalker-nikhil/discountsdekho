@@ -90,6 +90,17 @@ class Data_lib {
 		return $CI->data->delete($table,$id);
 	}
 
+	public function deleteCoupon($id = '')
+	{
+		if ($id == '') {
+			return 0;
+		}
+		$CI = & get_instance();
+		$CI->load->model('data_model','data');    	
+		$table = "coupons";
+		return $CI->data->delete($table,$id);
+	}
+
 	public function getDealData($region,$id,$title = '')
 	{
 		$CI = & get_instance();
@@ -147,6 +158,13 @@ class Data_lib {
 		$CI = & get_instance();
 		$CI->load->model('data_model','data');
 		return $CI->data->updateDeal($id,$data);		
+	}
+
+		public function redeemCoupon($id)
+	{
+		$CI = & get_instance();
+		$CI->load->model('data_model','data');
+		return $CI->data->redeemCoupon($id);		
 	}
 
 	public function updateProfile($data)
@@ -334,6 +352,20 @@ class Data_lib {
 		$CI = &get_instance();
 		$CI->load->model('data_model','data');
 		return $CI->data->approveReview($dealId,$id);		
+	}
+
+	 public function approveOffer($id)
+	{
+		$CI = &get_instance();
+		$CI->load->model('data_model','data');
+		return $CI->data->approveOffer($id);		
+	}
+
+	 public function expireOffer($id)
+	{
+		$CI = &get_instance();
+		$CI->load->model('data_model','data');
+		return $CI->data->expireOffer($id);		
 	}
 
 	

@@ -35,7 +35,7 @@
       <div id="page-wrapper">
         <div class="row">
           <div class="col-lg-12">
-            <h1 class="page-header">Merchant Deals</h1>
+            <h1 class="page-header">Merchant Offer Requests</h1>
           </div>
         </div>
         <div class="row">
@@ -49,6 +49,7 @@
                   <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
                       <tr>
+                         <th>Offer ID</th>
                         <th>Title</th>
                         <th>Merchant Name</th>
                         <th>Edit</th>
@@ -56,12 +57,15 @@
                       </tr>
                     </thead>
                     <tbody>
+                       <?php foreach ($deal_requests as $key => $value) { ?>
                       <tr class="odd gradeX">
-                        <td>Title</td>
-                        <td>Merchant</td>
-                        <td><a class="btn btn-success">Approve</a></td>
-                        <td><a class="btn btn-danger">Decline</a></td>
+                         <td><?php echo $value['id']; ?></td>
+                        <td><?php echo $value['title']; ?></td>
+                        <td><a target="_blank" href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>" class="btn btn-primary">View Deal</a></td>
+                        <td><a href="/Backoffice/approveOffer/<?php echo $value['id'] ?>" class="btn btn-success">Approve</a></td>
+                        <td><a href="/backoffice/delete/deals/<?php echo $value['id'] ?>" title="Delete" class="btn btn-danger">Decline</a></td>
                       </tr>
+                      <?php } ?>
                     </tbody>
                   </table>
                 </div>

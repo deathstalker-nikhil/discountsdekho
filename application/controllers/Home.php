@@ -162,6 +162,9 @@ class Home extends CI_Controller {
 		if ($x = $this->input->post('subcategory')) {
 			$subcategory = $x;
 		}
+		if ($x = $this->input->post('activeCities')) {
+			$activeCities = $x;
+		}
 		if ($x = $this->input->post('brand')) {
 			$brand = $x;
 		}
@@ -210,6 +213,7 @@ class Home extends CI_Controller {
 		$malls = json_encode($malls);
 		$images = json_encode($images);
 		$subcategory = json_encode($subcategory);
+		$active = 0;
 			$data = array(
 				'title' => $title,
 				'brand' => $brand,
@@ -225,7 +229,9 @@ class Home extends CI_Controller {
 				'start_date' => $startDate,
 				'added_by_merchant' => $added_by_merchant,
 				'end_date' => $endDate,
-				'images' => $images
+				'images' => $images,
+				'city' => $activeCities,
+				'active' => $active
 				);
 		$result = $this->data_lib->saveOffer($data);
 		if ($result) {
@@ -515,7 +521,7 @@ class Home extends CI_Controller {
 		$this->load->model('data_model');
 		$data['user_coupons'] = $this->data_model->getUserCoupons($user_id);
 		foreach ($data['user_coupons'] as $key => $value) {
-			
+		
 			$data['user_coupons'][$key]['deal_title'] = $this->data_lib->getDealData($this->region,$value['deal_id'])[0]['title'];
 		}
 		$this->load->view('user_coupons', $data);
@@ -533,6 +539,22 @@ class Home extends CI_Controller {
 		$data['category'] = $category;
 		$data['malls'] = $this->data_lib->getMalls();
 		$this->load->view('category', $data);
+	}
+
+	public function subscribe(){
+		$email = '';
+
+		if($x = $this->input->post('email')){
+			$email = $x;
+		}
+		
+		$result = $this->data_lib->subscribe($email);
+		if($result){
+			redirect(base_url('/Home'));
+		}
+		else{
+			die("Some error occured");
+		}
 	}
 
 	public function subcategory($subcategory = '')
@@ -840,6 +862,8 @@ class Home extends CI_Controller {
 	{
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
+		$this->load->model('data_model');
+		$data['media'] = $this->data_model->getMedia();
 		$this->load->view('media', $data);
 	}
 
@@ -910,9 +934,47 @@ class Home extends CI_Controller {
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
 		$merchant_id = $_SESSION['user_data']['merchant_id'];
-		//$this->load->model('data_model');
-		//$data['users_with_coupons'] = $this->data_model->getUsersWithCoupons($merchant_id);
+		$this->load->model('data_model');
+		$data['users_with_coupons'] = $this->data_model->getUsersWithCoupons($merchant_id);
+		foreach ($data['users_with_coupons'] as $key => $value) {
+			$data['users_with_coupons'][$key]['userData'] = $this->data_model->getUserById($value['user_id'])[0];
+		}
+		//var_dump($data['users_with_coupons']);die;
 		$this->load->view('users_with_coupons', $data);
+	}
+
+	
+
+public function redeemCoupon($id ='')
+	{
+		
+		if ($id =='') {
+			die('Incomple Details');
+		}
+		$result = $this->data_lib->redeemCoupon($id);
+		if ($result) {
+			redirect(base_url('/Home/users_with_coupons'));
+		}
+		else {
+			die('Some error Occured..:(');
+		}
+
+	}
+
+	public function deleteCoupon($id ='')
+	{
+		
+		if ($id =='') {
+			die('Incomple Details');
+		}
+		$result = $this->data_lib->deleteCoupon($id);
+		if ($result) {
+			redirect(base_url('/Home/merchant_coupons_issued'));
+		}
+		else {
+			die('Some error Occured..:(');
+		}
+
 	}
 
 	public function merchant_coupons_issued()
@@ -922,6 +984,11 @@ class Home extends CI_Controller {
 		$data['coupons_by_merchant'] = $this->data_model->getCouponsByMerchant($merchant_id);
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
+		foreach ($data['coupons_by_merchant'] as $key => $value) {
+			
+			$data['coupons_by_merchant'][$key]['deal_title'] = $this->data_lib->getDealData($this->region,$value['deal_id'])[0]['title'];
+		}
+		
 		$this->load->view('merchant_coupons_issued', $data);
 	}
 

@@ -37,23 +37,23 @@
                                             <th>Name</th>
                                             <th>E-Mail</th>
                                             <th>Mobile</th>
-                                            <th>Deal</th>
                                             <th>Redeem</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                 
+                                 <?php foreach ($users_with_coupons as $key => $value) {?>
                                         <tr class="odd gradeX">
-                                            <td>1</td>
-                                            <td>STYLE</td>
-                                            <td>Nikhil Verma</td>
-                                            <td>v.nikhil323@gmail.com</td>
-                                            <td>7503705892</td>
-                                            <td><button>View Deal</button></td>
-                                            <td><button>Redeem</button></td>
+                                            <td><?php echo $value['deal_id'] ?></td>
+                                            <td><?php echo $value['coupon_code']; ?></td>
+                                            <td><?php echo $value['userData']['name']; ?></td>
+                                            <td><?php echo $value['userData']['email']; ?></td>
+                                            <td><?php echo $value['userData']['mobile']; ?></td>
+                                            <td><?php if ($value['redeem'] == 1) echo "Redeemed"; else { ?>
+                                            <a href="/Home/redeemCoupon/<?php echo $value['id']; ?>" class="btn btn-danger">Redeem</a>
+                                           <?php } ?></td>
                                           
                                         </tr>
-                                   
+                                   <?php } ?>
                                     </tbody>
                                 </table></div></div>
             </div>

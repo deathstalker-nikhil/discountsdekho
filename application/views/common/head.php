@@ -134,9 +134,7 @@ $name = explode(' ',trim($_SESSION['user_data']['name']));
                                         <div class="form-group">
                                            <button class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Sign in with Facebook</button>
                                        </div>
-                                        <div class="form-group">
-                                             <button class="btn btn-block btn-social btn-twitter"><i class="fa fa-twitter"></i> Sign in with Twitter</button>
-                                        </div>
+                                        
                                        </div>
 
 
@@ -208,9 +206,7 @@ $name = explode(' ',trim($_SESSION['user_data']['name']));
                                             <div class="form-group">
                                            <button class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Register using Facebook</button>
                                        </div>
-                                        <div class="form-group">
-                                             <button class="btn btn-block btn-social btn-twitter"><i class="fa fa-twitter"></i> Register using Twitter</button>
-                                        </div>
+                                      
                                        </div>
 
 
