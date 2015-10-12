@@ -110,7 +110,8 @@
                             </div>
             </div>
             <div class="col-lg-9 dealContainer">
-            <?php foreach ($categorydeals as $key => $value) {?> 
+            <?php foreach ($categorydeals as $key => $value) {
+            $value['images'] = json_decode(($value['images']),true); ?> 
              <div class="col-lg-4">
                 <div class="dealBox">
                     <div class="heading">
@@ -118,7 +119,7 @@
                     </div>
                     <div class="body">
                         <div class="img">
-                            <img src="http://dd.com/assets/uploads/crimsoune.jpg">
+                            <img src="<?php echo $value['images']['Image1'] ?>">
                         </div>
                         <div class="details">
                             <div class="detailHead">
