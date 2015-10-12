@@ -1000,4 +1000,47 @@ class Home extends CI_Controller {
 
 	}
 
+	public function forgot_password(){
+		$email = ($this->input->post('email'))?$this->input->post('email'):'';
+		$type = ($this->input->post('type'))?$this->input->post('type'):'';
+		if($email == '' || $type == ''){
+			die('');
+		}
+		$pass = $this->data_lib->generateRandomString(9);
+		$this->load->model('data_model','data');
+		$result = 0;
+		if($type == 'user'){
+			$result = $this->data->changeUserPassword(['password'=>$pass],'',$email);
+		}else if($type == 'merchant'){
+			$result = $this->data->changeMerchantPassword(['password'=>$pass],'',$email);
+		}
+		if($result){
+			$this->load->library('email');
+			$config = Array(
+		     'protocol' => 'smtp',
+		     'smtp_host' => 'ssl://smtp.googlemail.com',
+		     'smtp_timeout' => '7',
+		     'smtp_port' => '465',
+		     'smtp_user' => 'discountsdekho@gmail.com', // change it to yours
+		     'smtp_pass' => 'discounts@999', // change it to yours
+		     'mailtype' => 'html',
+		     'newline'   => "\r\n",
+		     'charset' => 'utf-8',
+		     'wordwrap' => TRUE
+			);
+			$this->email->initialize($config);
+			$this->email->from('discountsdekho@gmail.com', "Admin Team");
+			$this->email->to($email);
+			$this->email->subject("Requrest for change of password");
+			$this->email->message('<p><strong>Email</strong> : '.$email.'</p><p><strong>Message</strong> : changed passord is '.$pass.'</p><p>Login in with this password.</p>');
+		  if($this->email->send()){
+		  	echo 1;
+		  }else{
+		  	echo 0;
+		  }
+		}else{
+			echo 0;
+		}
+	}
+
 }

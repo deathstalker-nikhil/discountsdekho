@@ -7,13 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>DiscountsDekho New</title>
-    <!-- Bootstrap Core CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="/assets/css/agency.css" rel="stylesheet">
     <link href="/assets/css/etalage.css" rel="stylesheet">
     <link href="/assets/css/bootstrap-social.css" rel="stylesheet">
-    <!-- Custom Fonts -->
     <link href="/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
@@ -28,82 +25,74 @@
     <![endif]-->
 </head>
 <body id="page-top" class="index">
-<div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                     <div style="float:right;">
-                                <label>Select Region</label>                         
-                                <select class="btn" name="location">
-                                  <?php foreach ($regions as $key => $value) {?>
-                                    <option <?= ($region == $value['region'])? 'selected':''; ?> ><?= $value['region'] ?></option>
-                                  <?php } ?>
-                                </select>
-                            </div>
-                        <div class="col-md-4">
-                                <a href="/"><img src="/assets/img/logos/web-logo.png" width="100%" style="margin-top:20px;"></a>
-                            </div>
-                        <div class="col-md-5">
-                            <div style="margin-top:35px;">
-                            <form onsubmit="window.location='/search?query='+$('#topSearchBar').val();return false;">
-                                <input type="text" class="form-control" required style="border:1px solid #ccc;width: 85%;display:inline-block" id="topSearchBar" placeholder="Search DiscountsDekho for deals, coupons, etc">
-                                <input type="submit" class="btn"  value="Go">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div style="float:right;">
+          <label>Select Region</label>                         
+          <select class="btn" name="location">
+          <?php foreach ($regions as $key => $value) {?>
+            <option <?= ($region == $value['region'])? 'selected':''; ?> ><?= $value['region'] ?></option>
+          <?php } ?>
+          </select>
+        </div>
+        <div class="col-md-4">
+        <a href="/"><img src="/assets/img/logos/web-logo.png" width="100%" style="margin-top:20px;"></a>
+        </div>
+        <div class="col-md-5">
+          <div style="margin-top:35px;">
+            <form onsubmit="window.location='/search?query='+$('#topSearchBar').val();return false;">
+              <input type="text" class="form-control" required style="border:1px solid #ccc;width: 85%;display:inline-block" id="topSearchBar" placeholder="Search DiscountsDekho for deals, coupons, etc">
+              <input type="submit" class="btn"  value="Go">
+            </form>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div style="float:right;">
+          <?php if($isLoggedIn){
+            $name = explode(' ',trim($_SESSION['user_data']['name']));?>
+            <span style="display: inline-block; padding: 10px; margin-top: 5px; float: left;">Welcome <label><?php echo $name[0];  ?></label></span>
+            <a class="btn btn-default" style="margin-bottom: 4px; margin-top:15px;" href="/home/logout"><i class="fa fa-sign-out"> Logout</i></a>
+            <br>
+            <label style="float:right;"><a href="<?php if($this->session->userdata('merchantLoggedIn')){ echo "/merchant_settings"; } else if($this->session->userdata('userLoggedIn')){ echo "/user_profile"; } ?>">My Account</a></label>
+            <?php } else{?>
+            <button class="btn" data-toggle="modal" data-target="#myModal" style="margin-bottom: 4px; margin-top:15px;"><i class="fa fa-user"> Login</i></button>
+            <button class="btn" data-toggle="modal" data-target="#myModal1" style="margin-bottom: 4px; margin-top:15px;"><i class="fa fa-users"> Register</i></button>
+            <br>
+            <label style="float:right;"><a href="/merchant_account">Merchant Account</a></label>
+          <?php } ?>
+          <div class="modal fade" id="forgot_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 style="text-align:center;" class="modal-title" id="myModalLabel">Forgot your Password?</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="col-lg-5">
+                          <img src="/assets/img/forget_Password.png" width="100%" style="text-align: center;">
+                        </div>
+                        <div class="col-lg-7">
+                          <div class="form-group" style="margin-top: 50px;">
+                            <form class="forgotPasswordForm" onsubmit="return false;" method="post">
+                              <label>Registered E-Mail Address</label>
+                              <input type="email" class="form-control" required name="email" placeholder="Enter E-Mail Address">
+                              <input type="hidden" name="type" value="user">
+                              <input type="hidden" name="<?=$csrf_token_name ?>" value="<?=$csrf_token?>">
+                              <button type="submit" class="btn btn-primary" style="float:right; margin:5px; 0px;">Send</button>
                             </form>
-                        </div></div>
-
-                            <div class="col-md-3">
-                                <div style="float:right;">
-                        <?php if($isLoggedIn){?>
-                        <?php
-$name = explode(' ',trim($_SESSION['user_data']['name']));
-?>
-                        <span style="display: inline-block; padding: 10px; margin-top: 5px; float: left;">Welcome <label><?php echo $name[0];  ?></label></span>
-                        <a class="btn btn-default" style="margin-bottom: 4px; margin-top:15px;" href="/home/logout"><i class="fa fa-sign-out"> Logout</i></a>
-                        <br><label style="float:right;"><a href="<?php if($this->session->userdata('merchantLoggedIn')){ echo "/merchant_settings"; } else if($this->session->userdata('userLoggedIn')){ echo "/user_profile"; } ?>">My Account</a></label>
-                        <?php } else{?>
-                        <button class="btn" data-toggle="modal" data-target="#myModal" style="margin-bottom: 4px; margin-top:15px;"><i class="fa fa-user"> Login</i></button>
-                        <button class="btn" data-toggle="modal" data-target="#myModal1" style="margin-bottom: 4px; margin-top:15px;"><i class="fa fa-users"> Register</i></button>
-                        <br>
-                        <label style="float:right;"><a href="/merchant_account">Merchant Account</a></label>
-                        <?php } ?>
-                         <div class="modal fade" id="forgot_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <form action="" method="post">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 style="text-align:center;" class="modal-title" id="myModalLabel">Forgot your Password?</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="col-lg-5">
-                                           <img src="/assets/img/forget_Password.png" width="100%" style="text-align: center;">
-                                                </div>
- <div class="col-lg-7">
-                                                 <div class="form-group" style="margin-top: 50px;">
-
-                                            <label>Registered E-Mail Address</label>
-                                            <input type="text" class="form-control" name="address" placeholder="Enter E-Mail Address">
-                                            <button type="submit" class="btn btn-primary" style="float:right; margin:5px; 0px;">Send</button>
-                                           </div>
-                                          
-</div>
-
-                                    
-
-                                      
-
-
-                                        </div></div></div>
-
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                           </form>
+                          </div>                                    
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
                             </div>
                          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <form action="/home/login" method="post">

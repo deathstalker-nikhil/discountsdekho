@@ -322,7 +322,7 @@ class Data_lib {
 		return $data[0]['subcategory'];		
 	}
   
-  	public function getTestimonials()
+  public function getTestimonials()
 	{
 		$CI = & get_instance();
 		$CI->load->model('data_model','data');
@@ -404,4 +404,14 @@ class Data_lib {
 		$CI->load->model('data_model','data');
 		return $CI->data->getPass($email);		
 	}
+
+	public function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+	}	
 }

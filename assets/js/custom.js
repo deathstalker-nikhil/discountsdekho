@@ -5,11 +5,36 @@ function saveRegion(data){
     document.cookie = "region="+data+";path=/";
 }
 $(document).ready(function(){
-    $(document).on('change','select[name="location"]',function(){
-        region = $(this).val();
-        saveRegion(region);
-        window.location.reload();
-    });
+  $(document).on('change','select[name="location"]',function(){
+      region = $(this).val();
+      saveRegion(region);
+      window.location.reload();
+  });
+	$('.forgotPasswordForm').submit(function(){
+		var params = {};
+		$.each($(this).serializeArray(), function(i, field) {
+			params[field.name] = field.value;
+		});	
+		$(this).find('button[type="submit"]').addClass('disabled');
+		$(this).closest('.modal').modal('toggle');
+		$.ajax({
+		  url: "/home/forgot_password",
+		  method: "POST",
+		  data:params
+		})
+		.done(function( data ) {
+		  if(data == ''){
+		  	alert('Incomplete Data');
+		  }else if(data == 0){
+		  	alert('Invaid Mail');
+		  }else if(data == 1){
+		  	alert('Mail Send');
+		  }
+		})
+		.fail(function( jqXHR, textStatus ) {
+		  alert( "Request failed: " + textStatus );
+		});
+	});  
 });
 
 function getFilteredDealsBySubcategory(){

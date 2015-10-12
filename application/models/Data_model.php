@@ -287,20 +287,25 @@ public function getUserCoupons($user_id)
 		return $result->row_array();
 	}
 
-	public function changeUserPassword($data, $id)
+	public function changeUserPassword($data, $id = '',$email = '')
 	{
-		$this->db->where('id', $id);
-		
-		return $this->db->update('userdb', $data); 
-
-
+		if($id != '')
+			$this->db->where('id', $id);
+		else if($email != '')
+			$this->db->where('email',$email);
+		$this->db->update('userdb', $data);
+		return $this->db->affected_rows();
 	}
 
 
-	public function changeMerchantPassword($data, $id)
+	public function changeMerchantPassword($data, $id = '',$email = '')
 	{
-		$this->db->where('merchant_id', $id);
-		return $this->db->update('merchant', $data); 
+		if($id != '')
+			$this->db->where('merchant_id', $id);
+		else if($email != '')
+			$this->db->where('email',$email);
+		$this->db->update('merchant', $data); 
+		return $this->db->affected_rows();
 	}
   
    public function getMerchantPassword($id)
