@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="viewButton">
-                    <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
+                    <a href="/deal/<?php echo preg_replace('/[\s%]+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <div class="viewButton">
-                    <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
+                    <a href="/deal/<?php echo preg_replace('/[\s%]+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
                 </div>
             </div>
         </div>
@@ -174,7 +174,7 @@
                     </div>
                 </div>
                 <div class="viewButton">
-                    <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
+                    <a href="/deal/<?php echo preg_replace('/[\s%]+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
                 </div>
             </div>
         </div>
@@ -217,7 +217,7 @@
                     </div>
                 </div>
                 <div class="viewButton">
-                    <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
+                    <a href="/deal/<?php echo preg_replace('/[\s%]+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
                 </div>
             </div>
         <?php }

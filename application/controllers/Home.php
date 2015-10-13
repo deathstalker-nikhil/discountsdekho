@@ -1004,9 +1004,8 @@ public function redeemCoupon($id ='')
 		if ($slug == '') {
 			die('Invalid URL given');
 		}else{
-			preg_match ('/([a-zA-z0-9-]+)-([0-9]+)/',$slug,$matches);
+			preg_match ('/(.+)-([0-9]+)/',$slug,$matches);
 			if($matches){
-				$title = str_replace('-', ' ', $matches[1]);
 				$id = $matches[2];
 			}else{
 				die('No Id Given');
