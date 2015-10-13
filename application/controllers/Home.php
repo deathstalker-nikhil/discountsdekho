@@ -690,9 +690,9 @@ class Home extends CI_Controller {
 	{
 		$data['region'] = ($this->input->get('region'))?$this->input->get('region'):$this->region;
 		$data['query'] = ($this->input->get('query'))?$this->input->get('query'):'';
-		$data['category'] = ($this->input->get('category'))?$this->input->get('category'):[];
-		$data['city'] = ($this->input->get('subregion'))?$this->input->get('subregion'):[];
-		$data['subcategory'] = ($this->input->get('subcategory'))?$this->input->get('subcategory'):'';
+		$data['category'] = ($this->input->get('category') && $this->input->get('category')!= 'any')?$this->input->get('category'):[];
+		$data['city'] = ($this->input->get('subregion') && $this->input->get('subregion') != 'any')?$this->input->get('subregion'):[];
+		$data['subcategory'] = ($this->input->get('subcategory') && $this->input->get('subcategory') != 'any')?$this->input->get('subcategory'):'';
 		$data['category'] = (is_array($data['category']))?$data['category']:[$data['category']];
 		$data['city'] = (is_array($data['city']))?$data['city']:[$data['city']];
 		$where = array(
@@ -1008,9 +1008,8 @@ public function redeemCoupon($id ='')
 		if ($slug == '') {
 			die('Invalid URL given');
 		}else{
-			preg_match ('/([a-zA-z0-9-]+)-([0-9]+)/',$slug,$matches);
+			preg_match ('/(.+)-([0-9]+)/',$slug,$matches);
 			if($matches){
-				$title = str_replace('-', ' ', $matches[1]);
 				$id = $matches[2];
 			}else{
 				die('No Id Given');

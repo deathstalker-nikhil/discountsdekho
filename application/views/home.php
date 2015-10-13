@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="query" placeholder="Search Query" required>
+                                <input type="text" class="form-control" name="query" placeholder="Search Query">
                             </div>
                         </div>
                     </div>
@@ -33,6 +33,7 @@
                                     <?php foreach ($subCategory as $key => $value) {?>    
                                     <option data-subcategories='<?=json_encode($value)?>'><?=$key?></option>
                                     <?php } ?>
+                                    <option value="any" data-subcategories='<?=json_encode([])?>'>Any</option>
                                 </select>
                             </div>
                         </div>
@@ -88,13 +89,13 @@
                     </div>
                 </div>
                 <div class="viewButton">
-                    <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
+                    <a href="/deal/<?php echo preg_replace('/[\s%]+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
                 </div>
             </div>
         </div>
-        <?php if(count($deals['Beauty and Grooming'])>0) ?>
         <?php }
-        echo '<a style="float: right;" href="/category/Beauty and Grooming">View All</a>';
+        if(count($deals['Beauty and Grooming'])>4)
+            echo '<a style="float: right;" href="/category/Beauty and Grooming">View All</a>';
         }else{ ?>
             <h2 class="text-center">No Result</h2>
         <?php } ?>
@@ -131,13 +132,13 @@
                     </div>
                 </div>
                 <div class="viewButton">
-                    <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
+                    <a href="/deal/<?php echo preg_replace('/[\s%]+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
                 </div>
             </div>
         </div>
-        <?php if(count($deals['Fitness and Sports'])>0) ?>
         <?php }
-        echo '<a style="float: right;" href="/category/Fitness and Sports">View All</a>';
+        if(count($deals['Fitness and Sports'])>4)
+            echo '<a style="float: right;" href="/category/Fitness and Sports">View All</a>';
         }else{ ?>
             <h2 class="text-center">No Result</h2>
         <?php } ?>
@@ -174,13 +175,13 @@
                     </div>
                 </div>
                 <div class="viewButton">
-                    <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
+                    <a href="/deal/<?php echo preg_replace('/[\s%]+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
                 </div>
             </div>
         </div>
-        <?php if(count($deals['Apparels'])>0) ?>
         <?php }
-        echo '<a style="float: right;" href="/category/Apparels">View All</a>';
+        if(count($deals['Apparels'])>4)
+            echo '<a style="float: right;" href="/category/Apparels">View All</a>';
         }else{ ?>
             <h2 class="text-center">No Result</h2>
         <?php } ?>
@@ -217,12 +218,12 @@
                     </div>
                 </div>
                 <div class="viewButton">
-                    <a href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
+                    <a href="/deal/<?php echo preg_replace('/[\s%]+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
                 </div>
             </div>
-        <?php if(count($deals['Miscellaneous'])>0) ?>
         <?php }
-        echo '<a style="float: right;" href="/category/Miscellaneous">View All</a>';
+        if(count($deals['Miscellaneous'])>4)
+            echo '<a style="float: right;" href="/category/Miscellaneous">View All</a>';
         }else{ ?>
             <h2 class="text-center">No Result</h2>
         <?php } ?>
@@ -268,6 +269,7 @@
         $.each(subRegions, function(index,value){
             subRegionsHtml += '<option>'+value+'</option>';
         });
+        subRegionsHtml +='<option value="any">Any</option>';
         $('#subRegions').html(subRegionsHtml);
     }
     function setSubcategoriesDropDown () {
@@ -276,6 +278,7 @@
         $.each(subcategories, function(index,value){
             subcategoriesHtml += '<option>'+value+'</option>';
         });
+        subcategoriesHtml += '<option value="any">Any</option>'
         $('#subcategories').html(subcategoriesHtml);
     }      
 </script>
