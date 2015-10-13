@@ -63,7 +63,11 @@
                         <td><?php echo $value['brand']; ?></td>
                         <td><a href="/backoffice/editDeals/<?php echo $value['id'] ?>" title="Edit" class="btn btn-default">Edit</a></td>
                         <td><a href="/backoffice/delete/deals/<?php echo $value['id'] ?>" title="Delete" class="btn btn-default delete">Delete</a></td>
+                        <?php if ($value['active']==1){ ?>
                         <td><a href="/Backoffice/expireOffer/<?php echo $value['id'] ?>" class="btn btn-danger">Expire</a></td>
+                        <?php } else {?>
+                        <td>Expired</td>
+                        <?php } ?>
                       </tr>
                     <?php } ?>
                     </tbody>
@@ -128,7 +132,7 @@
                 </div>
                 <div class="form-group">
                   <label>Deal Locations</label>
-                  <textarea type="text" class="form-control" name="dealLocations" required></textarea>
+                  <textarea type="text" class="form-control" id="dealLocations" name="dealLocations" required></textarea>
                 </div>
               
                 <div class="form-group">
@@ -215,6 +219,7 @@
       setOptions();
       CKEDITOR.replace('dealDetails');
       CKEDITOR.replace('brandDetails');
+      CKEDITOR.replace('dealLocations');
       setSubAreas();
     });
     $(document).on('change','select[name="region"]',function(){setSubAreas()});

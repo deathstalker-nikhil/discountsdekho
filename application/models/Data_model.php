@@ -65,7 +65,6 @@ class Data_model extends CI_Model {
 
 	public function getDeals()
 	{
-		$this->db->where('active', '1');
 		$result = $this->db->get('deals');
 		return $result->result_array();
 	}

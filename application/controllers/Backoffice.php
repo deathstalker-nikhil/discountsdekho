@@ -65,8 +65,7 @@ class Backoffice extends CI_Controller {
 		redirect(base_url('backoffice/login'));
 	}
 
-	public function deals()
-	{
+	public function deals(){
 		if (!$this->backoffice_lib->auth()) {
 			redirect(base_url('backoffice/login'));
 		}
@@ -185,6 +184,9 @@ class Backoffice extends CI_Controller {
 		if ($x = $this->input->post('malls')) {
 			$malls = $x;
 		}
+		$pattern = '/<li>(.+?)<\/li>/';
+		preg_match_all($pattern, $dealLocations, $matches);
+		
 		if ($title==''||$category==''||$subcategory==''||$region==''||$activeCities==''||$dealDetails==''||$startDate=='') {
 			die("Incomple Details");
 		}
@@ -203,6 +205,7 @@ class Backoffice extends CI_Controller {
 		$activeCities = json_encode($activeCities);
 		$malls = json_encode($malls);
 		$images = json_encode($images);
+		$matches = json_encode($matches[1]);
 		$t = 1;
 		$subcategory = json_encode($subcategory);
 			$data = array(
@@ -214,7 +217,7 @@ class Backoffice extends CI_Controller {
 				'city' => $activeCities,
 				'details' => $dealDetails,
 				'region' => $region,
-				'locations' => $dealLocations,
+				'locations' => $matches,
 				'malls' => $malls,
 				'start_date' => $startDate,
 				'end_date' => $endDate,
@@ -286,6 +289,8 @@ class Backoffice extends CI_Controller {
 		if ($x = $this->input->post('malls')) {
 			$malls = $x;
 		}
+		$pattern = '/<li>(.+?)<\/li>/';
+		preg_match_all($pattern, $dealLocations, $matches);
 		if ($x = $this->input->post('oldImages')) {
 			$images = array('Image1'=>$x[0],'Image2'=>$x[1],'Image3'=>$x[2],'Image4'=>$x[3],'Image5'=>$x[4]);
 		}
@@ -313,6 +318,7 @@ class Backoffice extends CI_Controller {
 		if (is_array($subcategory)) {
 			$subcategory = json_encode($subcategory);
 		}
+				$matches = json_encode($matches[1]);
 		$data = array(
 			'title' => $title,
 			'brand' => $brand,
@@ -322,7 +328,7 @@ class Backoffice extends CI_Controller {
 			'city' => $activeCities,
 			'details' => $dealDetails,
 			'region' => $region,
-			'locations' => $dealLocations,
+			'locations' => $matches,
 			'malls' => $malls,
 			'start_date' => $startDate,
 			'end_date' => $endDate,

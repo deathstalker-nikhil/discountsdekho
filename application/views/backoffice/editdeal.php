@@ -78,7 +78,16 @@
               </div>
               <div class="form-group">
                 <label>Deal Locations</label>
-                <textarea type="text" class="form-control" name="dealLocations" required><?php echo $dealData['locations'] ?></textarea>
+                <textarea type="text" class="form-control" id="dealLocations" name="dealLocations" required>
+                  <?php echo "<ol>";
+                  $locations = json_decode($dealData['locations']);
+                foreach ($locations as $key => $value) {
+                 ?>
+                  <li><?php echo $value; ?></li>
+                 <?php
+                }
+                echo "</ol>";
+               ?></textarea>
               </div>
               <div class="form-group">
                 <label>Malls(where deal is active)</label>
@@ -215,6 +224,7 @@
     setSubAreas();
     CKEDITOR.replace('dealDetails');
     CKEDITOR.replace('brandDetails');
+    CKEDITOR.replace('dealLocations');
     <?php if(is_array($dealData['subcategory'])) {
       foreach ($dealData['subcategory'] as $key => $value) {?>
         $('select[name="subcategory[]"] option[value="<?php echo $value; ?>"]').attr("selected",true); 

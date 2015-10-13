@@ -194,6 +194,9 @@ class Home extends CI_Controller {
 		if ($x = $this->input->post('malls')) {
 			$malls = $x;
 		}
+		$pattern = '/<li>(.+?)<\/li>/';
+		preg_match_all($pattern, $dealLocations, $matches);
+		
 		if ($title==''||$category==''||$subcategory==''||$region==''||$dealDetails==''||$startDate=='') {
 			die("Incomple Details");
 		}
@@ -214,6 +217,7 @@ class Home extends CI_Controller {
 		$malls = json_encode($malls);
 		$images = json_encode($images);
 		$subcategory = json_encode($subcategory);
+		$matches = json_encode($matches[1]);
 		$active = 0;
 			$data = array(
 				'title' => $title,
@@ -225,7 +229,7 @@ class Home extends CI_Controller {
 				'merchant_id' => $merchant_id,
 				'details' => $dealDetails,
 				'region' => $region,
-				'locations' => $dealLocations,
+				'locations' => $matches,
 				'malls' => $malls,
 				'start_date' => $startDate,
 				'added_by_merchant' => $added_by_merchant,

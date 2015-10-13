@@ -114,7 +114,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Offer Locations</label>
-                        <textarea class="form-control" name="dealLocations"></textarea>
+                        <textarea class="form-control" id="dealLocations" name="dealLocations"></textarea>
                     </div>
                 </div>
 
@@ -216,7 +216,8 @@
         setOptions();
         setSubAreas();
         CKEDITOR.replace('dealDetails');
-        CKEDITOR.replace('brandDetails');        
+        CKEDITOR.replace('brandDetails');
+        CKEDITOR.replace('dealLocations');        
     });
 </script>
 </body>

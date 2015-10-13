@@ -66,7 +66,9 @@
       <br>
       <label>Offer available at following locations:</label>
       <?php 
-          $locations = explode('#', $dealData['locations']);
+         // $locations = explode('#', $dealData['locations']);
+      $locations = json_decode($dealData['locations']);
+
           foreach ($locations as $key => $value) {?>
             <p><?php echo ($key+1).'. '.$value ?>         </p>
           <?php } ?>
@@ -82,23 +84,7 @@
 
                            </div>
 
-
-  <div class="col-md-6 col-md-offset-1">
-        <h4 style="color: #C80237">Reviews</h4>  
-         <?php $count=0; foreach ($review as $key => $value) { $count++; ?>                          
-  <b><?php echo $value['user_name']; ?></b> says
-                          <blockquote class="testimonial">
-  <p>review</p>
-  </blockquote>
-  <?php } if ($count==0) {
-?>
-    <p>No reviews yet</p>
-    <?php
-  } ?>
-
-  
-                           </div>
-  <div class="col-md-4" id="review">
+<div class="col-md-4 col-md-offset-1" id="review">
        <h4 style="color: #C80237">Write a Review</h4>  
         <?php if($this->session->userdata('userLoggedIn')){?> 
       <form method="post" action="/Home/review">
@@ -133,6 +119,22 @@
       <?php } ?>
 
   </div>
+  <div class="col-md-6">
+        <h4 style="color: #C80237">Reviews</h4>  
+         <?php $count=0; foreach ($review as $key => $value) { $count++; ?>                          
+  <b><?php echo $value['user_name']; ?></b> says
+                          <blockquote class="testimonial">
+  <p>review</p>
+  </blockquote>
+  <?php } if ($count==0) {
+?>
+    <p>No reviews yet</p>
+    <?php
+  } ?>
+
+  
+                           </div>
+  
 
                              </div>
               
