@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="query" placeholder="Search Query" required>
+                                <input type="text" class="form-control" name="query" placeholder="Search Query">
                             </div>
                         </div>
                     </div>
@@ -33,6 +33,7 @@
                                     <?php foreach ($subCategory as $key => $value) {?>    
                                     <option data-subcategories='<?=json_encode($value)?>'><?=$key?></option>
                                     <?php } ?>
+                                    <option value="any" data-subcategories='<?=json_encode([])?>'>Any</option>
                                 </select>
                             </div>
                         </div>
@@ -268,6 +269,7 @@
         $.each(subRegions, function(index,value){
             subRegionsHtml += '<option>'+value+'</option>';
         });
+        subRegionsHtml +='<option value="any">Any</option>';
         $('#subRegions').html(subRegionsHtml);
     }
     function setSubcategoriesDropDown () {
@@ -276,6 +278,7 @@
         $.each(subcategories, function(index,value){
             subcategoriesHtml += '<option>'+value+'</option>';
         });
+        subcategoriesHtml += '<option value="any">Any</option>'
         $('#subcategories').html(subcategoriesHtml);
     }      
 </script>

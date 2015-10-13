@@ -2,7 +2,7 @@
 <?=$head?>
     <div class="container">
         <div class="row">
-            <p style="font-weight: 700; font-size: 24px;">Showing search results for <label style="color:#C80237"><?=$query?></label></p>
+            <p style="font-weight: 700; font-size: 24px;">Showing search results <label style="color:#C80237"><?php ($query)?'for '.$query:''; ?></label></p>
             <div class="col-lg-3">
                 <h4 style="text-align: center;">FILTER BY</h4>
                 <div class="panel-group category-products" id="accordian">
