@@ -119,12 +119,12 @@
       <?php } ?>
 
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6 col-md-offset-1">
         <h4 style="color: #C80237">Reviews</h4>  
          <?php $count=0; foreach ($review as $key => $value) { $count++; ?>                          
   <b><?php echo $value['user_name']; ?></b> says
                           <blockquote class="testimonial">
-  <p>review</p>
+  <p><?php echo $value['review']; ?></p>
   </blockquote>
   <?php } if ($count==0) {
 ?>
@@ -141,8 +141,47 @@
           </div>
       </div>
     
-
-
+<div class="container">
+    <div class="row">
+        <h3 style="color:#C80237">RELEVANT OFFERS</h3>
+        <?php if (count($categorydeals) > 0){
+         
+            $i = 0;
+            foreach ($categorydeals as $key => $value) {
+            if($i == 4){
+                break;
+            }
+           
+            $i++;
+            ?>
+        <div class="col-lg-3">
+            <div class="dealBox">
+                <div class="heading">
+                    <h2><?php echo $value['brand']; ?></h2>
+                </div>
+                <div class="body">
+                    <div class="img">
+                        <img src="<?php echo ($value['images']['Image1'] != '')?$value['images']['Image1']:'//:0'; ?>">
+                    </div>
+                    <div class="details">
+                        <div class="detailHead">
+                            <p><strong><?php echo $value['title']; ?></strong></p>
+                        </div>
+                        <div class="detailBody">
+                            <p><strong>Offer Starts on:</strong> <span><?php echo date('d-F-Y',strtotime($value['start_date'])) ?></span></p>
+                            <p><strong>Offer Ends on:</strong> <span><?php if($value['end_date'] != '0000-00-00') echo date('d-F-Y',strtotime($value['end_date']));else echo "Limited period offer"; ?></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="viewButton">
+                    <a href="/deal/<?php echo preg_replace('/[\s%]+/','-',$value['title']).'-'.$value['id'] ?>">View Deal</a>
+                </div>
+            </div>
+        </div>
+        <?php }}
+        ?>
+    </div>
+</div>
 
      <div class="modal fade" id="coupon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             

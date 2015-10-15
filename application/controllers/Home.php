@@ -1051,6 +1051,10 @@ public function redeemCoupon($id ='')
 		$headData['csrf_token_name'] = $this->security->get_csrf_token_name();
 		$headData['csrf_token'] = $this->security->get_csrf_hash();
 		$data['dealData'] = $dealData;
+		/* new code */
+		$category =  $data['dealData']['category'];
+		$data['categorydeals'] = $this->data_lib->getCategoryDeals($this->region,$category);
+		/* old code */
 		$this->load->view('deal',$data);
 	}
 
