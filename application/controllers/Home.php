@@ -1054,6 +1054,11 @@ public function redeemCoupon($id ='')
 		/* new code */
 		$category =  $data['dealData']['category'];
 		$data['categorydeals'] = $this->data_lib->getCategoryDeals($this->region,$category);
+		foreach ($data['categorydeals'] as $key => $value) {
+			$data['categorydeals'][$key]['city'] = json_decode($value['city'],true);
+			$data['categorydeals'][$key]['malls'] = json_decode($value['malls'],true);
+			$data['categorydeals'][$key]['images'] = json_decode($value['images'],true);
+		}
 		/* old code */
 		$this->load->view('deal',$data);
 	}
