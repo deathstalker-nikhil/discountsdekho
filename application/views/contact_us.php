@@ -37,13 +37,13 @@
                             <div class="col-md-6" style="text-align: center;">
                                     <img src="/assets/img/contactUs.jpg">
                                     <p>Reach us at <strong>contactus@discountsdekho.com</strong></p>
-                                    <p>For sales related queries drop us a mail at <strong>sales@discountsdekho.com</strong> and for advertisement on our webiste mail us at <strong>advertise@gmail.com</strong></p>
+                                    <p>For sales related queries drop us a mail at <strong>sales@discountsdekho.com</strong> and for advertisement on our webiste mail us at <strong>advertise@discountsdekho.com</strong></p>
                                 <br><h4>We are socially active</h4>
-                                <img src="/assets/img/social/fb.png" width="35px" style="padding: 2px;">
-                                <img src="/assets/img/social/twitter.png" width="35px" style="padding: 2px;">
-                                <img src="/assets/img/social/insta.png" width="35px" style="padding: 2px;">
-                                <img src="/assets/img/social/linkedin.png" width="35px" style="padding: 2px;">
-                                <img src="/assets/img/social/pinterest.png" width="35px" style="padding: 2px;">
+                                <a href="https://www.facebook.com/discountsdekho"><img src="/assets/img/social/fb.png" width="35px" style="padding: 2px;"></a>
+                                <a href="https://twitter.com/Discountsdekho"><img src="/assets/img/social/twitter.png" width="35px" style="padding: 2px;"></a>
+                                <a href="http://ink361.com/app/users/ig-1374254392/meetdiscounts/photos"><img src="/assets/img/social/insta.png" width="35px" style="padding: 2px;"></a>
+                                <a href="/linkedin"><img src="/assets/img/social/linkedin.png" width="35px" style="padding: 2px;"></a>
+                                <a href="http://www.pinterest.com/meetdiscounts"><img src="/assets/img/social/pinterest.png" width="35px" style="padding: 2px;"></a>
                             </div>
                            </div>
                            <div class="row">

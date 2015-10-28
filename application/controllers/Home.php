@@ -38,7 +38,7 @@ class Home extends CI_Controller {
 		}
 		$data['region'] = $this->region;
 		$this->head =  $this->load->view('common/head',$data,true);
-		$this->foot =  $this->load->view('common/foot',[],true);
+		$this->foot =  $this->load->view('common/foot',$data,true);
 	}	
 
 	public function index()

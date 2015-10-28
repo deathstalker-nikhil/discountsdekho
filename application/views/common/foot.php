@@ -11,16 +11,20 @@
             </div>
         </div>
         <div class="row section2">
-            <div class="col-sm-7 col-sm-offset-1">
+            <div class="col-sm-4 col-sm-offset-1">
                 <p>Connect with us on social media</p>
                 <ul>
-                    <li><a href="javascript:"><img src="/assets/img/social/fb.png" width="35px;"></a></li>
-                    <li><a href="javascript:"><img src="/assets/img/social/twitter.png" width="35px;"></a></li>
-                    <li><a href="javascript:"><img src="/assets/img/social/pinterest.png" width="35px;"></a></li>
-                    <li><a href="javascript:"><img src="/assets/img/social/insta.png" width="35px;"></a></li>
-                    <li><a href="javascript:"><img src="/assets/img/social/linkedin.png" width="35px;"></a></li>
+                    <li><a href="https://www.facebook.com/discountsdekho"><img src="/assets/img/social/fb.png" width="35px;"></a></li>
+                    <li><a href="https://twitter.com/Discountsdekho"><img src="/assets/img/social/twitter.png" width="35px;"></a></li>
+                    <li><a href="http://www.pinterest.com/meetdiscounts"><img src="/assets/img/social/pinterest.png" width="35px;"></a></li>
+                    <li><a href="http://ink361.com/app/users/ig-1374254392/meetdiscounts/photos"><img src="/assets/img/social/insta.png" width="35px;"></a></li>
+                    <li><a href="/linkedin"><img src="/assets/img/social/linkedin.png" width="35px;"></a></li>
                 </ul>
             </div>
+           <div class="col-sm-3">
+            <br>
+            <img src="/assets/img/coming-soon-google-play.png">
+           </div>
             <div class="col-sm-4">
                 <p>Subscribe to our newsletter and save more</p>
 
@@ -30,70 +34,90 @@
                          <input type="hidden" name="<?php echo $csrf_token_name ?>" value="<?php echo $csrf_token ?>">
                         <input type="submit" value="Go" style="color: #fff;" class="btn">
                     </div>
-                </form>     
+                </form> 
+                <br><br>
+                    
             </div>
         </div>
         <div class="row section3">
             <div class="col-sm-2 col-sm-offset-1">
                 <div class="sub_list">
-                    <p>Apparels</p>
+                    <a href="/category/Apparels"><p>Apparels</p></a>
                     <ul>
-                        <li><a href="javascript:">Kids Wear</a></li>
-                        <li><a href="javascript:">Women Wear</a></li>
-                        <li><a href="javascript:">Men Wear</a></li>
+                      <?php foreach ($subCategory as $key => $value) {
+                            if ($key == 'Apparels') {?>
+                             <?php foreach ($value as $key2 => $value2) {?>                                
+                                    <li>
+                                        <a href="/subcategory/<?php echo $value2; ?>" data-id=""><?php echo $value2 ?></a>
+                                    </li>
+                                <?php } ?>
+                            <?php   }
+                        } ?>
                     </ul>
                 </div>
                 <div class="sub_list">
-                    <p>Home &amp; Living</p>
+                    <a href="/category/Home and Living"><p>Home and Living</p></a>
                     <ul>
-                        <li><a href="javascript:">Furniture</a></li>
-                        <li><a href="javascript:">Home Decor</a></li>
-                        <li><a href="javascript:">Kitchen</a></li>
+                     <?php foreach ($subCategory as $key => $value) {
+                            if ($key == 'Home and Living') {?>
+                             <?php foreach ($value as $key2 => $value2) {?>                                
+                                    <li>
+                                        <a href="/subcategory/<?php echo $value2; ?>" data-id=""><?php echo $value2 ?></a>
+                                    </li>
+                                <?php } ?>
+                            <?php   }
+                        } ?>
                     </ul>
                 </div>
                 
             </div>
             <div class="col-sm-2">
                 <div class="sub_list">
-                    <p>Beauty &amp; Grooming</p>
+                    <a href="/category/Beauty and Grooming"><p>Beauty &amp; Grooming</p></a>
                     <ul>
-                        <li><a href="javascript:"> Spa </a></li>
-                        <li><a href="javascript:">Salon</a></li>
-                        <li><a href="javascript:">Nail art</a></li>
-                        <li><a href="javascript:">Tatto</a></li>
-                         <li><a href="javascript:">Laser Clinics</a></li>
-                        
+                     <?php foreach ($subCategory as $key => $value) {
+                            if ($key == 'Beauty and Grooming') {?>
+                             <?php foreach ($value as $key2 => $value2) {?>                                
+                                    <li>
+                                        <a href="/subcategory/<?php echo $value2; ?>" data-id=""><?php echo $value2 ?></a>
+                                    </li>
+                                <?php } ?>
+                            <?php   }
+                        } ?>
                     </ul>
                 </div>
-                <div class="sub_list">
-                    <p>Festive Offers</p>
-                    
-                </div>
+               
             </div>
             <div class="col-sm-2">
                 <div class="sub_list">
-                    <p>Fitness and Sports</p>
+                    <a href="/category/Fitness and Sports"><p>Fitness and Sports</p></a>
                     <ul>
-                        <li><a href="javascript:">Gym</a></li>
-                        <li><a href="javascript:">Yoga</a></li>
-                        <li><a href="javascript:">Aerobics</a></li>
-                        <li><a href="javascript:">Footwear</a></li>
-                        <li><a href="javascript:">Sports Coaching classes</a></li>
+                      <?php foreach ($subCategory as $key => $value) {
+                            if ($key == 'Fitness and Sports') {?>
+                             <?php foreach ($value as $key2 => $value2) {?>                                
+                                    <li>
+                                        <a href="/subcategory/<?php echo $value2; ?>" data-id=""><?php echo $value2 ?></a>
+                                    </li>
+                                <?php } ?>
+                            <?php   }
+                        } ?>
                     </ul>
                 </div>
                      
             </div>
             <div class="col-sm-2">
                <div class="sub_list">
-                    <p>Miscellaneous</p>
+                    <a href="/category/Miscellaneous"><p>Miscellaneous</p></a>
                     <ul>
-                        <li><a href="javascript:">Dance Classes</a></li>
-                        <li><a href="javascript:">Music Classes</a></li>
-                        <li><a href="javascript:">Food</a></li>
-                        <li><a href="javascript:">Footwear</a></li>
-                        <li><a href="javascript:">Grocery</a></li>
-                        <li><a href="javascript:">Jewellery and Watches</a></li>
-                        <li><a href="javascript:">Sunglasses</a></li>
+                       <?php foreach ($subCategory as $key => $value) {
+                            if ($key == 'Miscellaneous') {?>
+                             <?php foreach ($value as $key2 => $value2) {?>                                
+                                    <li>
+                                        <a href="/subcategory/<?php echo $value2; ?>" data-id=""><?php echo $value2 ?></a>
+                                    </li>
+                                <?php } ?>
+                            <?php   }
+                        } ?>
                     </ul>
                 </div>           
                
@@ -116,6 +140,7 @@
                         <li><a href="/aboutus">About Us</a></li>
                         <li><a href="/testimonials">Testimonials</a></li>
                         <li><a href="/media">Media</a></li>
+                        <li><a href="/merchant_account">Merchant Account</a></li>
                         <li><a href="http://www.discountsdekho.com/blog" target="_blank">Blog</a></li>
                     </ul>
                 </div> 

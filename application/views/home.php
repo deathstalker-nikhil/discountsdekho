@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?=$head?>
-<section id="contact">
+<section id="contact" style="padding: 150px 0;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">

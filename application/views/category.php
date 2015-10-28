@@ -15,7 +15,7 @@
   </script>
     <div class="container">
         <div class="row">
-            <h3 style="color:#C80237">Home/<?php echo $category; ?></h3>
+            <h4 style="color:#C80237"><a href="http://www.discountsdekho.com">Home</a>/<a href="/category/<?php echo $category; ?>"><?php echo $category; ?></a></h4>
             <input type="hidden" id="category" value="<?=$category?>">
             <div class="col-lg-3">
                 <h4 style="text-align: center;">FILTER BY</h4>

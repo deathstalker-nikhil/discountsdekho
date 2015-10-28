@@ -1,7 +1,15 @@
 <?php echo $head; ?>
 <div class="container">
     <div class="row">
-        <h3 style="color:#C80237">Home/<?=$category?>/<?=$subcategory?></h3>
+        <h4 style="color:#C80237"><a href="http://www.discountsdekho.com">Home</a>/<a href="/category/<?php echo $category; ?>"><?php echo $category; ?></a>
+                <?php
+                $sub_category = explode(',', $subcategory);
+                foreach ($sub_category as $key => $value) {
+                 echo "/<a href='/subcategory/$value'>$value</a>";
+                }
+                
+                ?>
+              </h4>
         <input type="hidden" id="category" value="<?=$category?>">
         <input type="hidden" id="subcategory" value="<?=$subcategory?>">
         <div class="col-lg-3">

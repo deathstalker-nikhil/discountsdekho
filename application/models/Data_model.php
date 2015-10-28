@@ -398,7 +398,7 @@ public function getUserCoupons($user_id)
 				$this->db->where($x);
 			}
 		}		
-		$this->db->order_by("id", "desc"); 
+		$this->db->order_by("end_date", "desc"); 
 		$result = $this->db->get('deals');
 		return $result->result_array();		
 	}
@@ -505,7 +505,7 @@ public function getUserCoupons($user_id)
   
   public function search($region,$query,$category,$subcategory,$where,$coupons)
   {
-  	$data = array('title'=>$query,'brand'=>$query,'city'=>$query,'locations'=>$query,'malls'=>$query);
+  	$data = array('title'=>$query,'category'=>$query,'subcategory'=>$query,'brand'=>$query,'city'=>$query,'locations'=>$query,'malls'=>$query);
   	if($query != ''){  		
 	  	$x = ' (';
 	  	foreach ($data as $key => $value) {
