@@ -61,7 +61,7 @@
                       <tr class="odd gradeX">
                          <td><?php echo $value['id']; ?></td>
                         <td><?php echo $value['title']; ?></td>
-                        <td><a target="_blank" href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>" class="btn btn-primary">View Deal</a></td>
+                        <td><a target="_blank" href="/deal/<?php echo preg_replace('/[\s%&]+/','-',$value['title']).'-'.$value['id'] ?>" class="btn btn-primary">View Deal</a></td>
                         <td><a href="/Backoffice/approveOffer/<?php echo $value['id'] ?>" class="btn btn-success">Approve</a></td>
                         <td><a href="/backoffice/delete/deals/<?php echo $value['id'] ?>" title="Delete" class="btn btn-danger">Decline</a></td>
                       </tr>

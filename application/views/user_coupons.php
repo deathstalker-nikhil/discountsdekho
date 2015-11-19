@@ -39,7 +39,7 @@
                                     <?php foreach ($user_coupons as $key => $value) {?>
                                         <tr class="odd gradeX">
                                             <td><?php echo $value['deal_id']; ?></td>
-                                            <td><a href="/deal/<?php echo preg_replace('/\s+/','-',$value['deal_title']).'-'.$value['deal_id'] ?>">View Deal</a></td>
+                                            <td><a href="/deal/<?php echo preg_replace('/[\s%&]+/','-',$value['deal_title']).'-'.$value['deal_id'] ?>">View Deal</a></td>
                                             <td><?php echo $value['coupon_code']; ?></td>
                                             <td><?php if($value['redeem'] == 0) { echo "No";} else { echo "Yes";} ?></td>
                                         </tr>

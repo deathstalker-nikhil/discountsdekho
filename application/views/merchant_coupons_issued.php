@@ -44,7 +44,7 @@
                                         <tr class="odd gradeX">
                                             <td><?php echo $value['deal_id']; ?></td>
                                             <td><?php echo $value['coupon_code']; ?></td>
-                                          <td><a href="/deal/<?php echo preg_replace('/\s+/','-',$value['deal_title']).'-'.$value['deal_id'] ?>">View Deal</a></td>
+                                          <td><a href="/deal/<?php echo preg_replace('/[\s%&]+/','-',$value['deal_title']).'-'.$value['deal_id'] ?>">View Deal</a></td>
                                 
                                            <td><a href="/Home/deleteCoupon/<?php echo $value['id'] ?>" title="Delete" class="btn btn-danger">Delete</a></td>
                                         </tr>

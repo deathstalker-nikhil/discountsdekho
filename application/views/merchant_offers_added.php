@@ -45,7 +45,7 @@
                                             <td><?php echo $value['id']; ?></td>
                                             <td><?php echo $value['title']; ?></td>
                                             <td><?php if($value['end_date'] != '0000-00-00') echo date('d-F-Y',strtotime($value['end_date']));else echo "Limited period offer"; ?></td>
-                                            <td><a target="_blank" href="/deal/<?php echo preg_replace('/\s+/','-',$value['title']).'-'.$value['id'] ?>" class="btn">View Offer</a></td>
+                                            <td><a target="_blank" href="/deal/<?php echo preg_replace('/[\s%&]+/','-',$value['title']).'-'.$value['id'] ?>" class="btn">View Offer</a></td>
                                             <td><a href="/Home/delete/deals/<?php echo $value['id'] ?>" title="Delete" class="btn btn-default delete">Delete</a></td>
                                           
                                         </tr>
