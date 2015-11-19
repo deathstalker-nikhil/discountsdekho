@@ -41,6 +41,7 @@ class Home extends CI_Controller {
 		}
 		$data['region'] = $this->region;
 		$this->head =  $this->load->view('common/head',$data,true);
+		$data['message'] = ($this->session->flashdata('message'))?$this->session->flashdata('message'):'';
 		$this->foot =  $this->load->view('common/foot',$data,true);
 	}	
 
@@ -54,7 +55,6 @@ class Home extends CI_Controller {
 				$deals[$key][$key2]['malls'] = json_decode($value2['malls'],true);
 			}
 		}
-		$data['message'] = ($this->session->flashdata('message'))?$this->session->flashdata('message'):'';
 		$data['deals'] = $deals;
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
@@ -73,7 +73,7 @@ class Home extends CI_Controller {
 	public function merchant_account()
 	{
 		if($this->data_lib->auth()){
-			redirect(base_url());
+			redirect($_SERVER['HTTP_REFERER']);
 		}
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
@@ -315,7 +315,7 @@ class Home extends CI_Controller {
 	public function merchant_register()
 	{
 		if($this->data_lib->auth()){
-			redirect(base_url());
+			redirect($_SERVER['HTTP_REFERER']);
 		}		
 		$data['head'] = $this->head;
 		$data['foot'] = $this->foot;
@@ -531,7 +531,7 @@ class Home extends CI_Controller {
 			$this->email->message('<p><strong>Email</strong> : '.$this->input->post('email').'</p><p><strong>Message</strong> : '.$this->input->post('message').'</p><p><strong>Mobile</strong> : '.$this->input->post('mobile').'</p><p><strong>Name</strong> : '.$this->input->post('name').'</p>');
 		  $this->email->send();
 		  $this->session->set_flashdata('message', 'Mail Sent');
-			redirect(base_url());	
+			redirect($_SERVER['HTTP_REFERER']);	
 		}
 		$this->load->view('contact_us', $data);
 	}
@@ -591,16 +591,41 @@ class Home extends CI_Controller {
 		if($x = $this->input->post('email')){
 			$email = $x;
 		}
-		
-		$result = $this->data_lib->subscribe($email);
-		if($result){
-			
-			$this->session->set_flashdata('message', 'Thank You for subscribing for our newsletters.');
-			redirect(base_url('/Home'));
+
+		$result = $this->data_lib->checkMailExist($email,'newsletter');
+		if ($result) {
+			$this->session->set_flashdata('message', 'Email already exist.');
+			redirect($_SERVER['HTTP_REFERER']);
 		}
 		else{
-			die("Some error occured");
+
+		$result = $this->data_lib->subscribe($email);
+		if($result){
+					$this->load->library('email');
+				$config = Array(
+	     		'protocol' => 'smtp',
+	     		'smtp_host' => 'ssl://smtp.googlemail.com',
+	     		'smtp_timeout' => '7',
+	     		'smtp_port' => '465',
+	     		'smtp_user' => 'discountsdekho@gmail.com', // change it to yours
+	     		'smtp_pass' => 'discounts@999', // change it to yours
+	     		'mailtype' => 'html',
+	     		'newline'   => "\r\n",
+	     		'charset' => 'utf-8',
+	     		'wordwrap' => TRUE
+				);
+			$this->email->initialize($config);
+		
+			$this->email->from('discountsdekho@gmail.com', "Admin Team");
+			$this->email->to($email);
+			$this->email->subject("DiscountsDekho: Newsletter Subscribed");
+			$this->email->message('<p>Congratulations!!<br>You have Successfully subscribed for the our newsletters.<br>We look forward for a long relationship with you.</p>');
+		  $this->email->send();
+			$this->session->set_flashdata('message', 'Thank You for subscribing for our newsletters.');
+			redirect($_SERVER['HTTP_REFERER']);
 		}
+	}
+		
 	}
 
 	public function subcategory($subcategory = '')
@@ -816,15 +841,15 @@ class Home extends CI_Controller {
 		if ($email==''||$password=='') {
 			die("Incomplete Details");
 			$this->session->set_flashdata('message', 'Incorrect Details');
-			redirect(base_url());			
+			redirect($_SERVER['HTTP_REFERER']);			
 		}		
 		$result = $this->data_lib->login($email,$password);
 		if ($result) {
-			redirect(base_url());
+			redirect($_SERVER['HTTP_REFERER']);
 		}
 		else {
 			$this->session->set_flashdata('message', 'Incorrect Credentials');
-			redirect(base_url());
+			redirect($_SERVER['HTTP_REFERER']);
 		}	
 	}
 
@@ -846,7 +871,7 @@ class Home extends CI_Controller {
 		$gender = ($this->input->post('gender'))?$this->input->post('gender'):'';
 		if ($name==''||$email==''||$mobile==''||$dob==''||$password==''||$city==''||$gender=='') {
 			$this->session->set_flashdata('message', 'Incorrect Details');
-			redirect(base_url());			
+			redirect($_SERVER['HTTP_REFERER']);			
 		}
 
 		$data = array(
@@ -862,17 +887,17 @@ class Home extends CI_Controller {
 		$result = $this->data_lib->checkMailExist($email,'userdb');
 		if ($result) {
 			$this->session->set_flashdata('message', 'Email already exist.');
-			redirect(base_url());
+			redirect($_SERVER['HTTP_REFERER']);
 		}
 		$result = $this->data_lib->signup($data);
 		if ($result) {
 			$result = $this->data_lib->login($email,$password,'userdb');
 			if ($result) {
-				redirect(base_url());
+				redirect($_SERVER['HTTP_REFERER']);
 			}
 			else {
 			$this->session->set_flashdata('message', 'Some Error Occured');
-			redirect(base_url());
+			redirect($_SERVER['HTTP_REFERER']);
 			}			
 		}
 	}
@@ -902,7 +927,7 @@ class Home extends CI_Controller {
 			$this->email->message('<p><strong>Email</strong> : '.$this->input->post('email').'</p><p><strong>Company Name</strong> : '.$this->input->post('company_name').'</p><p><strong>Brand Name</strong> : '.$this->input->post('brand_name').'</p><p><strong>Mobile</strong> : '.$this->input->post('mobile').'</p><p><strong>Link</strong> : '.$this->input->post('link').'</p>');
 		  	$this->email->send();
 		  	$this->session->set_flashdata('message', 'Mail Sent');
-				redirect(base_url());
+				redirect($_SERVER['HTTP_REFERER']);
 		}
 		$this->load->view('listoffers', $data);
 	}
@@ -1065,7 +1090,7 @@ public function redeemCoupon($id ='')
 			}
 		$data['review'] = $this->data_model->getReview($id);
 		if ($dealData == array()) {
-			redirect(base_url());
+			redirect($_SERVER['HTTP_REFERER']);
 		}
 		$dealData = $dealData[0];
 		$dealData['city'] = json_decode($dealData['city']);
