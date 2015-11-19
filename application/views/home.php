@@ -30,16 +30,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <select class="form-control" id="categories" name="category" onchange="setSubcategoriesDropDown()">
+
+                                    <option value="any" selected="true" style="display: none;" data-subcategories='<?=json_encode([])?>'>Select Category</option>
                                     <?php foreach ($subCategory as $key => $value) {?>    
                                     <option data-subcategories='<?=json_encode($value)?>'><?=$key?></option>
                                     <?php } ?>
-                                    <option value="any" data-subcategories='<?=json_encode([])?>'>Any</option>
+                                    <option value="any" data-subcategories='<?=json_encode(['any'])?>'>Any</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select class="form-control" id="subcategories" name="subcategory"></select>
+                                <select class="form-control" id="subcategories" name="subcategory">
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -228,7 +231,8 @@
             <h2 class="text-center">No Result</h2>
         <?php } ?>
     </div>   
-</div>            
+</div> 
+</div>           
 <?=$foot?>
 <input type="hidden" id="message" value="<?=$message?>">
 <div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -278,7 +282,14 @@
         $.each(subcategories, function(index,value){
             subcategoriesHtml += '<option>'+value+'</option>';
         });
-        subcategoriesHtml += '<option value="any">Any</option>'
+        if(subcategories[0] == 'any'){    
+            subcategoriesHtml = '<option value="any">Any</option>';
+        }else{
+            subcategoriesHtml += '<option value="any">Any</option>';
+        }
+        if(subcategories.length == 0){
+            subcategoriesHtml = '<option value="any" selected="true" style="display: none;">Select Subcategory</option>';
+        }
         $('#subcategories').html(subcategoriesHtml);
     }      
 </script>

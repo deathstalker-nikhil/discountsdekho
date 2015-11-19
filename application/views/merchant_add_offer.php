@@ -43,7 +43,7 @@
                     <div class="col-md-4">
                     <div class="form-group">
                         <label>Offer Region</label>
-                        <select class="form-control" name="region">
+                        <select class="form-control" name="region" required>
                             <?php foreach ($regions as $key => $value) { ?>
                       <option data-areas='<?= $value['areas'] ?>'><?= $value['region']; ?></option>
                     <?php } ?>
@@ -53,25 +53,25 @@
                 <div class="col-md-8">
                     <div class="form-group">
                         <label>Brand Name</label>
-                        <input type="text" name="brand" class="form-control">
+                        <input type="text" name="brand" class="form-control" required>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Brand Details</label>
-                        <textarea class="form-control" name="brandDetails" id="brandDetails"></textarea>
+                        <textarea class="form-control" required name="brandDetails" id="brandDetails"></textarea>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Offer Title</label>
-                        <input type="text" name="title" class="form-control">
+                        <input type="text" required name="title" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Category</label>
-                        <select class="form-control" name="category">
+                        <select class="form-control" name="category" required>
                             <?php foreach ($categoryData as $key => $value) {?>
                     <option data-data='<?php echo json_encode($value) ?>'><?php echo $key ?></option>
                   <?php } ?>
@@ -108,13 +108,13 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Offer Details</label>
-                        <textarea name="dealDetails" id="dealDetails" class="form-control"></textarea>
+                        <textarea name="dealDetails" id="dealDetails" required class="form-control"></textarea>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Offer Locations</label>
-                        <textarea class="form-control" id="dealLocations" name="dealLocations"></textarea>
+                        <textarea class="form-control" id="dealLocations" required name="dealLocations"></textarea>
                     </div>
                 </div>
 

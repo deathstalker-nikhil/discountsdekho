@@ -399,7 +399,7 @@ class Home extends CI_Controller {
 			$this->email->message('<p>Congratulations!!<br>You have Successfully registered as a merchant at DiscountsDekho.com<br>We look forward for a long relationship with you.</p>');
 		  $this->email->send();
 		  
-				redirect(base_url());
+				redirect(base_url('/merchant_offers_added'));
 			}
 			else {
 				die('Some Error occured');
@@ -418,7 +418,7 @@ class Home extends CI_Controller {
 		$result = $this->data_lib->login($email,$password,'merchant');
 
 		if ($result) {
-			redirect(base_url());
+			redirect(base_url('/merchant_offers_added'));
 		}
 		else {
 			die('Some Error occured');
