@@ -93,6 +93,13 @@ class Data_model extends CI_Model {
 		return $result->result_array();
 	}
 
+	public function getCouponsIssed($couponID)
+	{
+		$query = "SELECT COUNT(*) as couponsIssued from user_coupons where coupon_id = '$couponID'";
+		$result = $this->db->query($query);
+		return $result->result_array()[0]['couponsIssued'];
+	}
+
 	public function getDealRequests()
 	{
 		$authorized = 0;
@@ -165,9 +172,10 @@ class Data_model extends CI_Model {
 
 	public function getDealsByCategory($region,$category)
 	{
-		$this->db->where(array('region'=>$region,'category'=> $category,'active'=>1));
+		$this->db->where(array('region'=>$region,'category'=> $category));
+		$this->db->order_by("active", "desc");
 		$this->db->order_by("id", "desc"); 
-		$result = $this->db->get('deals',3,0);
+		$result = $this->db->get('deals');
 		return $result->result_array();	
 	}
 
@@ -377,7 +385,7 @@ public function getUserCoupons($user_id)
   
   public function getCategoryDeals($region,$category,$where,$coupons)
 	{
-		$this->db->where(array('region'=>$region,'category'=> $category,'active'=>1));
+		$this->db->where(array('region'=>$region,'category'=> $category));
 		if($coupons != ''){
 			$this->db->where(array('coupons'=>$coupons));
 		}
@@ -399,6 +407,7 @@ public function getUserCoupons($user_id)
 			}
 		}		
 		$this->db->order_by("end_date", "desc"); 
+		$this->db->order_by("active", "desc"); 
 		$result = $this->db->get('deals');
 		return $result->result_array();		
 	}
@@ -430,7 +439,7 @@ public function getUserCoupons($user_id)
   
  public function getSubcategoryDeals($region,$subcategory,$where,$coupons)
 	{ 
-		$this->db->where(['active'=>1,'region'=>$region]);
+		$this->db->where(['region'=>$region]);
 		if($coupons != ''){
 			$this->db->where(array('coupons'=>$coupons));
 		}		
@@ -453,6 +462,7 @@ public function getUserCoupons($user_id)
 		}
 		$this->db->like(['subcategory'=> $subcategory]);
 		$this->db->order_by("id", "desc"); 
+		$this->db->order_by("active", "desc");
 		$result = $this->db->get('deals');
 		return $result->result_array();		
 	}  
@@ -515,7 +525,8 @@ public function getUserCoupons($user_id)
 	  	$x .= ' )';
 			$this->db->where($x);
   	}
-		$this->db->where(['active'=>1,'region'=>$region]);
+		$this->db->where(['region'=>$region]);
+		$this->db->order_by("active", "desc");
 		if($coupons != ''){
 			$this->db->where(array('coupons'=>$coupons));
 		}		
@@ -594,4 +605,10 @@ public function getUserCoupons($user_id)
   	$result = $this->db->get('userdb',1);
   	return $result->row_array();    	
   }
+
+  public function fb_login($email,$table)
+	{
+		$result = $this->db->get_where($table, array('email' => $email), 1, 0);		
+		return $result->row_array();
+	}
 } 

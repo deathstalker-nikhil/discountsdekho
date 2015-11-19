@@ -14,11 +14,11 @@
             <div class="col-sm-4 col-sm-offset-1">
                 <p>Connect with us on social media</p>
                 <ul>
-                    <li><a href="https://www.facebook.com/discountsdekho"><img src="/assets/img/social/fb.png" width="35px;"></a></li>
-                    <li><a href="https://twitter.com/Discountsdekho"><img src="/assets/img/social/twitter.png" width="35px;"></a></li>
-                    <li><a href="http://www.pinterest.com/meetdiscounts"><img src="/assets/img/social/pinterest.png" width="35px;"></a></li>
-                    <li><a href="http://ink361.com/app/users/ig-1374254392/meetdiscounts/photos"><img src="/assets/img/social/insta.png" width="35px;"></a></li>
-                    <li><a href="/linkedin"><img src="/assets/img/social/linkedin.png" width="35px;"></a></li>
+                    <li><a target="_blank" href="https://www.facebook.com/discountsdekho"><img src="/assets/img/social/fb.png" width="35px;"></a></li>
+                    <li><a target="_blank" href="https://twitter.com/Discountsdekho"><img src="/assets/img/social/twitter.png" width="35px;"></a></li>
+                    <li><a target="_blank" href="http://www.pinterest.com/meetdiscounts"><img src="/assets/img/social/pinterest.png" width="35px;"></a></li>
+                    <li><a target="_blank" href="http://ink361.com/app/users/ig-1374254392/meetdiscounts/photos"><img src="/assets/img/social/insta.png" width="35px;"></a></li>
+                    <li><a target="_blank" href="/linkedin"><img src="/assets/img/social/linkedin.png" width="35px;"></a></li>
                 </ul>
             </div>
            <div class="col-sm-3">

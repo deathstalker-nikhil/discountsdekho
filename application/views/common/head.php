@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>DiscountsDekho New</title>
+    <title>DiscountsDekho|Shopping se Pehle Discounts Dekho</title>
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/agency.css" rel="stylesheet">
     <link href="/assets/css/etalage.css" rel="stylesheet">
@@ -23,8 +23,88 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="/assets/js/jquery.js"></script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "3e8a7408-39c1-4a4a-826d-461709853454", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+
+<script type="text/javascript">
+
+ window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1670164483230232',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.2' // use version 2.2
+  });
+};
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+
+function abc(){
+FB.getLoginStatus(function(response) {
+   console.log(response);
+   if (response.status === 'connected') {
+    FB.api('/me?fields=email,name',function(response){
+      console.log(JSON.stringify(response));
+      params = response;
+      params.csrf_test_name = $('input[name="csrf_test_name"]').val();
+      console.log(params);
+      $.ajax({
+        url: "/home/fbLogin",
+        method: "POST",
+        data:params
+      })
+      .done(function( data ) {
+        if(data==1){
+          window.location = '/';
+        }
+      })
+      .fail(function( jqXHR, textStatus ) {
+        console.log(textStatus);
+      });
+    })
+  }
+    else{
+FB.login(function(response){
+ FB.api('/me?fields=email,name',function(response){
+     console.log(JSON.stringify(response));
+      params = response;
+      params.csrf_test_name = $('input[name="csrf_test_name"]').val();
+      console.log(params);
+      $.ajax({
+        url: "/home/fbLogin",
+        method: "POST",
+        data:params
+      })
+      .done(function( data ) {
+        if(data==1){
+          window.location = '/';
+        }
+      })
+      .fail(function( jqXHR, textStatus ) {
+        console.log(textStatus);
+      });
+})
+},{scope: 'email'});
+
+    }
+});
+
+} 
+
+
+
+
+
+</script>
 </head>
 <body id="page-top" class="index">
  
@@ -123,7 +203,11 @@
 
 
                                         <div class="form-group">
-                                           <button class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Sign in with Facebook</button>
+                                           <a class="btn btn-block btn-social btn-facebook" onclick="abc()"><i class="fa fa-facebook"></i> Sign in with Facebook</a>
+                                       </div>
+
+                                        <div class="form-group">
+                                           <a class="btn btn-block btn-social btn-twitter" href="<?php echo site_url('Twitter/redirect');?>"><i class="fa fa-twitter"></i> Sign in with Twitter</a>
                                        </div>
                                         
                                        </div>
@@ -195,7 +279,7 @@
                                            <img src="/assets/img/register.png" width="100%">
                                            <br>
                                             <div class="form-group">
-                                           <button class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Register using Facebook</button>
+                                         
                                        </div>
                                       
                                        </div>

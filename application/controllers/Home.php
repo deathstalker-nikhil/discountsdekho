@@ -11,6 +11,9 @@ class Home extends CI_Controller {
 		parent::__construct();
 		$this->load->library(array('Data_lib','session'));
 		$this->load->helper(array('url'));
+	
+    	$this->load->library(array('twconnect'));
+	
 		$data['regions'] = $this->data_lib->getRegions();
 		if ($x = $this->input->cookie('region')) {
 			$this->region = $x;
@@ -254,6 +257,8 @@ class Home extends CI_Controller {
 		$coupon_code = '';
 		$coupon_details = '';
 		$merchant_id = '';
+		$many= '';
+		$couponNumber = '';
 
 		if ($x = $this->input->post('deal_id')) {
 			$dealID = $x;
@@ -270,8 +275,16 @@ class Home extends CI_Controller {
 		if ($x = $this->input->post('coupon_details')) {
 			$coupon_details = $x;
 		}
+		if ($x = $this->input->post('many')) {
+			$many = $x;
+		}
+		if ($x = $this->input->post('couponNumber')) {
+			$couponNumber = $x;
+		}
+
+
 	
-		if ($dealID==''||$couponType==''||$coupon_details=='') {
+		if ($dealID==''||$couponType==''||$coupon_details==''||$many=='') {
 			die("Incomple Details");
 		}
 
@@ -284,7 +297,9 @@ class Home extends CI_Controller {
 				'coupon_type' => $couponType,
 				'coupon_code' => $coupon_code,
 				'coupon_details' => $coupon_details,
-				'merchant_id' => $merchant_id
+				'merchant_id' => $merchant_id,
+				'many' => $many,
+				'couponNumber' => $couponNumber
 				);
 		$result = $this->data_lib->addCoupon($data);
 		if ($result) {
@@ -363,6 +378,27 @@ class Home extends CI_Controller {
 		if ($result) {
 			$result = $this->data_lib->login($data['email'],$data['password'],'merchant');
 			if ($result) {
+				$this->load->library('email');
+				$config = Array(
+	     		'protocol' => 'smtp',
+	     		'smtp_host' => 'ssl://smtp.googlemail.com',
+	     		'smtp_timeout' => '7',
+	     		'smtp_port' => '465',
+	     		'smtp_user' => 'discountsdekho@gmail.com', // change it to yours
+	     		'smtp_pass' => 'discounts@999', // change it to yours
+	     		'mailtype' => 'html',
+	     		'newline'   => "\r\n",
+	     		'charset' => 'utf-8',
+	     		'wordwrap' => TRUE
+				);
+			$this->email->initialize($config);
+		
+			$this->email->from('discountsdekho@gmail.com', "Admin Team");
+			$this->email->to($data['email']);
+			$this->email->subject("DiscountsDekho: Registered Successfully");
+			$this->email->message('<p>Congratulations!!<br>You have Successfully registered as a merchant at DiscountsDekho.com<br>We look forward for a long relationship with you.</p>');
+		  $this->email->send();
+		  
 				redirect(base_url());
 			}
 			else {
@@ -558,6 +594,8 @@ class Home extends CI_Controller {
 		
 		$result = $this->data_lib->subscribe($email);
 		if($result){
+			
+			$this->session->set_flashdata('message', 'Thank You for subscribing for our newsletters.');
 			redirect(base_url('/Home'));
 		}
 		else{
@@ -1021,6 +1059,10 @@ public function redeemCoupon($id ='')
 		$dealData = $this->data_lib->getDealData($this->region,$id);
 		$this->load->model('data_model');
 		$data['couponData'] = $this->data_model->getCouponData($id);
+		if ($data['couponData']!=[]){
+		$couponID = $data['couponData'][0]['id'];
+		$data['couponsIssued'] = $this->data_model->getCouponsIssed($couponID);
+			}
 		$data['review'] = $this->data_model->getReview($id);
 		if ($dealData == array()) {
 			redirect(base_url());
@@ -1129,4 +1171,32 @@ public function redeemCoupon($id ='')
 		}
 	}
 
+	public function fbLogin(){
+		$email = $this->input->post('email');
+		$name = $this->input->post('name');
+		$result = $this->data_lib->checkMailExist($email,'userdb');
+		if ($result) {
+			$result1 = $this->data_lib->fb_login($email);
+			if ($result1) {
+			echo "1";
+		}
+		}
+		else{
+			$data = array(
+			'name' => $name,
+			'email' => $email
+			);
+		$result2 = $this->data_lib->signup($data);
+		if ($result2) {
+			$result = $this->data_lib->fb_login($email);
+			if ($result) {
+				echo "1";
+			}		
+		}
+
+
+		}
+	
+
+	}
 }

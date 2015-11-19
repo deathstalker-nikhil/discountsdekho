@@ -446,4 +446,19 @@ class Data_lib {
     }
     return $randomString;
 	}	
+
+	public function fb_login($email,$table='userdb')
+	{
+		$CI = &get_instance();
+		$CI->load->model('data_model','data');
+		$result = $CI->data->fb_login($email,$table);
+		if (count($result)>0) {
+      if ($result && $table == 'userdb') {
+          $CI->session->set_userdata('userLoggedIn', true);
+          $CI->session->set_userdata('user_data', $result);
+          return 1;
+      }
+  	return 0;
+		}			
+	}
 }

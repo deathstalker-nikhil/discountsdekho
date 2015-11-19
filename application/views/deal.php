@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>DiscountsDekho.com</title>
+    <title>DiscountsDekho|Shopping se Pehle Discounts Dekho</title>
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/agency.css" rel="stylesheet">
     <link href="/assets/css/etalage.css" rel="stylesheet">
@@ -23,20 +23,99 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <meta property="og:title" content="<?php echo $dealData['title']; ?>" />
+      <meta property="og:description" content="<?php echo $dealData['details']; ?>" />
+<meta property="og:image"              content="http://www.discountsdekho.com<?php echo $dealData['images']['Image1']; ?>" />
+
+
+
+
+
+
+
+
+
+
+    <script src="/assets/js/jquery.js"></script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "3e8a7408-39c1-4a4a-826d-461709853454", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 
-<meta property="og:title" content="<?php echo $dealData['title']; ?>" />
-<meta property="og:description" content="<?php echo $dealData['details']; ?>" />
-<meta property="og:image" content="https://www.facebook.com/sharer/sharer.php?u=http://www.discountsdekho.com/deal/<?php echo preg_replace('/[\s%]+/','-',$dealData['title']).'-'.$dealData['id'] ?>" />
 
-<meta name="twitter:card" content="Deal">
-<meta name="twitter:url" content="https://www.facebook.com/sharer/sharer.php?u=http://www.discountsdekho.com/deal/<?php echo preg_replace('/[\s%]+/','-',$dealData['title']).'-'.$dealData['id'] ?>">
-<meta name="twitter:title" content="<?php echo $dealData['title'] ?>">
-<meta name="twitter:description" content="<?php echo $dealData['details'] ?>">
-<meta name="twitter:image" content="http://www.discountsdekho.com<?php echo $dealData['images']['Image1'] ?>" />
+<script type="text/javascript">
+
+ window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1670164483230232',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.2' // use version 2.2
+  });
+};
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 
 
+function abc(){
+FB.getLoginStatus(function(response) {
+   console.log(response);
+   if (response.status === 'connected') {
+    FB.api('/me?fields=email,name',function(response){
+      console.log(JSON.stringify(response));
+      params = response;
+      params.csrf_test_name = $('input[name="csrf_test_name"]').val();
+      console.log(params);
+      $.ajax({
+        url: "/home/fbLogin",
+        method: "POST",
+        data:params
+      })
+      .done(function( data ) {
+        if(data==1){
+          window.location = '/';
+        }
+      })
+      .fail(function( jqXHR, textStatus ) {
+        console.log(textStatus);
+      });
+    })
+  }
+    else{
+FB.login(function(response){
+ FB.api('/me?fields=email,name',function(response){
+     console.log(JSON.stringify(response));
+      params = response;
+      params.csrf_test_name = $('input[name="csrf_test_name"]').val();
+      console.log(params);
+      $.ajax({
+        url: "/home/fbLogin",
+        method: "POST",
+        data:params
+      })
+      .done(function( data ) {
+        console.log(data);
+      })
+      .fail(function( jqXHR, textStatus ) {
+        console.log(textStatus);
+      });
+})
+},{scope: 'email'});
+
+    }
+});
+
+} 
+
+
+
+
+
+</script>
 </head>
 <body id="page-top" class="index">
  
@@ -135,7 +214,11 @@
 
 
                                         <div class="form-group">
-                                           <button class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Sign in with Facebook</button>
+                                           <a class="btn btn-block btn-social btn-facebook" onclick="abc()"><i class="fa fa-facebook"></i> Sign in with Facebook</a>
+                                       </div>
+
+                                        <div class="form-group">
+                                           <a class="btn btn-block btn-social btn-twitter" href="<?php echo site_url('Twitter/redirect');?>"><i class="fa fa-twitter"></i> Sign in with Twitter</a>
                                        </div>
                                         
                                        </div>
@@ -207,7 +290,7 @@
                                            <img src="/assets/img/register.png" width="100%">
                                            <br>
                                             <div class="form-group">
-                                           <button class="btn btn-block btn-social btn-facebook"><i class="fa fa-facebook"></i> Register using Facebook</button>
+                                         
                                        </div>
                                       
                                        </div>
@@ -283,6 +366,7 @@
                 
                 ?>
               </h4>
+
                              <div class="row">
                               <div class="col-md-4 col-md-offset-1">
                                     <ul id="etalage">
@@ -301,7 +385,9 @@
                   </li>
         
   <?php } 
-                } ?>
+                }
+
+               ?>
   </ul>
                           </div>
                            <div class="col-md-5">
@@ -312,7 +398,12 @@
                                   <p class="text-muted"><?php echo $dealData['brand_details'] ?></p>
                                   
                                <p class="help-block text-danger"><b>
-                                <?php if ($dealData['coupons'] == 1) { echo "COUPON AVAILABLE"; echo "<br> <button data-toggle='modal' data-target='#coupon' class='btn btn-xl'>Coupon Details</button>"; } else { echo "NO COUPON AVAILABLE"; } ?></b></p>
+
+                                <?php if ($dealData['coupons'] == 1) { 
+                                  $couponNumber = $couponData[0]['couponNumber'];
+                                             $many = $couponData[0]['many'];
+                                             $couponsLeft = $couponNumber - $couponsIssued;
+                                             echo "COUPON AVAILABLE"; echo "<br> <button data-toggle='modal' data-target='#coupon' class='btn btn-xl'>Coupon Details</button><p>$couponsLeft coupons left to be issued</p>"; } else { echo "NO COUPON AVAILABLE"; } ?></b></p>
                                  
                                  
                              
@@ -323,9 +414,11 @@
 <i class="fa fa-commenting"><a href="#review"><label>Write a review</label></a></i></p>
                                     <hr style="border-width: 2px;">
                                  <p><label>Offer Start's On: </label> <?php echo $dealData['start_date'] ?></p>
-                                  <p><label>Offer End's On: </label> <?php echo $dealData['end_date'] ?></p>
-                                     
-                              
+                                 <?php if ($dealData['active']==1) { ?>
+                          <p><label>Offer End's On: </label> <?php echo $dealData['end_date'] ?></p>
+                                 <?php } else { ?>    
+                              <p><label style="color: #C80237;">DEAL EXPIRED</label></p>
+                              <?php } ?>
                            </div>
 
 
@@ -358,12 +451,13 @@
       <br>
       <label>Offer available at following locations:</label>
       <?php 
-         // $locations = explode('#', $dealData['locations']);
+          $locations = explode('#', $dealData['locations']);
       $locations = json_decode($dealData['locations']);
 
           foreach ($locations as $key => $value) {?>
-            <p><?php echo ($key+1).'. '.$value ?>         </p>
-          <?php } ?>
+          <p><?php echo ($key+1).'. '.$value ?>         </p>
+      
+        <?php  } ?>
     </div>
     <div id="malls" class="tab-pane fade"style="overflow-y: scroll; height:250px;">
       <br>
@@ -495,8 +589,14 @@
                                             <div class="modal-body">
                                             <div class="row" style="margin: 10px; padding: 10px;">
                                               <p class="text-muted"><?php echo $couponData[0]['coupon_details']; ?></p>
+                                              <?php
                                              
+                                             if ($couponsLeft == 0){
+                                              echo "Sorry, You are Late, No coupons Left";
+                                             }
+                                             ?>
                                                <?php if($this->session->userdata('userLoggedIn')){?>
+                                               <?php if (($many==="Limited" && $couponsLeft>0) ||($many==="Unlimied") ){ ?>
                                               <form method="post" action="/Home/getCouponForUser">
                                               <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_data']['id']; ?>">
                                               <input type="hidden" name="coupon_type" value="<?php echo $couponData[0]['coupon_type']; ?>">
@@ -505,7 +605,7 @@
                                               <input type="hidden" name="<?php echo $csrf_token_name ?>" value="<?php echo $csrf_token ?>">
                                               <button type="submit" class="btn btn-xl" style="float:right;">Get Coupon</button>
                                             </form>
-                                            <?php } 
+                                            <?php } }
                                             else
                                             {
                                               ?>
@@ -583,3 +683,5 @@
   </body>
 
   </html>
+
+

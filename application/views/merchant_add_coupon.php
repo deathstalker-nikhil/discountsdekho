@@ -53,6 +53,24 @@
                         <input type="text" name="coupon_code" class="form-control">
                     </div>
                 </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Number of Coupons to be issued</label>
+                        <select class="form-control" name="many" id="many">
+                            <option value="Unlimited">Unlimited</option>
+                            <option value="Limited">Limited</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="couponNumber" class="col-md-6" style="display:none">
+                    <div class="form-group">
+                        <label>Coupon Number(s)</label>
+                        <input type="text" name="couponNumber" class="form-control">
+                    </div>
+                </div>
+
+
                 <div class="col-md-12">
                     <div class="form-group">
                         <label>Coupon Details</label>
@@ -93,6 +111,17 @@
                 $("#couponCode").hide()
             }
         });
+
+         $('#many').on('change',function(){
+            if( $(this).val()==="Limited"){
+                $("#couponNumber").show()
+            }
+            else{
+                $("#couponNumber").hide()
+            }
+        });
+
+
         $(document).ready(function(){
             CKEDITOR.replace('coupon_details');
         });

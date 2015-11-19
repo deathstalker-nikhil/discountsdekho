@@ -101,7 +101,7 @@
                         </div>
                         <div class="detailBody">
                             <p><strong>Offer Starts on:</strong> <span><?php echo date('d-F-Y',strtotime($value['start_date'])) ?></span></p>
-                            <p><strong>Offer Ends on:</strong> <span><?php if($value['end_date'] != '0000-00-00') echo date('d-F-Y',strtotime($value['end_date']));else echo "Limited period offer"; ?></span></p>
+                            <p><strong>Offer Ends on:</strong> <span><?php if ($value['active']==1){ ?><?php if($value['end_date'] != '0000-00-00') echo date('d-F-Y',strtotime($value['end_date']));else echo "Limited period offer"; ?><?php } else { echo "Offer Expired";} ?></span></p>
                         </div>
                     </div>
                 </div>
