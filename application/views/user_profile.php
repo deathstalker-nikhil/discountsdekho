@@ -64,6 +64,13 @@
                         <input type="text" name="email" class="form-control" value=" <?=$_SESSION['user_data']['email'] ?>">
                     </div>
                 </div>
+                <div class="col-md-5">
+                <div class="form-group">
+                                           <a class="btn btn-block btn-social btn-twitter" href="<?php echo site_url('Twitter/redirect');?>"><i class="fa fa-twitter"></i> Connect Account with Twitter</a>
+                                       </div>
+                                   </div>
+
+
                 <div class="col-md-12">
                     <div class="form-group">
                          <input type="hidden" name="<?php echo $csrf_token_name; ?>" value="<?php echo $csrf_token; ?>">
@@ -71,6 +78,7 @@
                         <button type="submit" name="submit" value="submitted" class="btn" style="background: #C80237; color: #fff; float: right;">Update Profile</button>
                     </div>
                 </div>
+
                         </form>
             </div>
         </div>
