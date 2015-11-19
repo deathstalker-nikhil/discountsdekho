@@ -838,12 +838,14 @@ class Home extends CI_Controller {
 	public function login(){
 		$email = ($this->input->post('email'))?$this->input->post('email'):'';
 		$password = ($this->input->post('password'))?$this->input->post('password'):'';
-		if ($email==''||$password=='') {
+		$twitter_id = ($this->session->flashdata('twitter_id'))?$this->session->flashdata('twitter_id'):'';
+		if (($email==''||$password=='') && $twitter_id == ''){
 			die("Incomplete Details");
 			$this->session->set_flashdata('message', 'Incorrect Details');
 			redirect($_SERVER['HTTP_REFERER']);			
 		}		
-		$result = $this->data_lib->login($email,$password);
+		$table='userdb';
+		$result = $this->data_lib->login($email,$password,$table,$twitter_id);
 		if ($result) {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
@@ -858,6 +860,7 @@ class Home extends CI_Controller {
     $this->session->set_userdata('userLoggedIn', false);
     $this->session->set_userdata('merchantLoggedIn',false);
     $this->session->set_userdata('user_data', []);
+		$this->session->sess_destroy();    
 		redirect(base_url());
 	}	
 

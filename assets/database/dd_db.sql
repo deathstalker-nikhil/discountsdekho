@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 19, 2015 at 02:22 PM
+-- Generation Time: Nov 19, 2015 at 10:52 PM
 -- Server version: 5.1.73-rel14.11-log
 -- PHP Version: 5.4.31
 
@@ -388,7 +388,7 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `email` varchar(80) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `newsletter`
@@ -420,7 +420,8 @@ INSERT INTO `newsletter` (`id`, `email`) VALUES
 (23, 'ankitarora007@gmail.com'),
 (24, 'ankitarora007@gmail.com'),
 (25, 'ankitarora007@gmail.com'),
-(26, 'dynamicsheetal70@gmail.com');
+(26, 'dynamicsheetal70@gmail.com'),
+(27, 'dynamicsheetal70@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -527,6 +528,7 @@ INSERT INTO `testimonials` (`id`, `name`, `testimonial`) VALUES
 
 CREATE TABLE IF NOT EXISTS `userdb` (
   `id` int(3) NOT NULL AUTO_INCREMENT,
+  `tw_profile_id` varchar(50) DEFAULT NULL,
   `name` varchar(40) NOT NULL,
   `email` varchar(50) NOT NULL,
   `mobile` bigint(50) NOT NULL,
@@ -536,31 +538,31 @@ CREATE TABLE IF NOT EXISTS `userdb` (
   `password` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `userdb`
 --
 
-INSERT INTO `userdb` (`id`, `name`, `email`, `mobile`, `dob`, `sex`, `city`, `password`) VALUES
-(1, 'AVDHESH VARSHNEY', 'a.varshney1987@gmail.com', 9999019838, '1987-09-19', 'Male', 'delhi', 'hello'),
-(3, 'sheets', 'abc@gmail.com', 9966332255, '2015-04-02', 'Male', 'delhi', 'hello'),
-(5, 'agam jain', 'agam13@gmail.com', 8587081142, '1995-05-13', 'Male', 'delhi', 'hello'),
-(6, 'Sheetal Arora', 'dynamicsheetal70@gmail.com', 9971082333, '2015-04-17', 'Female', 'new delhi', 'hello'),
-(7, 'Nikhil Verma', 'jswal.sakhi@gmail.com', 9044509199, '1993-03-30', 'Male', 'Lucknow', 'hello'),
-(8, 'Nikhil Verma', 'v.nikhil323@gmail.com', 9953017515, '2015-09-30', 'Male', 'Lucknow', 'pc'),
-(9, 'Raj', 'rajhalavadiya123@gmail.com', 9925987488, '9925987488', 'Male', 'morbi', 'hello'),
-(10, 'sasha', 'sheetal.dynamic@gmail.com', 99900099977, '2015-02-01', 'Male', 'delhi', 'hello'),
-(12, 'Vishal', 'vishalgaloth@gmail.com', 9971702320, '1996-02-14', 'Male', 'new delhi', 'hello'),
-(13, 'Sajni Beauty Parlour', 'contact@discountsdekho.com', 9971082333, '2015-10-03', 'Male', 'New Delhi', 'rogeriloveu'),
-(16, 'rashi', 'rashi.shroff@gmail.com', 8586013959, '1992-06-11', 'Female', 'delhi', 'Rashi123'),
-(17, 'Nikhil Aneja', 'aneja.nikhil@gmail.com', 9990288388, '', '', '', ''),
-(18, 'ajai', 'ajai.sreyas@gmail.com', 9961976456, '1989-08-14', 'Male', 'kochi', 'ajai'),
-(19, 'Siddheshwar Verma', 'siddheshwar7@gmail.com', 0, '', '', '', ''),
-(20, 'Sunita Verma', 'sunita3629@gmail.com', 0, '', '', '', ''),
-(21, 'Kasvi Pradhan', 'kasvipradhan@gmail.com', 0, '', '', '', ''),
-(27, 'Prashant Chaudhary', 'prashantp099@gmail.com', 0, '', '', '', ''),
-(28, 'Nikhil Verma', 'n.verma3629@gmail.com', 0, '', '', '', '');
+INSERT INTO `userdb` (`id`, `tw_profile_id`, `name`, `email`, `mobile`, `dob`, `sex`, `city`, `password`) VALUES
+(1, NULL, 'AVDHESH VARSHNEY', 'a.varshney1987@gmail.com', 9999019838, '1987-09-19', 'Male', 'delhi', 'hello'),
+(3, NULL, 'sheets', 'abc@gmail.com', 9966332255, '2015-04-02', 'Male', 'delhi', 'hello'),
+(5, NULL, 'agam jain', 'agam13@gmail.com', 8587081142, '1995-05-13', 'Male', 'delhi', 'hello'),
+(6, NULL, 'Sheetal Arora', 'dynamicsheetal70@gmail.com', 9971082333, '2015-04-17', 'Female', 'new delhi', 'hello'),
+(7, NULL, 'Nikhil Verma', 'jswal.sakhi@gmail.com', 9044509199, '1993-03-30', 'Male', 'Lucknow', 'hello'),
+(8, NULL, 'Nikhil Verma', 'v.nikhil323@gmail.com', 9953017515, '2015-09-30', 'Male', 'Lucknow', 'kZcWJoukt'),
+(9, NULL, 'Raj', 'rajhalavadiya123@gmail.com', 9925987488, '9925987488', 'Male', 'morbi', 'hello'),
+(10, NULL, 'sasha', 'sheetal.dynamic@gmail.com', 99900099977, '2015-02-01', 'Male', 'delhi', 'hello'),
+(12, NULL, 'Vishal', 'vishalgaloth@gmail.com', 9971702320, '1996-02-14', 'Male', 'new delhi', 'hello'),
+(13, NULL, 'Sajni Beauty Parlour', 'contact@discountsdekho.com', 9971082333, '2015-10-03', 'Male', 'New Delhi', 'rogeriloveu'),
+(16, NULL, 'rashi', 'rashi.shroff@gmail.com', 8586013959, '1992-06-11', 'Female', 'delhi', 'Rashi123'),
+(17, NULL, 'Nikhil Aneja', 'aneja.nikhil@gmail.com', 9990288388, '', '', '', ''),
+(18, NULL, 'ajai', 'ajai.sreyas@gmail.com', 9961976456, '1989-08-14', 'Male', 'kochi', 'ajai'),
+(19, NULL, 'Siddheshwar Verma', 'siddheshwar7@gmail.com', 0, '', '', '', ''),
+(20, NULL, 'Sunita Verma', 'sunita3629@gmail.com', 0, '', '', '', ''),
+(21, NULL, 'Kasvi Pradhan', 'kasvipradhan@gmail.com', 0, '', '', '', ''),
+(28, NULL, 'Nikhil Verma', 'n.verma3629@gmail.com', 0, '', '', '', ''),
+(29, '4293910039', 'Prashant Chaudhary', 'prashantp099@gmail.com', 9899310579, '2015-11-26', 'Male', 'Noida', 'a');
 
 -- --------------------------------------------------------
 

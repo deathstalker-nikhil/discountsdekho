@@ -431,10 +431,21 @@ public function getUserCoupons($user_id)
 		return 0;
 	}
 
-	public function login($email,$password,$table)
+	public function login($email,$password,$table,$twitter_id)
 	{
-		$result = $this->db->get_where($table, array('email' => $email,'password' => $password), 1, 0);		
+		if($twitter_id != '' && $email == ''){
+			$this->db->where(array('tw_profile_id'=>$twitter_id));
+		}else{	
+			$this->db->where(array('email' => $email,'password' => $password));
+		}
+		$result = $this->db->get($table,1,0);		
 		return $result->row_array();
+	}
+
+	public function insertTwitterId($twId,$email){
+		$this->db->set('tw_profile_id',$twId);
+		$this->db->where('email', $email);
+		$this->db->update('userdb');
 	}
   
  public function getSubcategoryDeals($region,$subcategory,$where,$coupons)

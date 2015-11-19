@@ -297,11 +297,11 @@ class Data_lib {
       return 0;
   }
 
-	public function login($email,$password,$table='userdb')
+	public function login($email,$password,$table='userdb',$twitter_id='')
 	{
 		$CI = &get_instance();
 		$CI->load->model('data_model','data');
-		$result = $CI->data->login($email,$password,$table);
+		$result = $CI->data->login($email,$password,$table,$twitter_id);
 		if (count($result)>0) {
       if ($result && $table == 'userdb') {
           $CI->session->set_userdata('userLoggedIn', true);
