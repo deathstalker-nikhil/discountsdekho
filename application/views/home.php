@@ -250,7 +250,7 @@
     });
     function setSubRegionsDropDown () {
         var subRegions = $.parseJSON($('#regions option:selected').attr('data-areas'));
-        var subRegionsHtml = '';
+        var subRegionsHtml = '<option value="any" style="display:none">Select Area</option>';
         $.each(subRegions, function(index,value){
             subRegionsHtml += '<option>'+value+'</option>';
         });
