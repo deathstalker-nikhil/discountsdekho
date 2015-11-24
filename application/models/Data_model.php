@@ -472,8 +472,9 @@ public function getUserCoupons($user_id)
 			}
 		}
 		$this->db->like(['subcategory'=> $subcategory]);
-		$this->db->order_by("id", "desc"); 
 		$this->db->order_by("active", "desc");
+		$this->db->order_by("id", "desc"); 
+		
 		$result = $this->db->get('deals');
 		return $result->result_array();		
 	}  
@@ -562,7 +563,7 @@ public function getUserCoupons($user_id)
 			$this->db->where_in('category', $category);
 		if($subcategory != '')
 		$this->db->like(['subcategory'=> $subcategory]);
-  	$this->db->group_by("title");
+  		$this->db->group_by("title");
 		$this->db->order_by("id", "desc"); 
 		$result = $this->db->get('deals');
 		return $result->result_array();	  	 	 
